@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CM2ee9E2o/Q=",
+  "dgSpecHash": "j9/VNjc/b/M=",
   "success": true,
   "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/CategoryService.csproj",
   "expectedPackageFiles": [
@@ -73,10 +73,8 @@
     {
       "code": "NU1608",
       "level": "Warning",
-      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 15.0.1 was resolved.",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/CategoryService.csproj",
       "warningLevel": 1,
-      "filePath": "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/CategoryService.csproj",
+      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 15.0.1 was resolved.",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net8.0"

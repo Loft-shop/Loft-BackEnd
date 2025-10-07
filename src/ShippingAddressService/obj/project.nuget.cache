@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1uLN+mNxbGo=",
+  "dgSpecHash": "3YddAdXg87U=",
   "success": true,
   "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
   "expectedPackageFiles": [
@@ -73,10 +73,8 @@
     {
       "code": "NU1608",
       "level": "Warning",
-      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 15.0.1 was resolved.",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
       "warningLevel": 1,
-      "filePath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
+      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 15.0.1 was resolved.",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net8.0"
