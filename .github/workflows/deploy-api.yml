@@ -1,4 +1,6 @@
 name: Deploy ASP.NET Core API
+permissions:
+  contents: read
 
 on:
   push:
