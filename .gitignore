@@ -1,0 +1,59 @@
+# Ignore build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Rider/IDE files
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.DotSettings.user
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Database files
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Publish folders
+publish/
+
+# docker
+**/Dockerfile
+
+# Visual Studio cache
+.vs/
+
+# Temporary files
+*.tmp
+
+# NuGet
+*.nupkg
+
+# dotnet user-secrets
+secrets.json
+
+# Coverage
+coverage.opencover.xml
+
+# Generated files
+**/*.g.cs
+**/*.g.i.cs
+
+# Ignore compiled binaries accidentally added
+src/**/bin/
+src/**/obj/
+
+
