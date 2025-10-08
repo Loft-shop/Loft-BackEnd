@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Loft.Common.DTOs;
+using Microsoft.Extensions.Configuration;
 
 namespace UserService.Services;
 

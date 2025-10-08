@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Loft.Common.DTOs;
 
 namespace UserService.Services;

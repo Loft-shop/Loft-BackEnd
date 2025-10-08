@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
+using System.Threading.Tasks;
 
 namespace UserService.Controllers
 {
