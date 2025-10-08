@@ -10,6 +10,7 @@ using Loft.Common.Enums;
 
 namespace UserService.Services;
 
+
 public class UserService : IUserService
 {
     private readonly UserDbContext _db;
