@@ -5,11 +5,11 @@ permissions:
 on:
   push:
     branches: 
-      - main
+      - master
       - User-Service  # Додати вашу гілку!
   pull_request:
     branches: 
-      - main
+      - master
       - User-Service
 
 jobs:
@@ -40,7 +40,7 @@ jobs:
       
     # Деплой тільки з main гілки
     - name: Deploy to server
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |
         sudo systemctl stop myapi.service || true
         sudo rm -rf /var/www/myapi/app
@@ -50,7 +50,7 @@ jobs:
         sudo systemctl start myapi.service
         
     - name: Check deployment
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |
         sleep 5
         sudo systemctl status myapi.service
