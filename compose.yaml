@@ -15,14 +15,6 @@
       ports:
         - "5001:8080"
     
-    categoryservice:
-      build:
-        context: .
-        dockerfile: src/CategoryService/Dockerfile
-      container_name: categoryservice
-      ports:
-        - "5002:8080"
-    
     orderservice:
       build:
         context: .

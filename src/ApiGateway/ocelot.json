@@ -46,15 +46,6 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/api/categories",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        { "Host": "categoryservice", "Port": 8080 }
-      ],
-      "UpstreamPathTemplate": "/api/categories",
-      "UpstreamHttpMethod": [ "Get" ]
-    },
-    {
       "DownstreamPathTemplate": "/api/carts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
