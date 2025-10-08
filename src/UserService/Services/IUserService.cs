@@ -2,6 +2,7 @@ using Loft.Common.DTOs;
 
 namespace UserService.Services;
 
+
 public interface IUserService
 {
     Task<UserDTO?> GetUserById(long userId);
