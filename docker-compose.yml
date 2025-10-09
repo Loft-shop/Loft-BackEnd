@@ -1,0 +1,98 @@
+# Production docker-compose
+# Используйте переменные окружения REGISTRY и IMAGE_TAG для подстановки реестра и тега образов.
+# Пример запуска на сервере перед деплоем:
+# export REGISTRY=myregistry.example.com/loftback
+# export IMAGE_TAG=v2025.10.09
+# docker compose -f docker-compose.yml pull
+# docker compose -f docker-compose.yml up -d
+
+networks:
+  loftnet:
+    driver: bridge
+
+services:
+  apigateway:
+    image: "${REGISTRY:-loftback}/apigateway:${IMAGE_TAG:-latest}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5000:8080"
+    restart: unless-stopped
+    depends_on:
+      - cartservice
+      - orderservice
+      - productservice
+      - userservice
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - loftnet
+
+  cartservice:
+    image: "${REGISTRY:-loftback}/cartservice:${IMAGE_TAG:-latest}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5001:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - loftnet
+
+  orderservice:
+    image: "${REGISTRY:-loftback}/orderservice:${IMAGE_TAG:-latest}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5003:8080"
+    restart: unless-stopped
+    networks:
+      - loftnet
+
+  paymentservice:
+    image: "${REGISTRY:-loftback}/paymentservice:${IMAGE_TAG:-latest}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5004:8080"
+    restart: unless-stopped
+    networks:
+      - loftnet
+
+  productservice:
+    image: "${REGISTRY:-loftback}/productservice:${IMAGE_TAG:-latest}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5005:8080"
+    restart: unless-stopped
+    networks:
+      - loftnet
+
+  shippingaddressservice:
+    image: "${REGISTRY:-loftback}/shippingaddressservice:${IMAGE_TAG:-latest}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5007:8080"
+    restart: unless-stopped
+    networks:
+      - loftnet
+
+  userservice:
+    image: "${REGISTRY:-loftback}/userservice:${IMAGE_TAG:-latest}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - "5008:8080"
+    restart: unless-stopped
+    networks:
+      - loftnet
+
