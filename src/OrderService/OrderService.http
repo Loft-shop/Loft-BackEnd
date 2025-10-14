@@ -4,3 +4,79 @@ GET {{OrderService_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+# Create Order
+POST {{OrderService_HostAddress}}/api/orders
+Content-Type: application/json
+
+{
+  "order": {
+    "customerId": 1
+  },
+  "items": [
+    {
+      "productId": 1,
+      "quantity": 2,
+      "price": 10.0
+    },
+    {
+      "productId": 2,
+      "quantity": 1,
+      "price": 20.0
+    }
+  ]
+}
+
+###
+
+# Get Order by ID
+GET {{OrderService_HostAddress}}/api/orders/1
+
+###
+
+# Get Orders by Customer ID
+GET {{OrderService_HostAddress}}/api/orders/customer/1?page=1&pageSize=10
+
+###
+
+# Update Order Status
+PUT {{OrderService_HostAddress}}/api/orders/1/status
+Content-Type: application/json
+
+1
+
+###
+
+# Cancel Order
+PUT {{OrderService_HostAddress}}/api/orders/1/cancel
+
+###
+
+# Add Order Item
+POST {{OrderService_HostAddress}}/api/orders/1/items
+Content-Type: application/json
+
+{
+  "productId": 3,
+  "quantity": 1,
+  "price": 15.0
+}
+
+###
+
+# Remove Order Item
+DELETE {{OrderService_HostAddress}}/api/orders/1/items/1
+
+###
+
+# Calculate Total
+POST {{OrderService_HostAddress}}/api/orders/calculate-total
+Content-Type: application/json
+
+[
+  {
+    "productId": 1,
+    "quantity": 2,
+    "price": 10.0
+  }
+]

@@ -30,6 +30,10 @@
       container_name: orderservice
       ports:
         - "5003:8080"
+      volumes:
+        - ./data:/app/data
+      environment:
+        - ConnectionStrings__DefaultConnection=Data Source=/app/data/order.db
     
     paymentservice:
       build:

@@ -9,12 +9,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="15.0.1" />
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.20" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.20" NoWarn="NU1605" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
         <PackageReference Include="Microsoft.Identity.Web" Version="3.8.2" />
         <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="3.2.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     </ItemGroup>
 
@@ -26,10 +31,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Common\Loft.Common\Loft.Common.csproj" />
-      <ProjectReference Include="..\PaymentService\PaymentService.csproj" />
-      <ProjectReference Include="..\ProductService\ProductService.csproj" />
-      <ProjectReference Include="..\ShippingAddressService\ShippingAddressService.csproj" />
-      <ProjectReference Include="..\UserService\UserService.csproj" />
     </ItemGroup>
 
     <!-- Разрешаем публикацию appsettings только для этого проекта -->

@@ -13,6 +13,7 @@ public interface IOrderService
     Task AddOrderItems(long orderId, OrderItemDTO items);
     Task RemoveOrderItems(long orderId, long orderItemId);
     Task<decimal> CalculateOrderTotal(IEnumerable<OrderItemDTO> items);
+    Task<IEnumerable<OrderDTO>> GetAllOrders();
     
     
     /*
