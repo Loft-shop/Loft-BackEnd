@@ -1,64 +1,70 @@
-﻿services:
+# Запуск: выполняйте из корня репозитория (где находится этот файл),
+# например:
+#   cd /path/to/LoftBackEnd && docker compose -f compose.yaml up -d --build
+# Или при запуске из другой директории указывайте project directory:
+#   docker compose -f /path/to/LoftBackEnd/compose.yaml --project-directory /path/to/LoftBackEnd up -d --build
+
+services:
     apigateway:
       build:
-        context: .
-        dockerfile: src/ApiGateway/Dockerfile
+        context: ./src/ApiGateway
+        dockerfile: Dockerfile
       container_name: apigateway
       ports:
         - "5000:8080"
     
     cartservice:
       build:
-        context: .
-        dockerfile: src/CartService/Dockerfile
+        context: ./src/CartService
+        dockerfile: Dockerfile
       container_name: cartservice
       ports:
         - "5001:8080"
     
     categoryservice:
       build:
-        context: .
-        dockerfile: src/CategoryService/Dockerfile
+        context: ./src/CategoryService
+        dockerfile: Dockerfile
       container_name: categoryservice
       ports:
         - "5002:8080"
     
     orderservice:
       build:
-        context: .
-        dockerfile: src/OrderService/Dockerfile
+        context: ./src/OrderService
+        dockerfile: Dockerfile
       container_name: orderservice
       ports:
         - "5003:8080"
     
     paymentservice:
       build:
-        context: .
-        dockerfile: src/PaymentService/Dockerfile
+        context: ./src/PaymentService
+        dockerfile: Dockerfile
       container_name: paymentservice
       ports:
         - "5004:8080"
     
     productservice:
       build:
-        context: .
-        dockerfile: src/ProductService/Dockerfile
+        context: ./src/ProductService
+        dockerfile: Dockerfile
       container_name: productservice
       ports:
         - "5005:8080"
 
     shippingaddressservice:
       build:
-        context: .
-        dockerfile: src/ShippingAddressService/Dockerfile
+        context: ./src/ShippingAddressService
+        dockerfile: Dockerfile
       container_name: shippingaddressservice
       ports:
         - "5007:8080"
     
     userservice:
       build:
-        context: .
-        dockerfile: src/UserService/Dockerfile
+        context: ./src/UserService
+        dockerfile: Dockerfile
       container_name: userservice
       ports:
         - "5008:8080"
