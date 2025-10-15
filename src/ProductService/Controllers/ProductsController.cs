@@ -34,7 +34,7 @@ namespace ProductService.Controllers
         }
 
         // Создание нового товара
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ProductDto productDto)
         {
             var product = await _service.CreateProduct(productDto);

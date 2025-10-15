@@ -34,10 +34,8 @@ namespace ProductService.Mappings
                 .ForMember(dest => dest.SubCategories, opt => opt.MapFrom(src => src.SubCategories))
                 .ReverseMap();
 
-            // ---------------- CATEGORY ATTRIBUTE ----------------
-            CreateMap<CategoryAttribute, CategoryAttributeDto>()
-                .ForMember(dest => dest.AttributeName, opt => opt.MapFrom(src => src.Attribute.Name))
-                .ReverseMap();
+            //  ---------------- ATTRIBUTE ENTITY ----------------
+            CreateMap<CategoryAttribute, CategoryAttributeDto>().ReverseMap();
 
             // ---------------- ATTRIBUTE ENTITY ----------------
             CreateMap<AttributeEntity, AttributeDto>().ReverseMap();

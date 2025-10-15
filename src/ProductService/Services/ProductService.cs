@@ -2,6 +2,7 @@ using AutoMapper;
 using Loft.Common.DTOs;
 using Loft.Common.Enums;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ProductService.Data;
 using ProductService.Entities;
 

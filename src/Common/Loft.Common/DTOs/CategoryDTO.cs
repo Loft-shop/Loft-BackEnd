@@ -23,7 +23,6 @@ namespace Loft.Common.DTOs
     public class CategoryAttributeDto
     {
         public int AttributeId { get; set; }
-        public string AttributeName { get; set; } = null!;
         public bool IsRequired { get; set; }
         public int OrderIndex { get; set; }
     }

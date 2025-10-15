@@ -5,6 +5,7 @@ using ProductService.Data;
 using ProductService.Mappings;
 using ProductService.Services;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace ProductService
 {
@@ -14,9 +15,14 @@ namespace ProductService
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Добавляем контекст с локальной базой (например, SQL Server или SQLite)
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
             builder.Services.AddDbContext<ProductDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(connectionString, // UseNpgsql использует строку подключения
+                    npgsqlOptions =>
+                    {
+                        npgsqlOptions.MigrationsAssembly(typeof(Program).Assembly.FullName);
+                    }));
 
             // Добавляем сервисы контроллеров
             builder.Services.AddControllers();
