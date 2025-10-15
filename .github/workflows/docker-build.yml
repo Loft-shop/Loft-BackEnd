@@ -13,6 +13,9 @@ networks:
 services:
   apigateway:
     image: "${REGISTRY:-loftback}/apigateway:${IMAGE_TAG:-latest}"
+    build:
+      context: ../../src/ApiGateway
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
@@ -33,6 +36,9 @@ services:
 
   cartservice:
     image: "${REGISTRY:-loftback}/cartservice:${IMAGE_TAG:-latest}"
+    build:
+      context: ../../src/CartService
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
@@ -48,6 +54,9 @@ services:
 
   orderservice:
     image: "${REGISTRY:-loftback}/orderservice:${IMAGE_TAG:-latest}"
+    build:
+      context: ../../src/OrderService
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
@@ -58,6 +67,9 @@ services:
 
   paymentservice:
     image: "${REGISTRY:-loftback}/paymentservice:${IMAGE_TAG:-latest}"
+    build:
+      context: ../../src/PaymentService
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
@@ -68,6 +80,9 @@ services:
 
   productservice:
     image: "${REGISTRY:-loftback}/productservice:${IMAGE_TAG:-latest}"
+    build:
+      context: ../../src/ProductService
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
@@ -78,6 +93,9 @@ services:
 
   shippingaddressservice:
     image: "${REGISTRY:-loftback}/shippingaddressservice:${IMAGE_TAG:-latest}"
+    build:
+      context: ../../src/ShippingAddressService
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
@@ -88,6 +106,9 @@ services:
 
   userservice:
     image: "${REGISTRY:-loftback}/userservice:${IMAGE_TAG:-latest}"
+    build:
+      context: ../../src/UserService
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
