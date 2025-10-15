@@ -95,3 +95,28 @@ services:
     restart: unless-stopped
     networks:
       - loftnet
+
+  web-proxy:
+    image: nginx:alpine
+    container_name: web-proxy-nginx
+    ports:
+     - "80:80"
+     - "443:443"
+    volumes:
+     - "/home/dev/Test-LofBack/nginx/config:/etc/nginx/conf.d"
+    restart: unless-stopped
+    depends_on:
+      - cartservice
+      - orderservice
+      - productservice
+      - userservice
+      - apigateway
+      - paymentservice
+      - shippingaddressservice
+    networks:
+      - loftnet
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
