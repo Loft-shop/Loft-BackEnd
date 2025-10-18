@@ -25,9 +25,9 @@ namespace UserService
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(typeof(UserProfile));
 
-            // Configure DbContext (SQLite) - use connection string or default file
-            var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=users.db";
-            builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite(defaultConn));
+            // Configure DbContext (PostgreSQL) - use connection string or default file
+            var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<UserDbContext>(options => options.UseNpgsql(defaultConn));
 
             // Add CORS policy for frontend development
             builder.Services.AddCors(options =>
@@ -95,18 +95,22 @@ namespace UserService
 
             var app = builder.Build();
 
-            // Создаём базу данных при старте (для локальной разработки)
+            // Создаём/мигрируем базу данных при старте и логируем строку подключения
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<UserDbContext>();
-                db.Database.EnsureCreated();
-                // Выведем путь к файлу SQLite для удобства
                 try
                 {
-                    var dataSource = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=users.db";
-                    Console.WriteLine($"[UserService] Using SQLite connection: {dataSource}");
+                    var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+                    Console.WriteLine($"[UserService] Using PostgreSQL connection: {conn}");
+                    db.Database.Migrate();
+                    Console.WriteLine("[UserService] Database migration applied successfully.");
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[UserService] Database migration failed: {ex}");
+                    throw;
+                }
             }
 
             // Ensure wwwroot exists so static files (avatars) can be served
