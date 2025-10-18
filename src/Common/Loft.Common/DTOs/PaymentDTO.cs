@@ -1,3 +1,4 @@
+using System;
 using Loft.Common.Enums;
 
 namespace Loft.Common.DTOs;

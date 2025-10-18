@@ -19,21 +19,31 @@ namespace OrderService
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(typeof(OrderProfile));
 
-            // Строка подключения: берём из конфигурации или используем локальную базу order.db
-            var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=order.db";
-            Console.WriteLine($"[OrderService] Using SQLite database: {defaultConn}");
-            builder.Services.AddDbContext<OrderDbContext>(options => options.UseSqlite(defaultConn));
+            // Configure DbContext (PostgreSQL) - use connection string or default file
+            var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<OrderDbContext>(options => options.UseNpgsql(defaultConn));
             
             // Регистрируем сервисы
             builder.Services.AddScoped<IOrderService, OrderService.Services.OrderService>();
 
             var app = builder.Build();
 
-            // Создаём базу данных при старте (для локальной разработки)
+            // Создаём/мигрируем базу данных при старте и логируем строку подключения
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
-                db.Database.EnsureCreated();
+                try
+                {
+                    var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+                    Console.WriteLine($"[UserService] Using PostgreSQL connection: {conn}");
+                    db.Database.Migrate();
+                    Console.WriteLine("[UserService] Database migration applied successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[UserService] Database migration failed: {ex}");
+                    throw;
+                }
             }
 
             // Настраиваем конвейер обработки запросов

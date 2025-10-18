@@ -16,7 +16,6 @@ COPY ["src/Common/Loft.Common/Loft.Common.csproj", "Common/Loft.Common/"]
 COPY ["src/OrderService/OrderService.csproj", "OrderService/"]
 COPY ["src/PaymentService/PaymentService.csproj", "PaymentService/"]
 COPY ["src/ProductService/ProductService.csproj", "ProductService/"]
-COPY ["src/SellerService/SellerService.csproj", "SellerService/"]
 COPY ["src/ShippingAddressService/ShippingAddressService.csproj", "ShippingAddressService/"]
 COPY ["src/UserService/UserService.csproj", "UserService/"]
 

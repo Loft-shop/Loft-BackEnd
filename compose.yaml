@@ -33,7 +33,11 @@
       volumes:
         - ./data:/app/data
       environment:
-        - ConnectionStrings__DefaultConnection=Data Source=/app/data/order.db
+        ConnectionStrings__DefaultConnection: Server=postgres;Port=5432;Database=test_loft_shop;User Id=developer;Password=${DB_PASSWORD}
+        ASPNETCORE_URLS: http://0.0.0.0:8080
+      depends_on:
+        - postgres
+            
     
     paymentservice:
       build:
@@ -66,3 +70,18 @@
       container_name: userservice
       ports:
         - "5008:8080"
+
+    postgres:
+      image: postgres:latest
+      container_name: postgres
+      environment:
+        POSTGRES_USER: developer
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: test_loft_shop
+      ports:
+        - "5432:5432"
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
