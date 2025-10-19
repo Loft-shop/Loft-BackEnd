@@ -11,6 +11,9 @@ networks:
     driver: bridge
 
 services:
+  # =============================
+  # API Gateway (Ocelot)
+  # =============================
   apigateway:
     image: "${REGISTRY:-loftback}/apigateway:${IMAGE_TAG:-latest}"
     build:
@@ -19,13 +22,15 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
-      - "5000:8080"
+      - "5000:8080"  # Доступ к Gateway с хоста
     restart: unless-stopped
     depends_on:
       - cartservice
       - orderservice
       - productservice
       - userservice
+      - paymentservice
+      - shippingaddressservice
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
       interval: 30s
@@ -34,6 +39,9 @@ services:
     networks:
       - loftnet
 
+  # =============================
+  # Cart Service
+  # =============================
   cartservice:
     image: "${REGISTRY:-loftback}/cartservice:${IMAGE_TAG:-latest}"
     build:
@@ -41,8 +49,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-    ports:
-      - "5001:8080"
+    expose:
+      - "8080" # внутри сети
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
@@ -52,6 +60,9 @@ services:
     networks:
       - loftnet
 
+  # =============================
+  # Order Service
+  # =============================
   orderservice:
     image: "${REGISTRY:-loftback}/orderservice:${IMAGE_TAG:-latest}"
     build:
@@ -59,12 +70,15 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-    ports:
-      - "5003:8080"
+    expose:
+      - "8080"
     restart: unless-stopped
     networks:
       - loftnet
 
+  # =============================
+  # Payment Service
+  # =============================
   paymentservice:
     image: "${REGISTRY:-loftback}/paymentservice:${IMAGE_TAG:-latest}"
     build:
@@ -72,12 +86,15 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-    ports:
-      - "5004:8080"
+    expose:
+      - "8080"
     restart: unless-stopped
     networks:
       - loftnet
 
+  # =============================
+  # Product Service
+  # =============================
   productservice:
     image: "${REGISTRY:-loftback}/productservice:${IMAGE_TAG:-latest}"
     build:
@@ -85,12 +102,15 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-    ports:
-      - "5005:8080"
+    expose:
+      - "8080"
     restart: unless-stopped
     networks:
       - loftnet
 
+  # =============================
+  # Shipping Address Service
+  # =============================
   shippingaddressservice:
     image: "${REGISTRY:-loftback}/shippingaddressservice:${IMAGE_TAG:-latest}"
     build:
@@ -98,12 +118,15 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-    ports:
-      - "5007:8080"
+    expose:
+      - "8080"
     restart: unless-stopped
     networks:
       - loftnet
 
+  # =============================
+  # User Service
+  # =============================
   userservice:
     image: "${REGISTRY:-loftback}/userservice:${IMAGE_TAG:-latest}"
     build:
@@ -111,8 +134,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-    ports:
-      - "5008:8080"
+    expose:
+      - "8080"
     restart: unless-stopped
     networks:
       - loftnet
