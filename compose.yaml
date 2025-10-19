@@ -1,70 +1,81 @@
-# Запуск: выполняйте из корня репозитория (где находится этот файл),
-# например:
-#   cd /path/to/LoftBackEnd && docker compose -f compose.yaml up -d --build
-# Или при запуске из другой директории указывайте project directory:
-#   docker compose -f /path/to/LoftBackEnd/compose.yaml --project-directory /path/to/LoftBackEnd up -d --build
+networks:
+  loftnet:
+    driver: bridge
 
 services:
-    apigateway:
-      build:
-        context: ./src/ApiGateway
-        dockerfile: Dockerfile
-      container_name: apigateway
-      ports:
-        - "5000:8080"
-    
-    cartservice:
-      build:
-        context: ./src/CartService
-        dockerfile: Dockerfile
-      container_name: cartservice
-      ports:
-        - "5001:8080"
-    
-    categoryservice:
-      build:
-        context: ./src/CategoryService
-        dockerfile: Dockerfile
-      container_name: categoryservice
-      ports:
-        - "5002:8080"
-    
-    orderservice:
-      build:
-        context: ./src/OrderService
-        dockerfile: Dockerfile
-      container_name: orderservice
-      ports:
-        - "5003:8080"
-    
-    paymentservice:
-      build:
-        context: ./src/PaymentService
-        dockerfile: Dockerfile
-      container_name: paymentservice
-      ports:
-        - "5004:8080"
-    
-    productservice:
-      build:
-        context: ./src/ProductService
-        dockerfile: Dockerfile
-      container_name: productservice
-      ports:
-        - "5005:8080"
+  apigateway:
+    build:
+      context: ./src/ApiGateway
+      dockerfile: Dockerfile
+    container_name: apigateway
+    ports:
+      - "5000:8080"
+    depends_on:
+      - cartservice
+      - orderservice
+      - productservice
+      - userservice
+      - categoryservice
+      - shippingaddressservice
+      - paymentservice
+    networks:
+      - loftnet
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
 
-    shippingaddressservice:
-      build:
-        context: ./src/ShippingAddressService
-        dockerfile: Dockerfile
-      container_name: shippingaddressservice
-      ports:
-        - "5007:8080"
-    
-    userservice:
-      build:
-        context: ./src/UserService
-        dockerfile: Dockerfile
-      container_name: userservice
-      ports:
-        - "5008:8080"
+  cartservice:
+    build:
+      context: ./src/CartService
+      dockerfile: Dockerfile
+    container_name: cartservice
+    networks:
+      - loftnet
+
+  categoryservice:
+    build:
+      context: ./src/CategoryService
+      dockerfile: Dockerfile
+    container_name: categoryservice
+    networks:
+      - loftnet
+
+  orderservice:
+    build:
+      context: ./src/OrderService
+      dockerfile: Dockerfile
+    container_name: orderservice
+    networks:
+      - loftnet
+
+  paymentservice:
+    build:
+      context: ./src/PaymentService
+      dockerfile: Dockerfile
+    container_name: paymentservice
+    networks:
+      - loftnet
+
+  productservice:
+    build:
+      context: ./src/ProductService
+      dockerfile: Dockerfile
+    container_name: productservice
+    networks:
+      - loftnet
+
+  shippingaddressservice:
+    build:
+      context: ./src/ShippingAddressService
+      dockerfile: Dockerfile
+    container_name: shippingaddressservice
+    networks:
+      - loftnet
+
+  userservice:
+    build:
+      context: ./src/UserService
+      dockerfile: Dockerfile
+    container_name: userservice
+    networks:
+      - loftnet
