@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Loft.Common.DTOs;
@@ -32,12 +31,6 @@ public class UserService : IUserService
         var user = await _db.Users.FindAsync(userId);
         if (user == null) return null;
         return _mapper.Map<UserDTO>(user);
-    }
-
-    public async Task<IEnumerable<UserDTO>> GetAllUsers()
-    {
-        var users = await _db.Users.ToListAsync();
-        return _mapper.Map<IEnumerable<UserDTO>>(users);
     }
 
     public async Task<UserDTO?> GetUserByEmail(string email)

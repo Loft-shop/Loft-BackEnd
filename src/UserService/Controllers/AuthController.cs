@@ -28,8 +28,11 @@ public class AuthController : ControllerBase
         if (await _userService.IsEmailTaken(request.Email))
             return BadRequest(new { message = "Email already taken" });
 
+        // Генерируем имя из email автоматически
+        var name = request.Email.Split('@')[0];
+
         // For self-registration: role is always CUSTOMER; selling ability is controlled by CanSell flag
-        var userDto = new UserDTO(0, request.Name ?? string.Empty, request.Email, Loft.Common.Enums.Role.CUSTOMER.ToString(), string.Empty, string.Empty, string.Empty, string.Empty, false);
+        var userDto = new UserDTO(0, name, request.Email, Loft.Common.Enums.Role.CUSTOMER.ToString(), string.Empty, string.Empty, string.Empty, string.Empty, false);
 
         try
         {

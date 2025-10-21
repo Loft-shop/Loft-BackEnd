@@ -50,12 +50,15 @@ public class TokenService : ITokenService
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), // Sub должен быть ID
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // Для UserId
+                new Claim(ClaimTypes.Name, user.Email), // Для Identity.Name
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role ?? string.Empty),
-                new Claim("canSell", user.CanSell.ToString())
+                new Claim(ClaimTypes.Role, user.Role ?? "CUSTOMER"),
+                new Claim("canSell", user.CanSell.ToString()),
+                new Claim("userId", user.Id.ToString()) // Дополнительный claim для удобства
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key));
@@ -71,7 +74,9 @@ public class TokenService : ITokenService
                 signingCredentials: creds
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+            _logger.LogInformation("Generated JWT token for user {userId} ({email})", user.Id, user.Email);
+            return tokenString;
         }
         catch (Exception ex)
         {

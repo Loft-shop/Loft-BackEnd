@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using System.Threading.Tasks;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -48,6 +50,8 @@ namespace UserService
             if (!string.IsNullOrEmpty(jwtKey))
             {
                 var key = Encoding.UTF8.GetBytes(jwtKey);
+                Console.WriteLine($"[UserService] JWT Configuration - Key: {(!string.IsNullOrEmpty(jwtKey) ? "SET" : "NOT SET")}, Issuer: {issuer}, Audience: {audience}");
+                
                 builder.Services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -65,9 +69,39 @@ namespace UserService
                         ValidAudience = audience,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateLifetime = true
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromMinutes(5),
+                        NameClaimType = ClaimTypes.Name,
+                        RoleClaimType = ClaimTypes.Role
+                    };
+                    
+                    // Добавляем события для отладки
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            Console.WriteLine($"[UserService] Authentication failed: {context.Exception.Message}");
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = context =>
+                        {
+                            var userId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                            var userName = context.Principal?.Identity?.Name;
+                            Console.WriteLine($"[UserService] Token validated - UserId: {userId}, UserName: {userName}");
+                            return Task.CompletedTask;
+                        },
+                        OnMessageReceived = context =>
+                        {
+                            var authHeader = context.Request.Headers["Authorization"].ToString();
+                            Console.WriteLine($"[UserService] Received Authorization header: {(string.IsNullOrEmpty(authHeader) ? "EMPTY" : "SET")}");
+                            return Task.CompletedTask;
+                        }
                     };
                 });
+            }
+            else
+            {
+                Console.WriteLine("[UserService] WARNING: JWT Key is not configured!");
             }
 
             // Swagger с поддержкой Bearer

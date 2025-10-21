@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Loft.Common.DTOs;
 
@@ -8,7 +7,6 @@ namespace UserService.Services;
 public interface IUserService
 {
     Task<UserDTO?> GetUserById(long userId);
-    Task<IEnumerable<UserDTO>> GetAllUsers();
     Task<UserDTO?> GetUserByEmail(string email);
     Task<UserDTO> CreateUser(UserDTO user, string password);
     Task<UserDTO?> UpdateUser(long userId, UserDTO user);
