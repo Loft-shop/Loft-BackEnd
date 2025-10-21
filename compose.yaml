@@ -51,6 +51,10 @@
       environment:
         ConnectionStrings__DefaultConnection: Server=postgres;Port=5432;Database=test_loft_shop;User Id=developer;Password=${DB_PASSWORD}
         ASPNETCORE_URLS: http://0.0.0.0:8080
+        Jwt__Key: ReplaceThisWithASecretKeyForDevOnlyChangeMe
+        Jwt__Issuer: LoftUserService
+        Jwt__Audience: LoftUsers
+        Jwt__ExpireMinutes: "60"
       depends_on:
         - postgres
 
