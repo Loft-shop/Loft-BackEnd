@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Loft.Common.DTOs;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 
 namespace UserService.Services;
@@ -20,68 +19,41 @@ public class JwtSettings
 public class TokenService : ITokenService
 {
     private readonly JwtSettings _settings;
-    private readonly ILogger<TokenService> _logger;
 
-    public TokenService(IConfiguration configuration, ILogger<TokenService> logger)
+    public TokenService(IConfiguration configuration)
     {
         _settings = new JwtSettings();
         configuration.GetSection("Jwt").Bind(_settings);
-        _logger = logger;
-        if (string.IsNullOrWhiteSpace(_settings.Key))
-        {
-            _logger.LogWarning("JWT key is empty. Tokens cannot be generated without a secret key. Check appsettings.json or environment variables.");
-        }
-        else
-        {
-            _logger.LogInformation("JWT key length: {len}", _settings.Key.Length);
-        }
     }
 
     public string GenerateToken(UserDTO user)
     {
         if (user == null) throw new ArgumentNullException(nameof(user));
 
-        try
+        var claims = new[]
         {
-            if (string.IsNullOrWhiteSpace(_settings.Key))
-            {
-                throw new InvalidOperationException("JWT key is not configured.");
-            }
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.Email), // Добавляем Name для Identity.Name
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Role, user.Role ?? string.Empty),
+            new Claim("canSell", user.CanSell.ToString())
+        };
 
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), // Sub должен быть ID
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), // Для UserId
-                new Claim(ClaimTypes.Name, user.Email), // Для Identity.Name
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role ?? "CUSTOMER"),
-                new Claim("canSell", user.CanSell.ToString()),
-                new Claim("userId", user.Id.ToString()) // Дополнительный claim для удобства
-            };
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var expires = DateTime.UtcNow.AddMinutes(_settings.ExpireMinutes > 0 ? _settings.ExpireMinutes : 60);
 
-            var expires = DateTime.UtcNow.AddMinutes(_settings.ExpireMinutes > 0 ? _settings.ExpireMinutes : 60);
+        var token = new JwtSecurityToken(
+            issuer: _settings.Issuer,
+            audience: _settings.Audience,
+            claims: claims,
+            expires: expires,
+            signingCredentials: creds
+        );
 
-            var token = new JwtSecurityToken(
-                issuer: _settings.Issuer,
-                audience: _settings.Audience,
-                claims: claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            _logger.LogInformation("Generated JWT token for user {userId} ({email})", user.Id, user.Email);
-            return tokenString;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to generate JWT for user {email}", user?.Email);
-            throw;
-        }
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

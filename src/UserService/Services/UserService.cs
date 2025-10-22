@@ -129,4 +129,22 @@ public class UserService : IUserService
         var token = _tokenService.GenerateToken(user);
         return Task.FromResult(token);
     }
+
+    public async Task<UserDTO?> ToggleSellerStatus(long userId)
+    {
+        var user = await _db.Users.FindAsync(userId);
+        if (user == null) return null;
+
+        // Переключаем статус продавца
+        user.CanSell = !user.CanSell;
+        
+        await _db.SaveChangesAsync();
+        return _mapper.Map<UserDTO>(user);
+    }
+
+    public async Task<bool> CanUserSell(long userId)
+    {
+        var user = await _db.Users.FindAsync(userId);
+        return user?.CanSell ?? false;
+    }
 }

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace UserService.Controllers
@@ -30,7 +32,14 @@ namespace UserService.Controllers
         public async Task<IActionResult> GetMyProfile()
         {
             var userId = GetUserIdFromClaims();
-            if (userId == null) return Unauthorized();
+            if (userId == null)
+            {
+                // Логируем доступные claims для отладки
+                var claims = string.Join(", ", User.Claims.Select(c => $"{c.Type}={c.Value}"));
+                Console.WriteLine($"[UserService] Available claims: {claims}");
+                Console.WriteLine($"[UserService] NameIdentifier claim not found!");
+                return Unauthorized();
+            }
 
             var user = await _userService.GetUserById(userId.Value);
             if (user == null) return NotFound();
@@ -143,11 +152,157 @@ namespace UserService.Controllers
             return NoContent();
         }
 
+        // POST api/users/me/toggle-seller
+        [HttpPost("me/toggle-seller")]
+        [Authorize]
+        public async Task<IActionResult> ToggleSellerStatus()
+        {
+            var userId = GetUserIdFromClaims();
+            if (userId == null) return Unauthorized();
+
+            var result = await _userService.ToggleSellerStatus(userId.Value);
+            if (result == null) return NotFound();
+
+            return Ok(new { 
+                message = result.CanSell ? "You can now sell products" : "Seller status disabled",
+                canSell = result.CanSell,
+                user = result
+            });
+        }
+
+        // GET api/users/{id}/can-sell
+        [HttpGet("{id}/can-sell")]
+        public async Task<IActionResult> CanUserSell(long id)
+        {
+            var canSell = await _userService.CanUserSell(id);
+            return Ok(new { userId = id, canSell });
+        }
+
+        // GET api/users/me/seller-stats
+        [HttpGet("me/seller-stats")]
+        [Authorize]
+        public async Task<IActionResult> GetMySellerStats()
+        {
+            var userId = GetUserIdFromClaims();
+            if (userId == null) return Unauthorized();
+
+            var user = await _userService.GetUserById(userId.Value);
+            if (user == null) return NotFound();
+
+            if (!user.CanSell)
+            {
+                return Ok(new
+                {
+                    canSell = false,
+                    message = "User is not a seller"
+                });
+            }
+
+            try
+            {
+                // Запрашиваем статистику товаров из ProductService
+                var client = new HttpClient();
+                var filterRequest = new
+                {
+                    SellerId = (int)userId.Value,
+                    Page = 1,
+                    PageSize = 1000
+                };
+
+                var json = System.Text.Json.JsonSerializer.Serialize(filterRequest);
+                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("http://productservice:8080/api/products/filter", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var products = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(responseContent);
+
+                    var totalProducts = 0;
+                    var activeProducts = 0;
+                    var totalViews = 0;
+                    var totalRevenue = 0m;
+
+                    if (products.ValueKind == System.Text.Json.JsonValueKind.Array)
+                    {
+                        totalProducts = products.GetArrayLength();
+
+                        foreach (var product in products.EnumerateArray())
+                        {
+                            if (product.TryGetProperty("quantity", out var quantity) && quantity.GetInt32() > 0)
+                            {
+                                activeProducts++;
+                            }
+
+                            if (product.TryGetProperty("viewCount", out var viewCount))
+                            {
+                                totalViews += viewCount.GetInt32();
+                            }
+
+                            if (product.TryGetProperty("price", out var price))
+                            {
+                                totalRevenue += price.GetDecimal();
+                            }
+                        }
+                    }
+
+                    return Ok(new
+                    {
+                        canSell = true,
+                        totalProducts,
+                        activeProducts,
+                        totalViews,
+                        averagePrice = totalProducts > 0 ? totalRevenue / totalProducts : 0m
+                    });
+                }
+
+                return Ok(new
+                {
+                    canSell = true,
+                    totalProducts = 0,
+                    activeProducts = 0,
+                    totalViews = 0,
+                    averagePrice = 0m
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[UserService] Error getting seller stats: {ex.Message}");
+                return Ok(new
+                {
+                    canSell = true,
+                    totalProducts = 0,
+                    activeProducts = 0,
+                    totalViews = 0,
+                    averagePrice = 0m,
+                    error = "Failed to load statistics"
+                });
+            }
+        }
+
         private long? GetUserIdFromClaims()
         {
-            var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(idClaim)) return null;
-            if (long.TryParse(idClaim, out var id)) return id;
+            // ASP.NET Core маппит 'sub' на ClaimTypes.NameIdentifier, поэтому может быть два таких claim
+            // Нам нужен тот, который содержит числовой ID (а не email)
+            var idClaims = User.FindAll(ClaimTypes.NameIdentifier).ToList();
+            
+            foreach (var claim in idClaims)
+            {
+                if (long.TryParse(claim.Value, out var id))
+                {
+                    return id; // Нашли числовой ID
+                }
+            }
+            
+            // Если не нашли среди NameIdentifier, пробуем другие варианты
+            var altIdClaim = User.FindFirst("nameid")?.Value;
+            if (!string.IsNullOrEmpty(altIdClaim) && long.TryParse(altIdClaim, out var altId))
+            {
+                return altId;
+            }
+            
+            Console.WriteLine($"[UserService] Failed to find user ID claim. Available claims: {string.Join(", ", User.Claims.Select(c => c.Type + "=" + c.Value))}");
             return null;
         }
     }

@@ -14,5 +14,6 @@ public interface IUserService
     Task<bool> IsEmailTaken(string email);
     Task<UserDTO?> AuthenticateUser(string email, string password);
     Task<string> GenerateJwt(UserDTO user);
-
+    Task<UserDTO?> ToggleSellerStatus(long userId);
+    Task<bool> CanUserSell(long userId);
 }
