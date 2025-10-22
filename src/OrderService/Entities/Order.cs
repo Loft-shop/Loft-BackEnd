@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Loft.Common.Enums;
 
 namespace OrderService.Entities;
@@ -10,5 +12,10 @@ public class Order
     public OrderStatus Status { get; set; }
     public decimal TotalAmount { get; set; }
     public DateTime UpdatedDate { get; set; }
+    
+    // Данные покупателя
+    public string? CustomerName { get; set; }
+    public string? CustomerEmail { get; set; }
+    
     public ICollection<OrderItem>? OrderItems { get; set; }
 }

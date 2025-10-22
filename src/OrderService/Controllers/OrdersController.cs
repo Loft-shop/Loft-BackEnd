@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Loft.Common.DTOs;
 using Loft.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +91,25 @@ namespace OrderService.Controllers
         {
             var orders = await _orderService.GetAllOrders();
             return Ok(orders);
+        }
+
+        // POST api/orders/checkout/{customerId}
+        [HttpPost("checkout/{customerId:long}")]
+        public async Task<IActionResult> CheckoutFromCart(long customerId)
+        {
+            try
+            {
+                var order = await _orderService.CheckoutFromCart(customerId);
+                if (order == null)
+                {
+                    return BadRequest("Не удалось создать заказ");
+                }
+                return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, order);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
         }
     }
 

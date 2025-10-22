@@ -3197,11 +3197,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
+      "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ShippingAddressService/ShippingAddressService.csproj",
       "projectName": "ShippingAddressService",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
+      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ShippingAddressService/ShippingAddressService.csproj",
       "packagesPath": "/Users/platon/.nuget/packages/",
-      "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/obj/",
+      "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ShippingAddressService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -3216,8 +3216,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj": {
-              "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj"
+            "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/UserService.csproj": {
+              "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/UserService.csproj"
             }
           }
         }

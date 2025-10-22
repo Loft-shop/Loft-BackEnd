@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj",
+      "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj",
       "projectName": "Loft.Common",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj",
+      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj",
       "packagesPath": "/Users/platon/.nuget/packages/",
-      "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/obj/",
+      "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/platon/.nuget/NuGet/NuGet.Config"

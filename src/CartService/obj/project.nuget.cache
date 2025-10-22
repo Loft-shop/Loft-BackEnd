@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r5LMNHlOuu4=",
+  "dgSpecHash": "J4nwtiRhAyE=",
   "success": true,
-  "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/src/CartService/CartService.csproj",
+  "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/CartService/CartService.csproj",
   "expectedPackageFiles": [
     "/Users/platon/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/platon/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

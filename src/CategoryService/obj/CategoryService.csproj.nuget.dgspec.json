@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/CategoryService.csproj": {}
+    "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/CategoryService/CategoryService.csproj": {}
   },
   "projects": {
-    "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/CategoryService.csproj": {
+    "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/CategoryService/CategoryService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/CategoryService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/CategoryService/CategoryService.csproj",
         "projectName": "CategoryService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/CategoryService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/CategoryService/CategoryService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/CategoryService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/CategoryService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj"
+              "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ProductService/ProductService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ProductService/ProductService.csproj"
               }
             }
           }
@@ -105,14 +105,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+    "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj",
         "projectName": "Loft.Common",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj",
+        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/obj/",
+        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -163,14 +163,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj": {
+    "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ProductService/ProductService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ProductService/ProductService.csproj",
         "projectName": "ProductService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ProductService/ProductService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ProductService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -185,11 +185,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj"
               },
-              "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj"
+              "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/UserService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/UserService.csproj"
               }
             }
           }
@@ -267,14 +267,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj": {
+    "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/UserService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/UserService.csproj",
         "projectName": "UserService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/UserService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/UserService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -289,8 +289,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/Common/Loft.Common/Loft.Common.csproj"
               }
             }
           }

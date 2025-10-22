@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Loft.Common.DTOs;
 using Loft.Common.Enums;
 
@@ -14,7 +16,7 @@ public interface IOrderService
     Task RemoveOrderItems(long orderId, long orderItemId);
     Task<decimal> CalculateOrderTotal(IEnumerable<OrderItemDTO> items);
     Task<IEnumerable<OrderDTO>> GetAllOrders();
-    
+    Task<OrderDTO?> CheckoutFromCart(long customerId);
     
     /*
      * Примечания: CreateOrder возвращает созданный OrderDTO; CancelOrder переводит статус в
