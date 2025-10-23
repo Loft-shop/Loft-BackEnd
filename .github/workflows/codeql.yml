@@ -33,27 +33,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Кеширование NuGet пакетов ускорит сборку между ранними прогонками
+      # Кеширование NuGet пакетов ускорит сборку между прогонками
       - name: Cache NuGet packages
-        if: matrix.language == 'csharp'
+        if: ${{ matrix.language == 'csharp' }}
         uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
-          key: nuget-packages-${{ runner.os }}-${{ hashFiles('**/*.csproj','**/*.sln') }}
+          key: nuget-packages-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/*.sln') }}
           restore-keys: |
             nuget-packages-${{ runner.os }}-
 
       - name: Setup .NET
-        if: matrix.language == 'csharp'
+        if: ${{ matrix.language == 'csharp' }}
         uses: actions/setup-dotnet@v3
         with:
           # При необходимости поменяйте версию на ту, что у вас в global.json
           dotnet-version: '7.0.x'
 
       - name: Restore and build (C#)
-        if: matrix.language == 'csharp'
+        if: ${{ matrix.language == 'csharp' }}
         run: |
-          # Если у вас есть конкретный .sln или проект — замените wildcard на путь к нему, например: ./src/Loft.Backend.sln
+          # Если у вас есть конкретный .sln или проект — замените wildcard на путь к нему, например: ./src/Loft.BackEnd.sln
           dotnet restore
           dotnet build --configuration Release --no-restore
 
@@ -66,8 +66,8 @@ jobs:
           # Сузил набор запросов, чтобы уменьшить шум. Можно заменить / расширить.
           queries: security-and-quality
 
-      - if: matrix.build-mode == 'manual'
-        name: Manual build notice
+      - name: Manual build notice
+        if: ${{ matrix.build-mode == 'manual' }}
         run: echo "Manual build-mode used: explicit build step executed above (dotnet build)."
 
       - name: Perform CodeQL Analysis
