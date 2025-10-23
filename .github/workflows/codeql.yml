@@ -66,10 +66,6 @@ jobs:
           # Сузил набор запросов, чтобы уменьшить шум. Можно заменить / расширить.
           queries: security-and-quality
 
-      - name: Manual build notice
-        if: ${{ matrix.build-mode == 'manual' }}
-        run: echo "Manual build-mode used: explicit build step executed above (dotnet build)."
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
