@@ -1,7 +1,6 @@
-# Adapted CodeQL workflow for a C# (.NET) backend repository.
-# Основная цель: собрать проект перед запуском CodeQL, чтобы избежать
-# "We were unable to automatically build your code" и уменьшить шум от ненужных правил.
-name: "CodeQL Advanced"
+# Default (starter) CodeQL workflow — авто-детектирование языков и автосборка.
+# Подойдёт как базовый файл: вы можете затем настроить build-mode, языки или добавить явную сборку для C#/Java и т.д.
+name: "CodeQL"
 
 on:
   push:
@@ -13,60 +12,30 @@ on:
 
 jobs:
   analyze:
-    name: Analyze (${{ matrix.language }})
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    name: Analyze
+    runs-on: ubuntu-latest
     permissions:
       security-events: write
-      packages: read
-      actions: read
       contents: read
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - language: csharp
-            # устанавливаем manual, чтобы явно выполнять dotnet build в шаге ниже
-            build-mode: manual
+      actions: read
+      packages: read
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Кеширование NuGet пакетов ускорит сборку между прогонками
-      - name: Cache NuGet packages
-        if: ${{ matrix.language == 'csharp' }}
-        uses: actions/cache@v4
-        with:
-          path: ~/.nuget/packages
-          key: nuget-packages-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/*.sln') }}
-          restore-keys: |
-            nuget-packages-${{ runner.os }}-
-
-      - name: Setup .NET
-        if: ${{ matrix.language == 'csharp' }}
-        uses: actions/setup-dotnet@v3
-        with:
-          # При необходимости поменяйте версию на ту, что у вас в global.json
-          dotnet-version: '7.0.x'
-
-      - name: Restore and build (C#)
-        if: ${{ matrix.language == 'csharp' }}
-        run: |
-          # Если у вас есть конкретный .sln или проект — замените wildcard на путь к нему, например: ./src/Loft.BackEnd.sln
-          dotnet restore
-          dotnet build --configuration Release --no-restore
-
-      # Инициализация CodeQL. Мы передаём build-mode: manual, т.к. сборка сделана выше.
+      # Инициализация CodeQL. Если хотите, можно явно указать languages: csharp / javascript-typescript / python и т.д.
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
-          build-mode: ${{ matrix.build-mode }}
-          # Сузил набор запросов, чтобы уменьшить шум. Можно заменить / расширить.
+          # По умолчанию языки будут автоматически определены; при желании укажите через languages: 'csharp'
+          # Пример: languages: javascript-typescript
           queries: security-and-quality
+
+      # Попытка автоматической сборки (работает для многих проектов). Для компилируемых языков
+      # (C#, Java и т.д.) при ошибках замените этот шаг на явную сборку (build-mode: manual + dotnet/mvn/gradle сборка).
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:${{matrix.language}}"
