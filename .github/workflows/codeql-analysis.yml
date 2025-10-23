@@ -1,0 +1,77 @@
+name: "CodeQL Security Scan"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 0' # еженедельно (UTC)
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  codeql:
+    name: Analyze (CodeQL) — C# monorepo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: csharp
+          # config-file: .github/codeql/codeql-config.yml
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore and build solution (LoftBackEnd.sln)
+        env:
+          DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+        run: |
+          set -e
+          echo "dotnet --info:"
+          dotnet --info
+
+          if [ -f "LoftBackEnd.sln" ]; then
+            echo "Found LoftBackEnd.sln — restoring and building"
+            dotnet restore LoftBackEnd.sln
+            dotnet build LoftBackEnd.sln --configuration Release
+          else
+            echo "LoftBackEnd.sln not found in repository root — searching for .sln files"
+            slns=$(git ls-files '*.sln' || true)
+            if [ -n "$slns" ]; then
+              for s in $slns; do
+                echo "Restoring $s"
+                dotnet restore "$s"
+                echo "Building $s"
+                dotnet build "$s" --configuration Release
+              done
+            else
+              echo "No .sln found — building all .csproj files"
+              csprojs=$(git ls-files '*.csproj' || true)
+              if [ -n "$csprojs" ]; then
+                for p in $csprojs; do
+                  echo "Restoring $p"
+                  dotnet restore "$p"
+                  echo "Building $p"
+                  dotnet build "$p" --configuration Release
+                done
+              else
+                echo "No .sln or .csproj files found — aborting"
+                exit 1
+              fi
+            fi
+          fi
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "security"
