@@ -1,6 +1,49 @@
+<<<<<<< HEAD
 networks:
   loftnet:
     driver: bridge
+=======
+﻿services:
+    apigateway:
+      build:
+        context: .
+        dockerfile: src/ApiGateway/Dockerfile
+      container_name: apigateway
+      ports:
+        - "5000:8080"
+    
+    cartservice:
+      build:
+        context: .
+        dockerfile: src/CartService/Dockerfile
+      container_name: cartservice
+      ports:
+        - "5001:8080"
+    
+    orderservice:
+      build:
+        context: .
+        dockerfile: src/OrderService/Dockerfile
+      container_name: orderservice
+      ports:
+        - "5003:8080"
+    
+    paymentservice:
+      build:
+        context: .
+        dockerfile: src/PaymentService/Dockerfile
+      container_name: paymentservice
+      ports:
+        - "5004:8080"
+    
+    productservice:
+      build:
+        context: .
+        dockerfile: src/ProductService/Dockerfile
+      container_name: productservice
+      ports:
+        - "5005:8080"
+>>>>>>> ProductService
 
 services:
   apigateway:

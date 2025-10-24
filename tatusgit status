@@ -1,0 +1,51 @@
+[33m8f42e56[m[33m ([m[1;31morigin/User-Service[m[33m)[m Add Profile and fix ApiGetway
+[33mecdd08b[m fix2
+[33m7587ea4[m fix
+[33ma632acd[m fix
+[33m7edeb17[m Merge remote-tracking branch 'org/User-Service' into User-Service
+[33me7b56fc[m test
+[33m9e951f4[m Update deploy-api.yml
+[33me2934bf[m Merge remote-tracking branch 'org/User-Service' into User-Service
+[33m6942556[m fix
+[33m0a3ec96[m Update deploy-api.yml
+[33m041a508[m Delete Test deployment
+[33ma97f361[m Create Test deployment
+[33m9970e01[m Create deploy-api.yml
+[33mee54f04[m Some fix
+[33m0eaf2eb[m Change register
+[33m07eadcc[m 1
+[33me7f9fc7[m test
+[33m89276f5[m Add JWT
+[33m0dbb9b4[m Add Auth/Login
+[33md684208[m Delete SellerService
+[33mec46580[m Merge remote-tracking branch 'origin/main'
+[33m7e70914[m Add all service methods
+[33m7c0108c[m Merge pull request #9 from platon-reshetnikov/dependabot/nuget/src/CartService/Microsoft.Identity.Web-3.8.2
+[33m6bfdb44[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33mebd57ef[m Merge pull request #8 from platon-reshetnikov/dependabot/nuget/src/CategoryService/Microsoft.Identity.Web-3.8.2
+[33mbce7e62[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33m8df5587[m Merge pull request #7 from platon-reshetnikov/dependabot/nuget/src/OrderService/Microsoft.Identity.Web-3.8.2
+[33m77ead9d[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33me4f3d73[m Merge pull request #6 from platon-reshetnikov/dependabot/nuget/src/PaymentService/Microsoft.Identity.Web-3.8.2
+[33me9d9de0[m commit
+[33ma6ca917[m Merge remote-tracking branch 'origin/main'
+[33mdd71e54[m Fix Docker
+[33m081d37b[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33m3c0b4dc[m Merge pull request #5 from platon-reshetnikov/dependabot/nuget/src/ProductService/Microsoft.Identity.Web-3.8.2
+[33m004343f[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33m541b309[m Merge pull request #4 from platon-reshetnikov/dependabot/nuget/src/SellerService/Microsoft.Identity.Web-3.8.2
+[33me2c54fc[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33mb926885[m Merge pull request #3 from platon-reshetnikov/dependabot/nuget/src/ApiGateway/Microsoft.Identity.Web-3.8.2
+[33md635064[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33m9be5c96[m Merge pull request #2 from platon-reshetnikov/dependabot/nuget/src/ShippingAddressService/Microsoft.Identity.Web-3.8.2
+[33m9370c0f[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33m3f1be4f[m Merge pull request #1 from platon-reshetnikov/dependabot/nuget/src/UserService/Microsoft.Identity.Web-3.8.2
+[33me9744da[m Bump Microsoft.Identity.Web from 3.2.0 to 3.8.2
+[33m30a6673[m add Entities,DTO,Mapping
+[33m27d268c[m API testing
+[33m3c992fd[m Docker
+[33mb9c406c[m Deploy Docker
+[33m9c575ba[m Refactor
+[33m09e581c[m Refactor UserService
+[33mfef539e[m Start of implementation of microservice architecture
+[33m52c67f6[m first

@@ -23,6 +23,7 @@
       "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
     },
     {
+<<<<<<< HEAD
       "DownstreamPathTemplate": "/api/orders/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "orderservice", "Port": 8080 }],
@@ -39,6 +40,9 @@
     },
     {
       "DownstreamPathTemplate": "/api/payments/{everything}",
+=======
+      "DownstreamPathTemplate": "/api/carts",
+>>>>>>> ProductService
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "paymentservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/payment/{everything}",

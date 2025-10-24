@@ -2,20 +2,18 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "AutoMapper/15.0.1": {
+      "AutoMapper/12.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Logging": "8.0.0",
-          "Microsoft.Extensions.Options": "8.0.0",
-          "Microsoft.IdentityModel.JsonWebTokens": "8.0.1"
+          "Microsoft.CSharp": "4.7.0"
         },
         "compile": {
-          "lib/net8.0/AutoMapper.dll": {
+          "lib/netstandard2.1/AutoMapper.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/AutoMapper.dll": {
+          "lib/netstandard2.1/AutoMapper.dll": {
             "related": ".xml"
           }
         }
@@ -1279,24 +1277,19 @@
     }
   },
   "libraries": {
-    "AutoMapper/15.0.1": {
-      "sha512": "kNo7iIAi4p4XxoEbfif2WUQtc6RTx+UteiRYPqCOKj+4q4+YaWono06qTxoHBy+0N1HdganA//k5p/VmWw2AMA==",
+    "AutoMapper/12.0.1": {
+      "sha512": "hvV62vl6Hp/WfQ24yzo3Co9+OPl8wH8hApwVtgWpiAynVJkUcs7xvehnSftawL8Pe8FrPffBRM3hwzLQqWDNjA==",
       "type": "package",
-      "path": "automapper/15.0.1",
+      "path": "automapper/12.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "LICENSE.md",
         "README.md",
-        "automapper.15.0.1.nupkg.sha512",
+        "automapper.12.0.1.nupkg.sha512",
         "automapper.nuspec",
         "icon.png",
-        "lib/net8.0/AutoMapper.dll",
-        "lib/net8.0/AutoMapper.xml",
-        "lib/net9.0/AutoMapper.dll",
-        "lib/net9.0/AutoMapper.xml",
-        "lib/netstandard2.0/AutoMapper.dll",
-        "lib/netstandard2.0/AutoMapper.xml"
+        "lib/netstandard2.1/AutoMapper.dll",
+        "lib/netstandard2.1/AutoMapper.xml"
       ]
     },
     "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
@@ -3483,7 +3476,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "AutoMapper >= 15.0.1",
+      "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.20",
       "Microsoft.AspNetCore.Authentication.OpenIdConnect >= 8.0.20",
@@ -3545,7 +3538,7 @@
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
-            "version": "[15.0.1, )"
+            "version": "[12.0.1, )"
           },
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
@@ -3604,17 +3597,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Версия обнаруженного пакета нарушает ограничение зависимости: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 требуется AutoMapper (= 12.0.1), но в результате разрешения получена версия AutoMapper 15.0.1.",
-      "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

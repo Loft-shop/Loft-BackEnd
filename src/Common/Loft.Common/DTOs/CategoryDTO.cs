@@ -1,3 +1,29 @@
-namespace Loft.Common.DTOs;
+using Loft.Common.Enums;
 
-public record CategoryDTO(long Id,string Name,long? ParentId,string CategoryImageUrl);
+namespace Loft.Common.DTOs
+{
+    public class CategoryDto
+    {
+        public int? Id { get; set; }
+        public int? ParentCategoryId { get; set; }
+        public string Name { get; set; } = null!;
+
+        public string? ImageUrl { get; set; } = null!;
+        public ModerationStatus? Status { get; set; }
+
+        public int? ViewCount { get; set; }
+
+        // Атрибуты категории (какие атрибуты можно использовать для товаров)
+        public ICollection<CategoryAttributeDto>? Attributes { get; set; }
+
+        // Опционально: список подкатегорий
+        public ICollection<CategoryDto>? SubCategories { get; set; }
+    }
+
+    public class CategoryAttributeDto
+    {
+        public int AttributeId { get; set; }
+        public bool IsRequired { get; set; }
+        public int OrderIndex { get; set; }
+    }
+}

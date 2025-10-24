@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "eLK3ppw4SvI=",
+  "dgSpecHash": "z5xEgEa9CpY=",
   "success": true,
   "projectFilePath": "D:\\loft\\Loft-BackEnd\\src\\ApiGateway\\ApiGateway.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\samit\\.nuget\\packages\\automapper\\15.0.1\\automapper.15.0.1.nupkg.sha512",
+    "C:\\Users\\samit\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\samit\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\samit\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\samit\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -79,18 +79,5 @@
     "C:\\Users\\samit\\.nuget\\packages\\system.text.json\\8.0.5\\system.text.json.8.0.5.nupkg.sha512",
     "C:\\Users\\samit\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "message": "Версия обнаруженного пакета нарушает ограничение зависимости: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 требуется AutoMapper (= 12.0.1), но в результате разрешения получена версия AutoMapper 15.0.1.",
-      "projectPath": "D:\\loft\\Loft-BackEnd\\src\\ApiGateway\\ApiGateway.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\loft\\Loft-BackEnd\\src\\ApiGateway\\ApiGateway.csproj",
-      "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }
