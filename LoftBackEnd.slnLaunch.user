@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Новый профиль",
+    "Projects": [
+      {
+        "Path": "src\\ProductService\\ProductService.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
