@@ -1,3 +1,3 @@
-namespace MonolithVersion.DTOs;
+namespace monolith_version.DTOs;
 
-public record OrderItemDTO(long Id,long OrderId,long ProductId,int Quantity,decimal Price);
+public record OrderItemDto(long Id,long OrderId,long ProductId,int Quantity,decimal Price);

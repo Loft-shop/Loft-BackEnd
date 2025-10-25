@@ -1,4 +1,4 @@
-namespace MonolithVersion.Enums;
+namespace monolith_version.Models.Enums;
 
 public enum OrderStatus
 {

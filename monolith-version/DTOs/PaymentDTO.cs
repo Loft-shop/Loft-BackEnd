@@ -1,5 +1,5 @@
-using MonolithVersion.Enums;
+using monolith_version.Models.Enums;
 
-namespace MonolithVersion.DTOs;
+namespace monolith_version.DTOs;
 
-public record PaymentDTO(long Id,long OrderId,decimal Amount,PaymentMethod Method,PaymentStatus Status,DateTime PaymentDate);
+public record PaymentDto(long Id,long OrderId,decimal Amount,PaymentMethod Method,PaymentStatus Status,DateTime PaymentDate);

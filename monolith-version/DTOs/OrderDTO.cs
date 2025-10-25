@@ -1,5 +1,5 @@
-using MonolithVersion.Enums;
+using monolith_version.Models.Enums;
 
-namespace MonolithVersion.DTOs;
+namespace monolith_version.DTOs;
 
 public record OrderDTO(long Id,long CustomerId,DateTime OrderDate,OrderStatus Status,decimal TotalAmount);

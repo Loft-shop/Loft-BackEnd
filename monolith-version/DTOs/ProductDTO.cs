@@ -1,7 +1,7 @@
-using MonolithVersion.Enums;
+using monolith_version.Models.Enums;
 
-// DTO для отображения товара (чтение)
-namespace MonolithVersion.DTOs
+// DTO пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ)
+namespace monolith_version.DTOs
 {
     public class ProductDto
     {
@@ -19,13 +19,13 @@ namespace MonolithVersion.DTOs
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        // Атрибуты товара
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         public ICollection<ProductAttributeValueDto>? AttributeValues { get; set; }
 
-        // Медиа-файлы
+        // пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅ
         public ICollection<MediaFileDto>? MediaFiles { get; set; }
 
-        // Комментарии (опционально)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
         public ICollection<CommentDto>? Comments { get; set; }
     }
 

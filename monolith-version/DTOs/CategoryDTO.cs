@@ -1,6 +1,6 @@
-using MonolithVersion.Enums;
+using monolith_version.Models.Enums;
 
-namespace MonolithVersion.DTOs
+namespace monolith_version.DTOs
 {
     public class CategoryDto
     {
@@ -13,10 +13,10 @@ namespace MonolithVersion.DTOs
 
         public int? ViewCount { get; set; }
 
-        // Атрибуты категории (какие атрибуты можно использовать для товаров)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
         public ICollection<CategoryAttributeDto>? Attributes { get; set; }
 
-        // Опционально: список подкатегорий
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         public ICollection<CategoryDto>? SubCategories { get; set; }
     }
 

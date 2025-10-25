@@ -1,3 +1,3 @@
-namespace MonolithVersion.DTOs;
+namespace monolith_version.DTOs;
 
-public record ShippingAddressDTO(long Id,long CustomerId,string Address,string City,string PostalCode,string Country);
+public record ShippingAddressDto(long Id,long CustomerId,string Address,string City,string PostalCode,string Country);
