@@ -1,0 +1,7 @@
+﻿services:
+  monolith-version:
+    image: monolith-version
+    build:
+      context: .
+      dockerfile: monolith-version/Dockerfile
+

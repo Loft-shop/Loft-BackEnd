@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "monolith-version", "monolith-version\monolith-version.csproj", "{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7C3475F-0B9C-4ADC-AEAB-80DB6D68F87A}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

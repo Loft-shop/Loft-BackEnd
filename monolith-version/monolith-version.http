@@ -1,0 +1,6 @@
+@monolith_version_HostAddress = http://localhost:5096
+
+GET {{monolith_version_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
