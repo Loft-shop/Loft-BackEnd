@@ -3492,11 +3492,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ApiGateway/ApiGateway.csproj",
+      "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/ApiGateway/ApiGateway.csproj",
       "projectName": "ApiGateway",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ApiGateway/ApiGateway.csproj",
+      "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ApiGateway/ApiGateway.csproj",
       "packagesPath": "/Users/platon/.nuget/packages/",
-      "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ApiGateway/obj/",
+      "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ApiGateway/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/platon/.nuget/NuGet/NuGet.Config"

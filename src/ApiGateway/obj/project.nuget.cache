@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "XFmW3N4M4mI=",
+  "dgSpecHash": "cRBoctFezZ0=",
   "success": true,
-  "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/worktrees/worktree-masterLocal-2025-10-21/src/ApiGateway/ApiGateway.csproj",
+  "projectFilePath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ApiGateway/ApiGateway.csproj",
   "expectedPackageFiles": [
-    "/Users/platon/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/platon/.nuget/packages/automapper/15.0.1/automapper.15.0.1.nupkg.sha512",
     "/Users/platon/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "/Users/platon/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/platon/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
@@ -79,5 +79,18 @@
     "/Users/platon/.nuget/packages/system.text.json/8.0.5/system.text.json.8.0.5.nupkg.sha512",
     "/Users/platon/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 15.0.1 was resolved.",
+      "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ApiGateway/ApiGateway.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ApiGateway/ApiGateway.csproj",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

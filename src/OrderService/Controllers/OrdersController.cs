@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Loft.Common.DTOs;
 using Loft.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
