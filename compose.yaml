@@ -36,6 +36,15 @@ services:
       context: ./src/OrderService
       dockerfile: Dockerfile
     container_name: orderservice
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      Services__CartService: http://cartservice:8080
+      Services__ProductService: http://productservice:8080
+      Services__UserService: http://userservice:8080
+      depends_on:
+        - cartservice
+        - productservice
+        - userservice
     networks:
       - loftnet
 
