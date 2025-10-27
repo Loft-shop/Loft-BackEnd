@@ -5,14 +5,14 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "cartservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/carts",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/api/carts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "cartservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/carts/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
 
     {
@@ -20,15 +20,15 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "orderservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/order",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
     {
-<<<<<<< HEAD
+
       "DownstreamPathTemplate": "/api/orders/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "orderservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/order/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
 
     {
@@ -36,17 +36,15 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "paymentservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/payment",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/api/payments/{everything}",
-=======
       "DownstreamPathTemplate": "/api/carts",
->>>>>>> ProductService
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "paymentservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/payment/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
 
     {
@@ -54,14 +52,14 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/products",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/api/products/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/products/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
 
     {
@@ -69,14 +67,14 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "shippingaddressservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/shippingaddress",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/api/shipping-addresses/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "shippingaddressservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/shippingaddress/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
 
     {
@@ -84,14 +82,14 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/users",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/api/users/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/users/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     }
   ],
   "GlobalConfiguration": {
