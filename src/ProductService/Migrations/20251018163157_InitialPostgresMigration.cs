@@ -19,6 +19,7 @@ namespace ProductService.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
+                    DisplayName = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<int>(type: "integer", nullable: false),
                     TypeDisplayName = table.Column<string>(type: "text", nullable: false),
                     OptionsJson = table.Column<string>(type: "text", nullable: true),
