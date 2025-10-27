@@ -30,6 +30,13 @@ namespace ProductService
 
             // Сервисы
             builder.Services.AddScoped<IProductService, ProductService.Services.ProductService>();
+            
+            // HttpClient для связи с UserService
+            builder.Services.AddHttpClient("UserService", client =>
+            {
+                var userServiceUrl = builder.Configuration["Services:UserService"] ?? "http://localhost:5003";
+                client.BaseAddress = new Uri(userServiceUrl);
+            });
 
             // Swagger
             builder.Services.AddEndpointsApiExplorer();

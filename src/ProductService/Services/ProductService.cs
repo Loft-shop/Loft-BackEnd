@@ -1,8 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 using AutoMapper;
 using Loft.Common.DTOs;
 using Loft.Common.Enums;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Microsoft.Extensions.Logging;
 using ProductService.Data;
 using ProductService.Entities;
 
@@ -10,21 +16,25 @@ namespace ProductService.Services;
 
 public class ProductService : IProductService
 {
-    private readonly ProductDbContext _db; // контекст базы данных EF Core
-    private readonly IMapper _mapper;      // AutoMapper для преобразования сущностей в DTO и обратно
+    private readonly ProductDbContext _db; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ EF Core
+    private readonly IMapper _mapper;      // AutoMapper пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ DTO пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger<ProductService> _logger;
 
-    public ProductService(ProductDbContext db, IMapper mapper)
+    public ProductService(ProductDbContext db, IMapper mapper, IHttpClientFactory httpClientFactory, ILogger<ProductService> logger)
     {
         _db = db;
         _mapper = mapper;
+        _httpClientFactory = httpClientFactory;
+        _logger = logger;
     }
 
     // ------------------ PRODUCTS ------------------
 
-    // Получение списка товаров с фильтром по категории, продавцу, цене и атрибутам + пагинация
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ + пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public async Task<IEnumerable<ProductDto>> GetAllProducts(ProductFilterDto filter)
     {
-        // Базовый запрос с подгрузкой связанных данных
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         var query = _db.Products
             .Include(p => p.Category)
             .Include(p => p.AttributeValues).ThenInclude(av => av.Attribute)
@@ -32,23 +42,23 @@ public class ProductService : IProductService
             .Include(p => p.Comments).ThenInclude(c => c.MediaFiles)
             .AsQueryable();
 
-        // Фильтр по категории (если указан и > 0)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ > 0)
         if (filter.CategoryId.HasValue && filter.CategoryId.Value > 0)
             query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
 
-        // Фильтр по продавцу (если указан и > 0)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ > 0)
         if (filter.SellerId.HasValue && filter.SellerId.Value > 0)
             query = query.Where(p => p.IdUser == filter.SellerId.Value);
 
-        // Фильтр по минимальной цене (если указана и > 0)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ > 0)
         if (filter.MinPrice.HasValue && filter.MinPrice.Value > 0)
             query = query.Where(p => p.Price >= filter.MinPrice.Value);
 
-        // Фильтр по максимальной цене (если указана и > 0)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ > 0)
         if (filter.MaxPrice.HasValue && filter.MaxPrice.Value > 0)
             query = query.Where(p => p.Price <= filter.MaxPrice.Value);
 
-        // Фильтр по атрибутам (если есть хотя бы один с корректными данными)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
         if (filter.AttributeFilters != null && filter.AttributeFilters.Any())
         {
             foreach (var af in filter.AttributeFilters)
@@ -61,18 +71,23 @@ public class ProductService : IProductService
             }
         }
 
-        // Пагинация (по умолчанию страница 1 и размер страницы 20)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 20)
         var skip = (filter.Page > 0 ? filter.Page - 1 : 0) * (filter.PageSize > 0 ? filter.PageSize : 20);
         var take = filter.PageSize > 0 ? filter.PageSize : 20;
 
         query = query.Skip(skip).Take(take);
 
-        // Выполняем запрос и маппим в DTO
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ DTO
         var products = await query.ToListAsync();
-        return _mapper.Map<IEnumerable<ProductDto>>(products);
+        var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products).ToList();
+        
+        // РђРІС‚РѕРјР°С‚РёС‡РµСЃРєРё Р·Р°РіСЂСѓР¶Р°РµРј РґР°РЅРЅС‹Рµ РїСЂРѕРґР°РІС†РѕРІ
+        await LoadSellerInfo(productDtos);
+        
+        return productDtos;
     }
 
-    // Получение одного товара по ID
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ ID
     public async Task<ProductDto?> GetProductById(int productId)
     {
         var product = await _db.Products
@@ -82,108 +97,287 @@ public class ProductService : IProductService
             .Include(p => p.Comments).ThenInclude(c => c.MediaFiles)
             .FirstOrDefaultAsync(p => p.Id == productId);
 
-        return _mapper.Map<ProductDto?>(product);
+        var productDto = _mapper.Map<ProductDto?>(product);
+        
+        // Р—Р°РіСЂСѓР¶Р°РµРј РґР°РЅРЅС‹Рµ РїСЂРѕРґР°РІС†Р° РґР»СЏ РѕРґРЅРѕРіРѕ С‚РѕРІР°СЂР°
+        if (productDto != null)
+        {
+            await LoadSellerInfo(new List<ProductDto> { productDto });
+        }
+        
+        return productDto;
     }
 
-    // Создание нового товара
+    // РќРѕРІС‹Р№ РјРµС‚РѕРґ: Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ Р·Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С… РїСЂРѕРґР°РІС†РѕРІ РёР· UserService
+    private async Task LoadSellerInfo(IEnumerable<ProductDto> products)
+    {
+        var client = _httpClientFactory.CreateClient("UserService");
+        
+        foreach (var product in products)
+        {
+            if (product.IdUser.HasValue && product.IdUser.Value > 0)
+            {
+                try
+                {
+                    var userResponse = await client.GetAsync($"/api/users/{product.IdUser.Value}");
+                    if (userResponse.IsSuccessStatusCode)
+                    {
+                        var user = await userResponse.Content.ReadFromJsonAsync<UserDTO>();
+                        if (user != null)
+                        {
+                            // РСЃРїРѕР»СЊР·СѓРµРј С‚РѕР»СЊРєРѕ FirstName РїСЂРѕРґР°РІС†Р°; РµСЃР»Рё РїСѓСЃС‚Рѕ вЂ” РїРѕРєР°Р·С‹РІР°РµРј Email
+                            var displayName = !string.IsNullOrWhiteSpace(user.FirstName)
+                                ? user.FirstName
+                                : user.Email;
+                            product.SellerName = displayName;
+                            product.SellerEmail = user.Email;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, $"Failed to load seller info for user {product.IdUser}");
+                    // РџСЂРѕРґРѕР»Р¶Р°РµРј Р±РµР· РґР°РЅРЅС‹С… РїСЂРѕРґР°РІС†Р°
+                }
+            }
+        }
+    }
+
+    // РџСЂРѕРІРµСЂРєР° РїСЂР°РІ РґРѕСЃС‚СѓРїР°: РјРѕР¶РµС‚ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РёР·РјРµРЅСЏС‚СЊ С‚РѕРІР°СЂ
+    public async Task<bool> CanUserModifyProduct(int productId, int userId)
+    {
+        var product = await _db.Products.FindAsync(productId);
+        if (product == null) return false;
+        
+        // РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РјРѕР¶РµС‚ РёР·РјРµРЅСЏС‚СЊ С‚РѕР»СЊРєРѕ СЃРІРѕР№ С‚РѕРІР°СЂ
+        return product.IdUser == userId;
+    }
+
+    // =============================================================================
+    // Р›РћРљРђР›Р¬РќРђРЇ Р РђР—Р РђР‘РћРўРљРђ: РџСЂРѕСЃС‚РѕРµ СЃРѕР·РґР°РЅРёРµ С‚РѕРІР°СЂР° (С‚РµРєСѓС‰Р°СЏ)
+    // =============================================================================
+    // РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ С‚РѕРІР°СЂР°
     public async Task<ProductDto> CreateProduct(ProductDto productDto)
     {
-        var product = _mapper.Map<Product>(productDto); // преобразуем DTO в сущность
-        product.CreatedAt = DateTime.UtcNow; // устанавливаем дату создания
-        product.UpdatedAt = DateTime.UtcNow; // устанавливаем дату обновления
+        // =============================================================================
+        // РџР РћР’Р•Р РљРђ: РњРѕР¶РµС‚ Р»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РїСЂРѕРґР°РІР°С‚СЊ С‚РѕРІР°СЂС‹?
+        // =============================================================================
+        if (productDto.IdUser.HasValue && productDto.IdUser.Value > 0)
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient();
+                var canSellResponse = await client.GetAsync($"http://userservice:8080/api/users/{productDto.IdUser.Value}/can-sell");
+                
+                if (canSellResponse.IsSuccessStatusCode)
+                {
+                    var canSellContent = await canSellResponse.Content.ReadAsStringAsync();
+                    var canSellData = System.Text.Json.JsonSerializer.Deserialize<System.Text.Json.JsonElement>(canSellContent);
+                    
+                    if (canSellData.TryGetProperty("canSell", out var canSellValue))
+                    {
+                        var canSell = canSellValue.GetBoolean();
+                        if (!canSell)
+                        {
+                            _logger.LogWarning($"User {productDto.IdUser} attempted to create product but CanSell=false");
+                            throw new InvalidOperationException("User is not authorized to sell products. Please enable seller status first.");
+                        }
+                        _logger.LogInformation($"User {productDto.IdUser} verified as seller (CanSell=true)");
+                    }
+                }
+                else
+                {
+                    _logger.LogWarning($"Failed to check CanSell status for user {productDto.IdUser}: {canSellResponse.StatusCode}");
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                throw; // РџСЂРѕР±СЂР°СЃС‹РІР°РµРј РѕС€РёР±РєСѓ Р°РІС‚РѕСЂРёР·Р°С†РёРё РґР°Р»СЊС€Рµ
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, $"Could not verify seller status for user {productDto.IdUser}, allowing creation");
+                // РќРµ Р±Р»РѕРєРёСЂСѓРµРј СЃРѕР·РґР°РЅРёРµ С‚РѕРІР°СЂР° РµСЃР»Рё РЅРµ СѓРґР°Р»РѕСЃСЊ РїСЂРѕРІРµСЂРёС‚СЊ СЃС‚Р°С‚СѓСЃ (РґР»СЏ СЂР°Р·СЂР°Р±РѕС‚РєРё)
+            }
+        }
 
-        _db.Products.Add(product); // добавляем в контекст
-        await _db.SaveChangesAsync(); // сохраняем в БД
+        var product = _mapper.Map<Product>(productDto);
+        product.CreatedAt = DateTime.UtcNow;
+        product.UpdatedAt = DateTime.UtcNow;
 
-        return _mapper.Map<ProductDto>(product); // возвращаем DTO с заполненным Id
+        _db.Products.Add(product);
+        await _db.SaveChangesAsync();
+
+        // Р—Р°РіСЂСѓР¶Р°РµРј РєР°С‚РµРіРѕСЂРёСЋ РїРѕСЃР»Рµ СЃРѕР·РґР°РЅРёСЏ С‚РѕРІР°СЂР°
+        await _db.Entry(product).Reference(p => p.Category).LoadAsync();
+
+        return _mapper.Map<ProductDto>(product);
     }
 
-    // Обновление существующего товара
-    public async Task<ProductDto?> UpdateProduct(int productId, ProductDto productDto)
+    // =============================================================================
+    // Р“Р›РћР‘РђР›Р¬РќРђРЇ РџР РћР”РђРљРЁР•Рќ: РЎРѕР·РґР°РЅРёРµ С‚РѕРІР°СЂР° СЃ РІР°Р»РёРґР°С†РёРµР№ Рё С‚СЂР°РЅР·Р°РєС†РёРµР№ (Р·Р°РєРѕРјРјРµРЅС‚РёСЂРѕРІР°РЅРѕ)
+    // =============================================================================
+    // Р”Р»СЏ PostgreSQL - РІР°Р»РёРґРёСЂСѓРµРј РєР°С‚РµРіРѕСЂРёСЋ Рё Р°С‚СЂРёР±СѓС‚С‹, РёСЃРїРѕР»СЊР·СѓРµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
+    /*
+    public async Task<ProductDto> CreateProduct(ProductDto productDto)
     {
-        // Получаем товар из БД с атрибутами и медиа
+        using (var transaction = await _db.Database.BeginTransactionAsync())
+        {
+            try
+            {
+                // РџСЂРѕРІРµСЂСЏРµРј СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё
+                var categoryExists = await _db.Categories
+                    .AnyAsync(c => c.Id == productDto.CategoryId && c.Status == ModerationStatus.Approved);
+                
+                if (!categoryExists)
+                {
+                    _logger.LogError($"Category {productDto.CategoryId} not found or not approved");
+                    throw new ArgumentException($"Category {productDto.CategoryId} not found or not approved");
+                }
+
+                // РџРѕР»СѓС‡Р°РµРј РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ РґР»СЏ РєР°С‚РµРіРѕСЂРёРё
+                var requiredAttributes = await _db.CategoryAttributes
+                    .Where(ca => ca.CategoryId == productDto.CategoryId && ca.IsRequired)
+                    .Select(ca => ca.AttributeId)
+                    .ToListAsync();
+
+                // РџСЂРѕРІРµСЂСЏРµРј С‡С‚Рѕ РІСЃРµ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ Р°С‚СЂРёР±СѓС‚С‹ Р·Р°РїРѕР»РЅРµРЅС‹
+                if (productDto.AttributeValues != null && requiredAttributes.Any())
+                {
+                    var providedAttributes = productDto.AttributeValues.Select(av => av.AttributeId).ToList();
+                    var missingAttributes = requiredAttributes.Except(providedAttributes).ToList();
+                    
+                    if (missingAttributes.Any())
+                    {
+                        _logger.LogError($"Missing required attributes: {string.Join(", ", missingAttributes)}");
+                        throw new ArgumentException($"Missing required attributes: {string.Join(", ", missingAttributes)}");
+                    }
+                }
+
+                // РЎРѕР·РґР°РµРј С‚РѕРІР°СЂ
+                var product = _mapper.Map<Product>(productDto);
+                product.CreatedAt = DateTime.UtcNow;
+                product.UpdatedAt = DateTime.UtcNow;
+                product.Status = ModerationStatus.Pending; // РќР° РјРѕРґРµСЂР°С†РёСЋ
+
+                _db.Products.Add(product);
+                await _db.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                _logger.LogInformation($"Product {product.Id} created by user {product.IdUser}");
+                return _mapper.Map<ProductDto>(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating product");
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+    }
+    */
+
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    public async Task<ProductDto?> UpdateProduct(int productId, ProductDto productDto, int? currentUserId = null)
+    {
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
         var product = await _db.Products
             .Include(p => p.AttributeValues)
             .Include(p => p.MediaFiles)
             .FirstOrDefaultAsync(p => p.Id == productId);
 
-        if (product == null) return null; // если товара нет, возвращаем null
+        if (product == null) return null; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ null
 
-        _mapper.Map(productDto, product); // обновляем поля сущности из DTO
-        product.UpdatedAt = DateTime.UtcNow; // обновляем дату
+        // РџСЂРѕРІРµСЂРєР° РїСЂР°РІ РґРѕСЃС‚СѓРїР°: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РјРѕР¶РµС‚ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ СЃРІРѕР№ С‚РѕРІР°СЂ
+        if (currentUserId.HasValue && product.IdUser != currentUserId.Value)
+        {
+            _logger.LogWarning($"User {currentUserId} attempted to update product {productId} owned by user {product.IdUser}");
+            return null; // РќРµС‚ РїСЂР°РІ РґРѕСЃС‚СѓРїР°
+        }
 
-        await _db.SaveChangesAsync(); // сохраняем изменения
-        return _mapper.Map<ProductDto>(product); // возвращаем DTO
+        _mapper.Map(productDto, product); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ DTO
+        product.UpdatedAt = DateTime.UtcNow; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+
+        await _db.SaveChangesAsync(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        return _mapper.Map<ProductDto>(product); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ DTO
     }
 
-    // Удаление товара
-    public async Task DeleteProduct(int productId)
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    public async Task<bool> DeleteProduct(int productId, int? currentUserId = null)
     {
-        // Загружаем продукт с зависимостями
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         var product = await _db.Products
-            .Include(p => p.MediaFiles) // медиа самого продукта
+            .Include(p => p.MediaFiles) // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .Include(p => p.Comments)
-                .ThenInclude(c => c.MediaFiles) // медиа из комментариев
-            .Include(p => p.AttributeValues) // значения атрибутов
+                .ThenInclude(c => c.MediaFiles) // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            .Include(p => p.AttributeValues) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .FirstOrDefaultAsync(p => p.Id == productId);
 
         if (product == null)
-            return; // или throw new KeyNotFoundException("Продукт не найден");
+            return false; // РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ
 
-        // Удаляем медиа из комментариев
+        // РџСЂРѕРІРµСЂРєР° РїСЂР°РІ РґРѕСЃС‚СѓРїР°: РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РјРѕР¶РµС‚ СѓРґР°Р»СЏС‚СЊ С‚РѕР»СЊРєРѕ СЃРІРѕР№ С‚РѕРІР°СЂ
+        if (currentUserId.HasValue && product.IdUser != currentUserId.Value)
+        {
+            _logger.LogWarning($"User {currentUserId} attempted to delete product {productId} owned by user {product.IdUser}");
+            return false; // РќРµС‚ РїСЂР°РІ РґРѕСЃС‚СѓРїР°
+        }
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         var commentMedia = product.Comments.SelectMany(c => c.MediaFiles).ToList();
         if (commentMedia.Any())
             _db.MediaFiles.RemoveRange(commentMedia);
 
-        // Удаляем комментарии
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (product.Comments.Any())
             _db.Comments.RemoveRange(product.Comments);
 
-        // Удаляем медиа самого продукта
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (product.MediaFiles.Any())
             _db.MediaFiles.RemoveRange(product.MediaFiles);
 
-        // Удаляем значения атрибутов
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (product.AttributeValues.Any())
             _db.ProductAttributeValues.RemoveRange(product.AttributeValues);
 
-        // Удаляем сам продукт
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         _db.Products.Remove(product);
 
         await _db.SaveChangesAsync();
+        return true; // РЈСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅРѕ
     }
 
     // ------------------ CATEGORIES ------------------
 
-    // Получение категорий все категории в древовидной структуре    
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ    
     public async Task<IEnumerable<CategoryDto>> GetAllCategories()
     {
-        // Загружаем все категории одним запросом
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         var categories = await _db.Categories
             .Include(c => c.CategoryAttributes).ThenInclude(ca => ca.Attribute)
             .Include(c => c.Products)
             .AsNoTracking()
             .ToListAsync();
 
-        // Маппим все категории в DTO
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ DTO
         var categoryDtos = _mapper.Map<List<CategoryDto>>(categories);
 
-        // Создаём словарь для быстрого поиска родителя по Id
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Id
         var lookup = categoryDtos.ToDictionary(c => c.Id);
 
-        // Список для хранения только верхнего уровня категорий
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         List<CategoryDto> rootCategories = new();
 
         foreach (var category in categoryDtos)
         {
             if (category.ParentCategoryId == null)
             {
-                // Если нет родителя — это корневая категория
+                // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 rootCategories.Add(category);
             }
             else if (lookup.TryGetValue(category.ParentCategoryId.Value, out var parent))
             {
-                // Добавляем подкатегорию в родительскую
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 parent.SubCategories ??= new List<CategoryDto>();
                 parent.SubCategories.Add(category);
             }
@@ -192,7 +386,7 @@ public class ProductService : IProductService
         return rootCategories;
     }
 
-    // Получение категории по ID
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ ID
     public async Task<CategoryDto?> GetCategoryById(int categoryId)
     {
         var category = await _db.Categories
@@ -205,46 +399,46 @@ public class ProductService : IProductService
         return _mapper.Map<CategoryDto?>(category);
     }
 
-    // Создание категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public async Task<CategoryDto> CreateCategory(CategoryDto dto)
     {
 
-        // Создаем сущность категории
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         var category = new Category
         {
             Name = dto.Name,
             ImageUrl = dto.ImageUrl,
-            ParentCategoryId = dto.ParentCategoryId, // если null, категория будет верхнего уровня
+            ParentCategoryId = dto.ParentCategoryId, // пїЅпїЅпїЅпїЅ null, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             Status = 0,
             ViewCount = 0
         };
 
         _db.Categories.Add(category);
-        await _db.SaveChangesAsync(); // получаем Id категории
+        await _db.SaveChangesAsync(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Id пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-        // Возвращаем DTO категории с пустыми подкатегориями и атрибутами
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ DTO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         var result = _mapper.Map<CategoryDto>(category);
 
         return result;
     }
 
-    // Обновление категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public async Task<CategoryDto?> UpdateCategory(int categoryId, CategoryDto categoryDto)
     {
         var category = await _db.Categories
-            .Include(c => c.SubCategories) // подгружаем подкатегории
+            .Include(c => c.SubCategories) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .FirstOrDefaultAsync(c => c.Id == categoryId);
 
         if (category == null) return null;
 
         _mapper.Map(categoryDto, category);
 
-        // Обновление/добавление подкатегорий
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (categoryDto.SubCategories != null)
         {
             foreach (var subDto in categoryDto.SubCategories)
             {
-                // Если подкатегория уже есть, обновляем
+                // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 var existingSub = category.SubCategories.FirstOrDefault(sc => sc.Id == subDto.Id);
                 if (existingSub != null)
                 {
@@ -252,7 +446,7 @@ public class ProductService : IProductService
                 }
                 else
                 {
-                    // Новая подкатегория
+                    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     var newSub = _mapper.Map<Category>(subDto);
                     newSub.ParentCategoryId = category.Id;
                     _db.Categories.Add(newSub);
@@ -264,7 +458,7 @@ public class ProductService : IProductService
         return _mapper.Map<CategoryDto>(category);
     }
 
-    // Удаление категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public async Task DeleteCategory(int categoryId)
     {
         var category = await _db.Categories.FindAsync(categoryId);
@@ -277,26 +471,26 @@ public class ProductService : IProductService
 
     // ------------------ ATTRIBUTES ------------------
 
-    // Получение всех атрибутов 
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
     public async Task<IEnumerable<AttributeDto>> GetAllAttributes()
     {
-        // Загружаем все атрибуты из базы
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
         var attributes = await _db.AttributeEntity
-            .AsNoTracking() // для ускорения — данные только читаются
+            .AsNoTracking() // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .ToListAsync();
 
-        // Маппим сущности в DTO
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ DTO
         return _mapper.Map<IEnumerable<AttributeDto>>(attributes);
     }
 
-    // Получение атрибута по ID
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ ID
     public async Task<AttributeDto?> GetAttributeById(int attributeId)
     {
         var attribute = await _db.AttributeEntity.FindAsync(attributeId);
         return _mapper.Map<AttributeDto?>(attribute);
     }
 
-    // Создание нового атрибута
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public async Task<AttributeDto> CreateAttribute(AttributeDto attributeDto)
     {
         var attribute = _mapper.Map<AttributeEntity>(attributeDto);
@@ -304,8 +498,29 @@ public class ProductService : IProductService
         await _db.SaveChangesAsync();
         return _mapper.Map<AttributeDto>(attribute);
     }
+    
+    /*
+public async Task<ProductDto> CreateProduct(ProductDto productDto)
+{
+    using (var transaction = await _db.Database.BeginTransactionAsync())
+    {
+        try
+        {
+            // Р’Р°Р»РёРґР°С†РёСЏ РєР°С‚РµРіРѕСЂРёРё
+            // РџСЂРѕРІРµСЂРєР° РѕР±СЏР·Р°С‚РµР»СЊРЅС‹С… Р°С‚СЂРёР±СѓС‚РѕРІ
+            // РўСЂР°РЅР·Р°РєС†РёСЏ РґР»СЏ С†РµР»РѕСЃС‚РЅРѕСЃС‚Рё РґР°РЅРЅС‹С…
+            await transaction.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
+}
+*/
 
-    // Обновление атрибута
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public async Task<AttributeDto?> UpdateAttribute(int attributeId, AttributeDto attributeDto)
     {
         var attribute = await _db.AttributeEntity.FindAsync(attributeId);
@@ -316,58 +531,114 @@ public class ProductService : IProductService
         return _mapper.Map<AttributeDto>(attribute);
     }
 
-    // Удаление атрибута
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public async Task DeleteAttribute(int attributeId)
     {
-        // Загружаем атрибут вместе с его значениями
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         var attribute = await _db.AttributeEntity
-            .Include(a => a.AttributeValues) // все ProductAttributeValues
-            .Include(a => a.CategoryAttributes) // все связи с категориями
+            .Include(a => a.AttributeValues) // пїЅпїЅпїЅ ProductAttributeValues
+            .Include(a => a.CategoryAttributes) // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             .FirstOrDefaultAsync(a => a.Id == attributeId);
 
         if (attribute != null)
         {
-            // Удаляем все значения атрибута у товаров
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (attribute.AttributeValues.Any())
                 _db.ProductAttributeValues.RemoveRange(attribute.AttributeValues);
 
-            // Удаляем все связи с категориями
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (attribute.CategoryAttributes.Any())
                 _db.CategoryAttributes.RemoveRange(attribute.CategoryAttributes);
 
-            // Удаляем сам атрибут
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             _db.AttributeEntity.Remove(attribute);
 
             await _db.SaveChangesAsync();
         }
     }
+    
+    // =============================================================================
+    // Р“Р›РћР‘РђР›Р¬РќРђРЇ РџР РћР”РђРљРЁР•Рќ: РЈРґР°Р»РµРЅРёРµ СЃ РїСЂРѕРІРµСЂРєРѕР№ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ (Р·Р°РєРѕРјРјРµРЅС‚РёСЂРѕРІР°РЅРѕ)
+    // =============================================================================
+    /*
+    public async Task DeleteAttribute(int attributeId)
+    {
+        using (var transaction = await _db.Database.BeginTransactionAsync())
+        {
+            try
+            {
+                var attribute = await _db.AttributeEntity
+                    .Include(a => a.AttributeValues)
+                    .Include(a => a.CategoryAttributes)
+                    .FirstOrDefaultAsync(a => a.Id == attributeId);
+
+                if (attribute == null)
+                {
+                    _logger.LogWarning($"Attribute {attributeId} not found");
+                    return;
+                }
+
+                // РџСЂРѕРІРµСЂСЏРµРј РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Р»Рё Р°С‚СЂРёР±СѓС‚ РІ С‚РѕРІР°СЂР°С…
+                if (attribute.AttributeValues != null && attribute.AttributeValues.Any())
+                {
+                    var productsCount = attribute.AttributeValues.Select(av => av.ProductId).Distinct().Count();
+                    _logger.LogWarning($"Cannot delete attribute {attributeId}: used in {productsCount} products");
+                    throw new InvalidOperationException($"Cannot delete attribute: it's used in {productsCount} products");
+                }
+
+                // РЎРЅР°С‡Р°Р»Р° СѓРґР°Р»СЏРµРј СЃРІСЏР·Рё СЃ РєР°С‚РµРіРѕСЂРёСЏРјРё
+                if (attribute.CategoryAttributes != null && attribute.CategoryAttributes.Any())
+                {
+                    _db.CategoryAttributes.RemoveRange(attribute.CategoryAttributes);
+                    _logger.LogInformation($"Removed {attribute.CategoryAttributes.Count} category-attribute links");
+                }
+
+                // Р—Р°С‚РµРј СѓРґР°Р»СЏРµРј СЃР°Рј Р°С‚СЂРёР±СѓС‚
+                _db.AttributeEntity.Remove(attribute);
+                await _db.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                _logger.LogInformation($"Attribute {attributeId} deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error deleting attribute {attributeId}");
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+    }
+    */
 
     // ------------------ CATEGORY ATTRIBUTES ------------------
 
-    // Привязка атрибута к категории
+    // =============================================================================
+    // Р›РћРљРђР›Р¬РќРђРЇ Р РђР—Р РђР‘РћРўРљРђ: РџСЂРѕСЃС‚РѕРµ РґРѕР±Р°РІР»РµРЅРёРµ Р°С‚СЂРёР±СѓС‚Р° Рє РєР°С‚РµРіРѕСЂРёРё (С‚РµРєСѓС‰Р°СЏ)
+    // =============================================================================
+    // РџСЂРёРІСЏР·Р°С‚СЊ Р°С‚СЂРёР±СѓС‚ Рє РєР°С‚РµРіРѕСЂРёРё
     public async Task<CategoryAttributeDto> AssignAttributeToCategory(int categoryId, int attributeId, bool isRequired, int orderIndex)
     {
-        // Проверяем, есть ли уже такая привязка
+        // РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё СѓР¶Рµ С‚Р°РєР°СЏ СЃРІСЏР·РєР°
         var existing = await _db.CategoryAttributes
             .FirstOrDefaultAsync(ca => ca.CategoryId == categoryId && ca.AttributeId == attributeId);
 
         if (existing != null)
         {
-            // Если есть, обновляем параметры
+            // Р•СЃР»Рё РµСЃС‚СЊ, РѕР±РЅРѕРІР»СЏРµРј РїР°СЂР°РјРµС‚СЂС‹
             existing.IsRequired = isRequired;
             existing.OrderIndex = orderIndex;
             await _db.SaveChangesAsync();
             return _mapper.Map<CategoryAttributeDto>(existing);
         }
 
-        // Если нет, создаём новую
+        // Р•СЃР»Рё РЅРµС‚, СЃРѕР·РґР°С‘Рј РЅРѕРІСѓСЋ
         var categoryAttribute = new CategoryAttribute
         {
             CategoryId = categoryId,
             AttributeId = attributeId,
             IsRequired = isRequired,
             OrderIndex = orderIndex,
-            Status = ModerationStatus.Pending // по умолчанию в ожидании модерации
+            Status = ModerationStatus.Pending
         };
 
         _db.CategoryAttributes.Add(categoryAttribute);
@@ -375,7 +646,61 @@ public class ProductService : IProductService
         return _mapper.Map<CategoryAttributeDto>(categoryAttribute);
     }
 
-    // Удаление привязки атрибута от категории
+    // =============================================================================
+    // Р“Р›РћР‘РђР›Р¬РќРђРЇ РџР РћР”РђРљРЁР•Рќ: РџСЂРёРІСЏР·РєР° Р°С‚СЂРёР±СѓС‚Р° СЃ С‚СЂР°РЅР·Р°РєС†РёРµР№ (Р·Р°РєРѕРјРјРµРЅС‚РёСЂРѕРІР°РЅРѕ)
+    // =============================================================================
+    /*
+    public async Task<CategoryAttributeDto> AssignAttributeToCategory(int categoryId, int attributeId, bool isRequired, int orderIndex)
+    {
+        using (var transaction = await _db.Database.BeginTransactionAsync())
+        {
+            try
+            {
+                // Р‘Р»РѕРєРёСЂСѓРµРј Р·Р°РїРёСЃСЊ РґР»СЏ РїСЂРѕРІРµСЂРєРё (РІ PostgreSQL - FOR UPDATE)
+                var existing = await _db.CategoryAttributes
+                    .Where(ca => ca.CategoryId == categoryId && ca.AttributeId == attributeId)
+                    .FirstOrDefaultAsync();
+
+                if (existing != null)
+                {
+                    // РћР±РЅРѕРІР»СЏРµРј СЃСѓС‰РµСЃС‚РІСѓСЋС‰СѓСЋ СЃРІСЏР·СЊ
+                    existing.IsRequired = isRequired;
+                    existing.OrderIndex = orderIndex;
+                    await _db.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    
+                    _logger.LogInformation($"Updated category-attribute link: CategoryId={categoryId}, AttributeId={attributeId}");
+                    return _mapper.Map<CategoryAttributeDto>(existing);
+                }
+
+                // РЎРѕР·РґР°РµРј РЅРѕРІСѓСЋ СЃРІСЏР·СЊ
+                var categoryAttribute = new CategoryAttribute
+                {
+                    CategoryId = categoryId,
+                    AttributeId = attributeId,
+                    IsRequired = isRequired,
+                    OrderIndex = orderIndex,
+                    Status = ModerationStatus.Approved // РќР° РїСЂРѕРґР°РєС€РµРЅРµ РјРѕР¶РЅРѕ СЃСЂР°Р·Сѓ РѕРґРѕР±СЂСЏС‚СЊ
+                };
+
+                _db.CategoryAttributes.Add(categoryAttribute);
+                await _db.SaveChangesAsync();
+                await transaction.CommitAsync();
+                
+                _logger.LogInformation($"Created category-attribute link: CategoryId={categoryId}, AttributeId={attributeId}");
+                return _mapper.Map<CategoryAttributeDto>(categoryAttribute);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error assigning attribute {attributeId} to category {categoryId}");
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+    }
+    */
+
+    // РЈРґР°Р»РёС‚СЊ РїСЂРёРІСЏР·РєСѓ Р°С‚СЂРёР±СѓС‚Р° РѕС‚ РєР°С‚РµРіРѕСЂРёРё
     public async Task RemoveAttributeFromCategory(int categoryId, int attributeId)
     {
         var categoryAttribute = await _db.CategoryAttributes
@@ -388,14 +713,36 @@ public class ProductService : IProductService
         }
     }
 
-    // Получение всех атрибутов категории
+    // РџРѕР»СѓС‡РµРЅРёРµ РІСЃРµС… Р°С‚СЂРёР±СѓС‚РѕРІ РєР°С‚РµРіРѕСЂРёРё
     public async Task<IEnumerable<CategoryAttributeDto>> GetCategoryAttributes(int categoryId)
     {
         var attributes = await _db.CategoryAttributes
-            .Include(ca => ca.Attribute) // подгружаем сам атрибут
+            .Include(ca => ca.Attribute) // РџРѕРґРіСЂСѓР¶Р°РµРј СЃР°Рј Р°С‚СЂРёР±СѓС‚
             .Where(ca => ca.CategoryId == categoryId)
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<CategoryAttributeDto>>(attributes);
+    }
+
+    // РџРѕР»СѓС‡РµРЅРёРµ Р°С‚СЂРёР±СѓС‚РѕРІ РєР°С‚РµРіРѕСЂРёРё СЃ РїРѕР»РЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРµР№ (РґР»СЏ UI С„РѕСЂРј)
+    public async Task<IEnumerable<CategoryAttributeFullDto>> GetCategoryAttributesWithDetails(int categoryId)
+    {
+        var attributes = await _db.CategoryAttributes
+            .Include(ca => ca.Attribute)
+            .Where(ca => ca.CategoryId == categoryId)
+            .OrderBy(ca => ca.OrderIndex)
+            .ToListAsync();
+
+        return attributes.Select(ca => new CategoryAttributeFullDto
+        {
+            AttributeId = ca.AttributeId,
+            AttributeName = ca.Attribute.Name,
+            DisplayName = ca.Attribute.DisplayName,
+            Type = ca.Attribute.Type,
+            TypeDisplayName = ca.Attribute.TypeDisplayName,
+            OptionsJson = ca.Attribute.OptionsJson,
+            IsRequired = ca.IsRequired,
+            OrderIndex = ca.OrderIndex
+        });
     }
 }

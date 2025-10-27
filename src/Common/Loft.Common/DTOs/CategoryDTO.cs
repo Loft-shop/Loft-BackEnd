@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Loft.Common.Enums;
 
 namespace Loft.Common.DTOs
@@ -12,17 +13,29 @@ namespace Loft.Common.DTOs
         public ModerationStatus? Status { get; set; }
 
         public int? ViewCount { get; set; }
-
-        // Атрибуты категории (какие атрибуты можно использовать для товаров)
+        
         public ICollection<CategoryAttributeDto>? Attributes { get; set; }
-
-        // Опционально: список подкатегорий
+        
         public ICollection<CategoryDto>? SubCategories { get; set; }
     }
 
     public class CategoryAttributeDto
     {
         public int AttributeId { get; set; }
+        public string AttributeName { get; set; } = null!;
+        public bool IsRequired { get; set; }
+        public int OrderIndex { get; set; }
+    }
+    
+    // РџРѕР»РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°С‚СЂРёР±СѓС‚Рµ РєР°С‚РµРіРѕСЂРёРё (РІРєР»СЋС‡Р°СЏ С‚РёРї, РѕРїС†РёРё Рё С‚.Рґ.)
+    public class CategoryAttributeFullDto
+    {
+        public int AttributeId { get; set; }
+        public string AttributeName { get; set; } = null!;
+        public string DisplayName { get; set; } = null!;
+        public AttributeType Type { get; set; }
+        public string TypeDisplayName { get; set; } = null!;
+        public string? OptionsJson { get; set; }
         public bool IsRequired { get; set; }
         public int OrderIndex { get; set; }
     }

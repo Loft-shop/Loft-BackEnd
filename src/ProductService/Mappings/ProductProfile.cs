@@ -13,7 +13,7 @@ namespace ProductService.Mappings
                 .ForMember(dest => dest.AttributeValues, opt => opt.MapFrom(src => src.AttributeValues))
                 .ForMember(dest => dest.MediaFiles, opt => opt.MapFrom(src => src.MediaFiles))
                 .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments))
-                .ReverseMap(); // двусторонний маппинг
+                .ReverseMap(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
             // ---------------- PRODUCT ATTRIBUTE VALUE ----------------
             CreateMap<ProductAttributeValue, ProductAttributeValueDto>()
@@ -34,8 +34,10 @@ namespace ProductService.Mappings
                 .ForMember(dest => dest.SubCategories, opt => opt.MapFrom(src => src.SubCategories))
                 .ReverseMap();
 
-            //  ---------------- ATTRIBUTE ENTITY ----------------
-            CreateMap<CategoryAttribute, CategoryAttributeDto>().ReverseMap();
+            // ---------------- CATEGORY ATTRIBUTE ----------------
+            CreateMap<CategoryAttribute, CategoryAttributeDto>()
+                .ForMember(dest => dest.AttributeName, opt => opt.MapFrom(src => src.Attribute.Name))
+                .ReverseMap();
 
             // ---------------- ATTRIBUTE ENTITY ----------------
             CreateMap<AttributeEntity, AttributeDto>().ReverseMap();

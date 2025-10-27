@@ -1,4 +1,6 @@
-﻿using System.Buffers;
+﻿using System;
+using System.Buffers;
+using System.Collections.Generic;
 using Loft.Common.Enums;
 
 namespace ProductService.Entities

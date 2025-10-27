@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ProductService.Entities;
 
 namespace ProductService.Data;
@@ -10,25 +9,25 @@ public class ProductDbContext : DbContext
     {
     }
 
-    // Таблица товаров
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public DbSet<Product> Products { get; set; }
 
-    // Таблица категорий
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public DbSet<Category> Categories { get; set; }
 
-    // Таблица значений атрибутов товаров
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
 
-    // Таблица связи категорий и атрибутов
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public DbSet<CategoryAttribute> CategoryAttributes { get; set; }
 
-    // Таблица медиафайлов (изображения и видео товаров и комментариев)
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
     public DbSet<MediaFile> MediaFiles { get; set; }
 
-    // Таблица комментариев к товарам
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public DbSet<Comment> Comments { get; set; }
 
-    // Таблица атрибутов (например: цвет, размер, материал)
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
     public DbSet<AttributeEntity> AttributeEntity { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,139 +37,139 @@ public class ProductDbContext : DbContext
         // ---------------- PRODUCT ----------------
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(p => p.Id); // Первичный ключ
+            entity.HasKey(p => p.Id); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-            // Связь один-ко-многим: Product -> Category
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ: Product -> Category
             entity.HasOne(p => p.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict); // Не удалять категорию вместе с товаром
+                .OnDelete(DeleteBehavior.Restrict); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь один-ко-многим: Product -> ProductAttributeValue
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ: Product -> ProductAttributeValue
             entity.HasMany(p => p.AttributeValues)
                 .WithOne(a => a.Product)
                 .HasForeignKey(a => a.ProductId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять все атрибуты товара при удалении товара
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь один-ко-многим: Product -> MediaFiles
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ: Product -> MediaFiles
             entity.HasMany(p => p.MediaFiles)
                 .WithOne(m => m.Product)
                 .HasForeignKey(m => m.ProductId)
-                .OnDelete(DeleteBehavior.Cascade); //  удалять медиа при удалении товара
+                .OnDelete(DeleteBehavior.Cascade); //  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь один-ко-многим: Product -> Comments
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ: Product -> Comments
             entity.HasMany(p => p.Comments)
                 .WithOne(c => c.Product)
                 .HasForeignKey(c => c.ProductId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять комментарии при удалении товара
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         });
 
         // ---------------- CATEGORY ----------------
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(c => c.Id); // Первичный ключ
+            entity.HasKey(c => c.Id); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-            // Связь один-ко-многим: Category -> Products
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ: Category -> Products
             entity.HasMany(c => c.Products)
                 .WithOne(p => p.Category)
                 .HasForeignKey(p => p.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict); // Не удалять товары при удалении категории
+                .OnDelete(DeleteBehavior.Restrict); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь один-ко-многим: Category -> CategoryAttributes
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ: Category -> CategoryAttributes
             entity.HasMany(c => c.CategoryAttributes)
                 .WithOne(ca => ca.Category)
                 .HasForeignKey(ca => ca.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять связи при удалении категории
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь сам с собой для подкатегорий
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(c => c.ParentCategory)
                 .WithMany(c => c.SubCategories)
                 .HasForeignKey(c => c.ParentCategoryId)
-                .OnDelete(DeleteBehavior.Restrict); // Не удалять родительскую категорию вместе с дочерними
+                .OnDelete(DeleteBehavior.Restrict); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         });
 
         // ---------------- CATEGORY ATTRIBUTE ----------------
         modelBuilder.Entity<CategoryAttribute>(entity =>
         {
-            entity.HasKey(ca => ca.Id); // Первичный ключ
+            entity.HasKey(ca => ca.Id); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-            // Связь с категорией
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(ca => ca.Category)
                 .WithMany(c => c.CategoryAttributes)
                 .HasForeignKey(ca => ca.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять связи при удалении категории
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь с атрибутом
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(ca => ca.Attribute)
                 .WithMany(a => a.CategoryAttributes)
                 .HasForeignKey(ca => ca.AttributeId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять связи при удалении атрибута
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         });
 
         // ---------------- PRODUCT ATTRIBUTE VALUE ----------------
         modelBuilder.Entity<ProductAttributeValue>(entity =>
         {
-            entity.HasKey(pav => pav.Id); // Первичный ключ
+            entity.HasKey(pav => pav.Id); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-            // Связь с товаром
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(pav => pav.Product)
                 .WithMany(p => p.AttributeValues)
                 .HasForeignKey(pav => pav.ProductId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять значения атрибутов при удалении товара
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь с атрибутом
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(pav => pav.Attribute)
                 .WithMany(a => a.AttributeValues)
                 .HasForeignKey(pav => pav.AttributeId)
-                .OnDelete(DeleteBehavior.Restrict); // Не удалять атрибут при удалении значения
+                .OnDelete(DeleteBehavior.Restrict); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         });
 
         // ---------------- MEDIA FILE ----------------
         modelBuilder.Entity<MediaFile>(entity =>
         {
-            entity.HasKey(m => m.Id); // Первичный ключ
+            entity.HasKey(m => m.Id); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-            // Связь с товаром
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(m => m.Product)
                 .WithMany(p => p.MediaFiles)
                 .HasForeignKey(m => m.ProductId)
-                .OnDelete(DeleteBehavior.NoAction); // не удалять медиа при удалении товара
+                .OnDelete(DeleteBehavior.NoAction); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь с комментарием
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(m => m.Comment)
                 .WithMany(c => c.MediaFiles)
                 .HasForeignKey(m => m.CommentId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять медиа при удалении комментария
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         });
 
         // ---------------- COMMENT ----------------
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(c => c.Id); // Первичный ключ
+            entity.HasKey(c => c.Id); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-            // Связь с товаром
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             entity.HasOne(c => c.Product)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.ProductId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять комментарии при удалении товара
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         });
 
         // ---------------- ATTRIBUTE ENTITY ----------------
         modelBuilder.Entity<AttributeEntity>(entity =>
         {
-            entity.HasKey(a => a.Id); // Первичный ключ
+            entity.HasKey(a => a.Id); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
-            // Связь с CategoryAttributes
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ CategoryAttributes
             entity.HasMany(a => a.CategoryAttributes)
                 .WithOne(ca => ca.Attribute)
                 .HasForeignKey(ca => ca.AttributeId)
-                .OnDelete(DeleteBehavior.Cascade); // Удалять связи при удалении атрибута
+                .OnDelete(DeleteBehavior.Cascade); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-            // Связь с ProductAttributeValues
+            // пїЅпїЅпїЅпїЅпїЅ пїЅ ProductAttributeValues
             entity.HasMany(a => a.AttributeValues)
                 .WithOne(av => av.Attribute)
                 .HasForeignKey(av => av.AttributeId)
-                .OnDelete(DeleteBehavior.Restrict); // Не удалять атрибут при удалении значения
+                .OnDelete(DeleteBehavior.Restrict); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         });
     }
 }

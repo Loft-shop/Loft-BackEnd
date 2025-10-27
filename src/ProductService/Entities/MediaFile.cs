@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using System;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using System.Buffers;
 using Loft.Common.Enums;
 

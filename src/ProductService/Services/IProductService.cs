@@ -1,5 +1,6 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Loft.Common.DTOs;
-using Loft.Common.Enums;
 using ProductService.Entities;
 
 namespace ProductService.Services;
@@ -13,51 +14,56 @@ public interface IProductService
 
     Task<ProductDto> CreateProduct(ProductDto product);
 
-    Task<ProductDto?> UpdateProduct(int productId, ProductDto product);
+    Task<ProductDto?> UpdateProduct(int productId, ProductDto product, int? currentUserId = null);
 
-    Task DeleteProduct(int productId);
+    Task<bool> DeleteProduct(int productId, int? currentUserId = null);
+    
+    Task<bool> CanUserModifyProduct(int productId, int userId);
 
 
     // ------------------ CATEGORIES ------------------
-    // Получение всех категорий (с пагинацией или фильтром по родителю)
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
     Task<IEnumerable<CategoryDto>> GetAllCategories();
 
-    // Получение категории по ID
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ ID
     Task<CategoryDto?> GetCategoryById(int categoryId);
 
-    // Создание новой категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task<CategoryDto> CreateCategory(CategoryDto category);
 
-    // Обновление существующей категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task<CategoryDto?> UpdateCategory(int categoryId, CategoryDto category);
 
-    // Удаление категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task DeleteCategory(int categoryId);
 
 
     // ------------------ ATTRIBUTES ------------------
-    // Получение всех атрибутов
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task<IEnumerable<AttributeDto>> GetAllAttributes();
 
-    // Получение атрибута по ID
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ ID
     Task<AttributeDto?> GetAttributeById(int attributeId);
 
-    // Создание нового атрибута
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task<AttributeDto> CreateAttribute(AttributeDto attribute);
 
-    // Обновление атрибута
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task<AttributeDto?> UpdateAttribute(int attributeId, AttributeDto attribute);
 
-    // Удаление атрибута
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task DeleteAttribute(int attributeId);
 
     // ------------------ CATEGORY ATTRIBUTES ------------------
-    // Привязка атрибута к категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task<CategoryAttributeDto> AssignAttributeToCategory(int categoryId, int attributeId, bool isRequired, int orderIndex);
 
-    // Удаление привязки атрибута от категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task RemoveAttributeFromCategory(int categoryId, int attributeId);
 
-    // Получение атрибутов категории
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     Task<IEnumerable<CategoryAttributeDto>> GetCategoryAttributes(int categoryId);
+    
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ t.)
+    Task<IEnumerable<CategoryAttributeFullDto>> GetCategoryAttributesWithDetails(int categoryId);
 }

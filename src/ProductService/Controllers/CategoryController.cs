@@ -1,4 +1,5 @@
-﻿using Loft.Common.DTOs;
+﻿using System.Threading.Tasks;
+using Loft.Common.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Services;
@@ -80,6 +81,14 @@ namespace ProductService.Controllers
         {
             var attributes = await _service.GetCategoryAttributes(id);
             return Ok(attributes);
+        }
+
+        // Получение полной информации об атрибутах для категории (включая детали атрибутов)
+        [HttpGet("{id}/attributes/full")]
+        public async Task<IActionResult> GetAttributesWithDetails(int id)
+        {
+            var attributesWithDetails = await _service.GetCategoryAttributesWithDetails(id);
+            return Ok(attributesWithDetails);
         }
     }
 }

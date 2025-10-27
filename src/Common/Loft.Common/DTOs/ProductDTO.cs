@@ -1,6 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Loft.Common.Enums;
 
-// DTO для отображения товара (чтение)
 namespace Loft.Common.DTOs
 {
     public class ProductDto
@@ -18,14 +19,18 @@ namespace Loft.Common.DTOs
         public ModerationStatus? Status { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-
-        // Атрибуты товара
+        
+        // РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїСЂРѕРґР°РІС†Рµ
+        public string? SellerName { get; set; }
+        public string? SellerEmail { get; set; }
+        
+        // РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєР°С‚РµРіРѕСЂРёРё
+        public CategoryDto? Category { get; set; }
+        
         public ICollection<ProductAttributeValueDto>? AttributeValues { get; set; }
-
-        // Медиа-файлы
+        
         public ICollection<MediaFileDto>? MediaFiles { get; set; }
-
-        // Комментарии (опционально)
+        
         public ICollection<CommentDto>? Comments { get; set; }
     }
 

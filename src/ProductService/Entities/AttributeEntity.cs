@@ -1,4 +1,5 @@
 ﻿using System.Buffers;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Loft.Common.Enums;
 
@@ -11,6 +12,9 @@ namespace ProductService.Entities
 
         public string Name { get; set; } = null!;
         // Техническое название атрибута 
+
+        public string DisplayName { get; set; } = null!;
+        // Отображаемое имя атрибута для пользователя 
 
         public AttributeType Type { get; set; }
         // Тип данных: String (строка), Number (число), List (список вариантов)

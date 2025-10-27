@@ -1,5 +1,7 @@
+using System;
 using Loft.Common.Enums;
 using System.Buffers;
+using System.Collections.Generic;
 using UserService.Entities;
 
 namespace ProductService.Entities
@@ -7,54 +9,54 @@ namespace ProductService.Entities
     public class Product
     {
         public int Id { get; set; }
-        // Уникальный идентификатор товара (PK)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (PK)
 
         public int IdUser { get; set; }
-        // Уникальный идентификатор пользователя
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
         public int CategoryId { get; set; }
-        // FK на категорию товара
+        // FK пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public Category Category { get; set; } = null!;
-        // Навигационное свойство на категорию
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
         public string Name { get; set; } = null!;
-        // Название товара
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public string? Description { get; set; }
-        // Описание товара
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public ProductType Type { get; set; }
-        // Тип товара: Physical (физический), Digital (цифровой)
+        // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: Physical (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ), Digital (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 
         public decimal Price { get; set; }
-        // Цена товара
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public CurrencyType Currency { get; set; }
-        // Валюта цены: UAH, USD
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: UAH, USD
 
         public int Quantity { get; set; }
-        // Количество на складе
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public int ViewCount { get; set; } = 0;
-        // Счётчик просмотров товара
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public ModerationStatus Status { get; set; }
-        // Статус товара: Pending / Approved / Rejected / Sold
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: Pending / Approved / Rejected / Sold
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        // Дата создания товара
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-        // Дата последнего обновления
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
         public ICollection<ProductAttributeValue>? AttributeValues { get; set; }
-        // Значения атрибутов товара
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public ICollection<MediaFile>? MediaFiles { get; set; }
-        // Изображения и видео товара
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
         public ICollection<Comment>? Comments { get; set; }
-        // Комментарии к товару
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     }
 }

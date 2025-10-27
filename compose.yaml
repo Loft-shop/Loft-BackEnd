@@ -11,6 +11,7 @@ services:
       POSTGRES_DB: test_loft_shop
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./scripts/postgres-init:/docker-entrypoint-initdb.d:ro
     networks:
       - loftnet
     healthcheck:
