@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "R7ZtdNL1DIXXcc17FXQ+UZLzm5xnCaL7QnDanph1f6s=",
+  "Source": "monolith-version",
+  "BasePath": "_content/monolith-version",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "monolith-version\\wwwroot",
+      "Source": "monolith-version",
+      "ContentRoot": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\wwwroot\\",
+      "BasePath": "_content/monolith-version",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

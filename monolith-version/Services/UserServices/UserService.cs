@@ -5,6 +5,8 @@ using monolith_version.Data;
 using monolith_version.DTOs;
 using monolith_version.Models.Entities;
 using monolith_version.Models.Enums;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace monolith_version.Services.UserServices;
 
@@ -54,7 +56,7 @@ public class UserService : IUserService
             LastName = userDto.LastName,
             AvatarUrl = userDto.AvatarUrl,
             Phone = userDto.Phone,
-            Role = Enum.TryParse<Role>(userDto.Role, out var role) ? role : Role.CUSTOMER,
+            Role = userDto.Role,
             CanSell = userDto.CanSell
         };
 

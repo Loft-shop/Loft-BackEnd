@@ -1,0 +1,653 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\controllers\\userscontroller\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\controllers\\userscontroller\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\services\\userservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\services\\userservices\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\services\\userservices\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\services\\userservices\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\controllers\\productscontroller\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\controllers\\productscontroller\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\services\\userservices\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\services\\userservices\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\controllers\\moderationcontroller\\moderationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\controllers\\moderationcontroller\\moderationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\controllers\\categorycontroller\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\controllers\\categorycontroller\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\enums\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\enums\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\mappings\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\mappings\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\controllers\\userscontroller\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\controllers\\userscontroller\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\services\\productservices\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\services\\productservices\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\controllers\\attributecontroller\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\controllers\\attributecontroller\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\mappings\\productprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\mappings\\productprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\services\\userservices\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\services\\userservices\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\services\\productservices\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\services\\productservices\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\enums\\moderationstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\enums\\moderationstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\productfilterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\productfilterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\shippingaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\shippingaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\monolith-version.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\monolith-version.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\categoryattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\categoryattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\attributeentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\attributeentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\mediafile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\mediafile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\models\\entities\\productattributevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\models\\entities\\productattributevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\productattributefilterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\productattributefilterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\cartdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\cartitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\cartitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|d:\\loft\\loft-backend_monolit\\loft-backend\\monolith-version\\dtos\\paymentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9F26DE5-252E-4D53-8FD7-D8CEA1575811}|monolith-version\\monolith-version.csproj|solutionrelative:monolith-version\\dtos\\paymentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\User.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\User.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\User.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAIwAoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:19:02.91Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Controllers\\BaseController.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "monolith-version\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T16:32:12.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\TokenService.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Services\\UserServices\\TokenService.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\TokenService.cs",
+              "RelativeToolTip": "monolith-version\\Services\\UserServices\\TokenService.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAcwD4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:32:05.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\UserService.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Services\\UserServices\\UserService.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\UserService.cs",
+              "RelativeToolTip": "monolith-version\\Services\\UserServices\\UserService.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAAAIsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:30:37.823Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\UsersController\\UsersController.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Controllers\\UsersController\\UsersController.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\UsersController\\UsersController.cs",
+              "RelativeToolTip": "monolith-version\\Controllers\\UsersController\\UsersController.cs",
+              "ViewState": "AgIAAI4AAAAAAAAAAAAswJAAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T11:06:04.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\ProductsController\\ProductsController.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Controllers\\ProductsController\\ProductsController.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\ProductsController\\ProductsController.cs",
+              "RelativeToolTip": "monolith-version\\Controllers\\ProductsController\\ProductsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:28:51.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\IUserService.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Services\\UserServices\\IUserService.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\IUserService.cs",
+              "RelativeToolTip": "monolith-version\\Services\\UserServices\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T13:35:52.991Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ModerationController.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\ModerationController\\ModerationController.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Controllers\\ModerationController\\ModerationController.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\ModerationController\\ModerationController.cs",
+              "RelativeToolTip": "monolith-version\\Controllers\\ModerationController\\ModerationController.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAYwCsAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:56:16.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\CategoryController\\CategoryController.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Controllers\\CategoryController\\CategoryController.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\CategoryController\\CategoryController.cs",
+              "RelativeToolTip": "monolith-version\\Controllers\\CategoryController\\CategoryController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:28:22.185Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Role.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Enums\\Role.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Enums\\Role.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Enums\\Role.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Enums\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T10:56:32.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Program.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Program.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Program.cs",
+              "RelativeToolTip": "monolith-version\\Program.cs",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAkwFcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:29:41.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AttributeController.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\AttributeController\\AttributeController.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Controllers\\AttributeController\\AttributeController.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\AttributeController\\AttributeController.cs",
+              "RelativeToolTip": "monolith-version\\Controllers\\AttributeController\\AttributeController.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAcwEwAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:27:56.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserProfile.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Mappings\\UserProfile.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Mappings\\UserProfile.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Mappings\\UserProfile.cs",
+              "RelativeToolTip": "monolith-version\\Mappings\\UserProfile.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAqwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:41:06.556Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserDTO.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\UserDTO.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\UserDTO.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\UserDTO.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\UserDTO.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAswCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:52:32.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\UsersController\\AuthController.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Controllers\\UsersController\\AuthController.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Controllers\\UsersController\\AuthController.cs",
+              "RelativeToolTip": "monolith-version\\Controllers\\UsersController\\AuthController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAwwB8AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:28:18.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\ProductServices\\ProductService.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Services\\ProductServices\\ProductService.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\ProductServices\\ProductService.cs",
+              "RelativeToolTip": "monolith-version\\Services\\ProductServices\\ProductService.cs",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAAAK0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:48:28.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\appsettings.json",
+              "RelativeDocumentMoniker": "monolith-version\\appsettings.json",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\appsettings.json",
+              "RelativeToolTip": "monolith-version\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-27T14:30:53.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ProductProfile.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Mappings\\ProductProfile.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Mappings\\ProductProfile.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Mappings\\ProductProfile.cs",
+              "RelativeToolTip": "monolith-version\\Mappings\\ProductProfile.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAMAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:40:44.88Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\ProductServices\\IProductService.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Services\\ProductServices\\IProductService.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\ProductServices\\IProductService.cs",
+              "RelativeToolTip": "monolith-version\\Services\\ProductServices\\IProductService.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAqwEAAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:50:57.611Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ITokenService.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\ITokenService.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Services\\UserServices\\ITokenService.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Services\\UserServices\\ITokenService.cs",
+              "RelativeToolTip": "monolith-version\\Services\\UserServices\\ITokenService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:22:22.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ModerationStatus.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Enums\\ModerationStatus.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Enums\\ModerationStatus.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Enums\\ModerationStatus.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Enums\\ModerationStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T12:03:32.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ShippingAddressDTO.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ShippingAddressDTO.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\ShippingAddressDTO.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ShippingAddressDTO.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\ShippingAddressDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:52:30.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ProductFilterDto.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ProductFilterDto.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\ProductFilterDto.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ProductFilterDto.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\ProductFilterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:51:45.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ProductDTO.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ProductDTO.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\ProductDTO.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ProductDTO.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\ProductDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:51:18.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "monolith-version.http",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\monolith-version.http",
+              "RelativeDocumentMoniker": "monolith-version\\monolith-version.http",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\monolith-version.http",
+              "RelativeToolTip": "monolith-version\\monolith-version.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-10-27T07:55:02.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Data\\AppDbContext.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "monolith-version\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:50:44.03Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "CategoryAttribute.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\CategoryAttribute.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\CategoryAttribute.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\CategoryAttribute.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\CategoryAttribute.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAxwB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:09:23.379Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "CategoryDTO.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\CategoryDTO.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\CategoryDTO.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\CategoryDTO.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\CategoryDTO.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAuwBYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:52:00.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\Category.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\Category.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\Category.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAYwCIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:14:25.018Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "AttributeEntity.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\AttributeEntity.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\AttributeEntity.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\AttributeEntity.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\AttributeEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:14:25.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\Comment.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\Comment.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\Comment.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\Comment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:17:44.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "MediaFile.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\MediaFile.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\MediaFile.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\MediaFile.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\MediaFile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:17:57.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\Product.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\Product.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\Product.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:18:01.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "ProductAttributeValue.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\ProductAttributeValue.cs",
+              "RelativeDocumentMoniker": "monolith-version\\Models\\Entities\\ProductAttributeValue.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\Models\\Entities\\ProductAttributeValue.cs",
+              "RelativeToolTip": "monolith-version\\Models\\Entities\\ProductAttributeValue.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:18:41.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ProductAttributeFilterDto.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ProductAttributeFilterDto.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\ProductAttributeFilterDto.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\ProductAttributeFilterDto.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\ProductAttributeFilterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:52:19.625Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "CartDTO.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\CartDTO.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\CartDTO.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\CartDTO.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\CartDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:52:16.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "CartItemDTO.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\CartItemDTO.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\CartItemDTO.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\CartItemDTO.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\CartItemDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:52:14.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "PaymentDTO.cs",
+              "DocumentMoniker": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\PaymentDTO.cs",
+              "RelativeDocumentMoniker": "monolith-version\\DTOs\\PaymentDTO.cs",
+              "ToolTip": "D:\\loft\\Loft-BackEnd_Monolit\\Loft-BackEnd\\monolith-version\\DTOs\\PaymentDTO.cs",
+              "RelativeToolTip": "monolith-version\\DTOs\\PaymentDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:51:28.806Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

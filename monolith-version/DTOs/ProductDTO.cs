@@ -1,6 +1,6 @@
 using monolith_version.Models.Enums;
 
-// DTO ��� ����������� ������ (������)
+// DTO для отображения товара (чтение)
 namespace monolith_version.DTOs
 {
     public class ProductDto
@@ -19,13 +19,13 @@ namespace monolith_version.DTOs
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
-        // �������� ������
+        // Атрибуты товара
         public ICollection<ProductAttributeValueDto>? AttributeValues { get; set; }
 
-        // �����-�����
+        // Медиа-файлы
         public ICollection<MediaFileDto>? MediaFiles { get; set; }
 
-        // ����������� (�����������)
+        // Комментарии (опционально)
         public ICollection<CommentDto>? Comments { get; set; }
     }
 

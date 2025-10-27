@@ -14,4 +14,5 @@ public interface IUserService
     Task<string> GenerateJwt(UserDto user);
     Task<UserDto?> ToggleSellerStatus(long userId);
     Task<bool> CanUserSell(long userId);
+
 }

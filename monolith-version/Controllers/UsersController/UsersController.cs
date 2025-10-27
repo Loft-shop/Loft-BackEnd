@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ namespace monolith_version.Controllers.UsersController;
 
 [ApiController]
 [Route("api/users")]
-public class UsersController : ControllerBase
+public class UsersController : BaseController
 {
     private readonly IUserService _userService;
     private readonly IWebHostEnvironment _env;
@@ -25,12 +26,8 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> GetMyProfile()
     {
         var userId = GetUserIdFromClaims();
-        if (userId == null)
-        {
-            var claims = string.Join(", ", User.Claims.Select(c => $"{c.Type}={c.Value}"));
-            Console.WriteLine($"[UsersController] Available claims: {claims}");
-            return Unauthorized();
-        }
+        if (userId == null) return Unauthorized();
+
         var user = await _userService.GetUserById(userId.Value);
         if (user == null) return NotFound();
         return Ok(user);
@@ -60,9 +57,12 @@ public class UsersController : ControllerBase
 
     [HttpPost("me/avatar")]
     [Authorize]
-    public async Task<IActionResult> UploadAvatar([FromForm] IFormFile avatar)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UploadAvatar([FromForm] UploadAvatarRequest request)
     {
+        var avatar = request.Avatar;
         if (avatar == null || avatar.Length == 0) return BadRequest(new { message = "No file uploaded" });
+
         var userId = GetUserIdFromClaims();
         if (userId == null) return Unauthorized();
 
@@ -71,13 +71,9 @@ public class UsersController : ControllerBase
 
         const long maxBytes = 5 * 1024 * 1024;
         if (!string.IsNullOrEmpty(avatar.ContentType) && !avatar.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
-        {
             return BadRequest(new { message = "Only image files are allowed" });
-        }
         if (avatar.Length > maxBytes)
-        {
             return BadRequest(new { message = "File is too large. Max 5 MB allowed" });
-        }
 
         var webRoot = _env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
         var avatarsDir = Path.Combine(webRoot, "avatars");
@@ -97,24 +93,17 @@ public class UsersController : ControllerBase
             return StatusCode(500, new { message = "Failed to save file", detail = ex.Message });
         }
 
-        try
+        // ”даление старого аватара
+        if (!string.IsNullOrEmpty(existing.AvatarUrl))
         {
-            if (!string.IsNullOrEmpty(existing.AvatarUrl))
-            {
-                var relative = existing.AvatarUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
-                var oldPath = Path.Combine(webRoot, relative);
-                if (System.IO.File.Exists(oldPath))
-                {
-                    try { System.IO.File.Delete(oldPath); } catch { /* ignore */ }
-                }
-            }
+            var oldPath = Path.Combine(webRoot, existing.AvatarUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+            if (System.IO.File.Exists(oldPath)) try { System.IO.File.Delete(oldPath); } catch { }
         }
-        catch { /* ignore */ }
 
         var relativeUrl = $"/avatars/{fileName}";
-        var toUpdate = existing with { AvatarUrl = relativeUrl };
-        var updated = await _userService.UpdateUser(userId.Value, toUpdate);
-        return Ok(new { avatarUrl = relativeUrl, user = updated });
+        var updatedUser = await _userService.UpdateUser(userId.Value, existing with { AvatarUrl = relativeUrl });
+
+        return Ok(new { avatarUrl = relativeUrl, user = updatedUser });
     }
 
     [HttpDelete("me")]
@@ -153,17 +142,32 @@ public class UsersController : ControllerBase
         return Ok(new { userId = id, canSell });
     }
 
-    private long? GetUserIdFromClaims()
+    protected long? GetUserIdFromClaims()
     {
-        var idClaims = User.FindAll(ClaimTypes.NameIdentifier).ToList();
-        foreach (var claim in idClaims)
+        // ѕопробуем несколько общих типов соответственно возможным картам claim-ов:
+        var tryTypes = new[]
         {
-            if (long.TryParse(claim.Value, out var id))
-                return id;
+            ClaimTypes.NameIdentifier, // "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+            "nameid",                  // иногда сокращЄнное им€
+            JwtRegisteredClaimNames.Sub, // "sub"
+            "id",
+            "user_id",
+            ClaimTypes.Name,
+            ClaimTypes.Email
+        };
+
+        foreach (var t in tryTypes)
+        {
+            var claim = User.FindFirst(t)?.Value;
+            if (!string.IsNullOrEmpty(claim) && long.TryParse(claim, out var id)) return id;
         }
-        var altIdClaim = User.FindFirst("nameid")?.Value;
-        if (!string.IsNullOrEmpty(altIdClaim) && long.TryParse(altIdClaim, out var altId))
-            return altId;
+
+        // –езервный метод: найти любой числовой claim в токене
+        foreach (var c in User.Claims)
+        {
+            if (!string.IsNullOrEmpty(c.Value) && long.TryParse(c.Value, out var id)) return id;
+        }
+
         return null;
     }
 }

@@ -29,7 +29,7 @@ public class AuthController : ControllerBase
 
         var name = request.Email.Split('@')[0];
 
-        var userDto = new UserDto(0, name, request.Email, Role.CUSTOMER.ToString(), string.Empty, string.Empty, string.Empty, string.Empty, false);
+        var userDto = new UserDto(0, name, request.Email, Role.CUSTOMER, string.Empty, string.Empty, string.Empty, string.Empty, false);
 
         try
         {
