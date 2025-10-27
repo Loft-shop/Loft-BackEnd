@@ -3098,11 +3098,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/PaymentService.csproj",
+      "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj",
       "projectName": "PaymentService",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/PaymentService.csproj",
+      "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj",
       "packagesPath": "/Users/platon/.nuget/packages/",
-      "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/obj/",
+      "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -3117,8 +3117,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-              "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+            "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+              "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
             }
           }
         }

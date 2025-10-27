@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yQJNS4trf/s=",
+  "dgSpecHash": "1JFhTRXaY+g=",
   "success": true,
-  "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/src/CartService/CartService.csproj",
+  "projectFilePath": "/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/CartService.csproj",
   "expectedPackageFiles": [
     "/Users/platon/.nuget/packages/automapper/15.0.1/automapper.15.0.1.nupkg.sha512",
     "/Users/platon/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -84,9 +84,9 @@
       "code": "NU1608",
       "level": "Warning",
       "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 15.0.1 was resolved.",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/CartService/CartService.csproj",
+      "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/CartService.csproj",
       "warningLevel": 1,
-      "filePath": "/Users/platon/RiderProjects/LoftBackEnd/src/CartService/CartService.csproj",
+      "filePath": "/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/CartService.csproj",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net8.0"

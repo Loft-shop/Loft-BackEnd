@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3OQBzfqUB7E=",
+  "dgSpecHash": "jdOnsKIiQtQ=",
   "success": true,
-  "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj",
+  "projectFilePath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj",
   "expectedPackageFiles": [
     "/Users/platon/.nuget/packages/automapper/15.0.1/automapper.15.0.1.nupkg.sha512",
     "/Users/platon/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -84,9 +84,9 @@
       "code": "NU1608",
       "level": "Warning",
       "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 15.0.1 was resolved.",
-      "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj",
+      "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj",
       "warningLevel": 1,
-      "filePath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj",
+      "filePath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj",
       "libraryId": "AutoMapper",
       "targetGraphs": [
         "net8.0"

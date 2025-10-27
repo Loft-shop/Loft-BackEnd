@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Loft.Common.DTOs; // добавлено для использования UserDTO
 
 namespace UserService.Controllers
 {
@@ -279,6 +280,16 @@ namespace UserService.Controllers
                     error = "Failed to load statistics"
                 });
             }
+        }
+
+        // Публичный эндпойнт: получить пользователя по ID (для межсервисных запросов)
+        [HttpGet("{id:long}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetById(long id)
+        {
+            var user = await _userService.GetUserById(id);
+            if (user == null) return NotFound();
+            return Ok(user);
         }
 
         private long? GetUserIdFromClaims()

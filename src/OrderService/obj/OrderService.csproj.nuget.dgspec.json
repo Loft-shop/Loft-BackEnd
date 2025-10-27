@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/platon/RiderProjects/LoftBackEnd/src/OrderService/OrderService.csproj": {}
+    "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/OrderService.csproj": {}
   },
   "projects": {
-    "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+    "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj",
         "projectName": "Loft.Common",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj",
+        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/obj/",
+        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/OrderService/OrderService.csproj": {
+    "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/OrderService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/OrderService/OrderService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/OrderService.csproj",
         "projectName": "OrderService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/OrderService/OrderService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/OrderService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/OrderService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -84,20 +84,20 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
               },
-              "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/PaymentService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/PaymentService.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj"
               },
-              "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj"
               },
-              "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/ShippingAddressService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/ShippingAddressService.csproj"
               },
-              "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj"
               }
             }
           }
@@ -175,14 +175,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/PaymentService.csproj": {
+    "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/PaymentService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj",
         "projectName": "PaymentService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/PaymentService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/PaymentService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -197,8 +197,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
               }
             }
           }
@@ -276,14 +276,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj": {
+    "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj",
         "projectName": "ProductService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/ProductService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ProductService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -298,11 +298,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
               },
-              "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj"
               }
             }
           }
@@ -380,14 +380,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj": {
+    "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/ShippingAddressService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
         "projectName": "ShippingAddressService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/ShippingAddressService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/ShippingAddressService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -402,8 +402,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj"
               }
             }
           }
@@ -481,14 +481,14 @@
         }
       }
     },
-    "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj": {
+    "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj",
+        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
         "projectName": "UserService",
-        "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj",
+        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
         "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/obj/",
+        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/platon/.nuget/NuGet/NuGet.Config"
@@ -503,8 +503,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/LoftBackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
               }
             }
           }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3QipI016eU8=",
+  "dgSpecHash": "UnTvfju+W3k=",
   "success": true,
-  "projectFilePath": "/Users/platon/RiderProjects/LoftBackEnd/src/UserService/UserService.csproj",
+  "projectFilePath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
   "expectedPackageFiles": [
     "/Users/platon/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/platon/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
