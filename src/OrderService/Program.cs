@@ -23,8 +23,24 @@ namespace OrderService
             var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<OrderDbContext>(options => options.UseNpgsql(defaultConn));
             
-            // Регистрируем сервисы
-            builder.Services.AddScoped<IOrderService, OrderService.Services.OrderService>();
+            // HttpClient для связи с другими микросервисами
+            builder.Services.AddHttpClient("CartService", client =>
+            {
+                var cartServiceUrl = builder.Configuration["Services:CartService"] ?? "http://localhost:5002";
+                client.BaseAddress = new Uri(cartServiceUrl);
+            });
+            
+            builder.Services.AddHttpClient("ProductService", client =>
+            {
+                var productServiceUrl = builder.Configuration["Services:ProductService"] ?? "http://localhost:5001";
+                client.BaseAddress = new Uri(productServiceUrl);
+            });
+            
+            builder.Services.AddHttpClient("UserService", client =>
+            {
+                var userServiceUrl = builder.Configuration["Services:UserService"] ?? "http://localhost:5003";
+                client.BaseAddress = new Uri(userServiceUrl);
+            });
 
             var app = builder.Build();
 

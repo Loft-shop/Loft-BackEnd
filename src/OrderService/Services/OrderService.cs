@@ -32,19 +32,46 @@ public class OrderService : IOrderService
     public async Task<OrderDTO> CreateOrder(OrderDTO orderDto, IEnumerable<OrderItemDTO> items)
     {
         var itemsList = items.ToList();
+        
+        // =============================================================================
+        // НОВАЯ СИСТЕМА: Загружаем полную информацию о товарах для сохранения в заказе
+        // =============================================================================
+        var enrichedItems = new List<OrderItem>();
+        
+        foreach (var itemDto in itemsList)
+        {
+            var orderItem = new OrderItem
+            {
+                ProductId = itemDto.ProductId,
+                Quantity = itemDto.Quantity,
+                Price = itemDto.Price,
+                ProductName = itemDto.ProductName,
+                ProductDescription = itemDto.ProductDescription,
+                CategoryId = itemDto.CategoryId,
+                CategoryName = itemDto.CategoryName
+            };
+            
+            // Если атрибуты переданы, сохраняем их как JSON
+            if (itemDto.AttributeValues != null && itemDto.AttributeValues.Any())
+            {
+                var attributesDict = itemDto.AttributeValues.ToDictionary(
+                    av => av.AttributeId.ToString(), 
+                    av => av.Value
+                );
+                orderItem.ProductAttributesJson = System.Text.Json.JsonSerializer.Serialize(attributesDict);
+            }
+            
+            enrichedItems.Add(orderItem);
+        }
+        
         var order = new Order
         {
             CustomerId = orderDto.CustomerId,
             OrderDate = DateTime.UtcNow,
             Status = OrderStatus.PENDING,
-            TotalAmount = itemsList.Sum(i => i.Quantity * i.Price),
+            TotalAmount = enrichedItems.Sum(i => i.Quantity * i.Price),
             UpdatedDate = DateTime.UtcNow,
-            OrderItems = itemsList.Select(i => new OrderItem
-            {
-                ProductId = i.ProductId,
-                Quantity = i.Quantity,
-                Price = i.Price
-            }).ToList()
+            OrderItems = enrichedItems
         };
 
         _context.Orders.Add(order);
@@ -84,20 +111,40 @@ public class OrderService : IOrderService
 
     public async Task CancelOrder(long orderId)
     {
-        await UpdateOrderStatus(orderId, OrderStatus.CANCELED);
+        // Переводим заказ в статус CANCELED
+        var order = await _context.Orders.FindAsync(orderId);
+        if (order != null)
+        {
+            await UpdateOrderStatus(orderId, OrderStatus.CANCELED);
+            
+            // Дополнительно очищаем корзину покупателя
+            try
+            {
+                var cartClient = _httpClientFactory.CreateClient("CartService");
+                await cartClient.DeleteAsync($"/api/carts/{order.CustomerId}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, $"Failed to clear cart for customer {order.CustomerId} after canceling order {orderId}");
+            }
+        }
     }
 
     public async Task AddOrderItems(long orderId, OrderItemDTO itemDto)
     {
         var order = await _context.Orders.Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == orderId);
-        if (order != null)
+        if (order != null && order.OrderItems != null)
         {
             var item = new OrderItem
             {
                 OrderId = orderId,
                 ProductId = itemDto.ProductId,
                 Quantity = itemDto.Quantity,
-                Price = itemDto.Price
+                Price = itemDto.Price,
+                ProductName = itemDto.ProductName,
+                ProductDescription = itemDto.ProductDescription,
+                CategoryId = itemDto.CategoryId,
+                CategoryName = itemDto.CategoryName
             };
             order.OrderItems.Add(item);
             order.TotalAmount += item.Quantity * item.Price;
@@ -207,11 +254,31 @@ public class OrderService : IOrderService
                 throw new Exception($"Товар с ID {cartItem.ProductId} не найден");
             }
 
+            // =============================================================================
+            // НОВАЯ СИСТЕМА: Сохраняем полную информацию о товаре из корзины
+            // =============================================================================
             var orderItem = new OrderItem
             {
                 ProductId = cartItem.ProductId,
                 Quantity = cartItem.Quantity,
-                Price = product.Price
+                Price = product.Price,
+                
+                // Сохраняем информацию о товаре на момент покупки
+                ProductName = product.Name,
+                ProductDescription = product.Description,
+                
+                // Категория на момент покупки
+                CategoryId = cartItem.CategoryId ?? product.CategoryId,
+                CategoryName = cartItem.CategoryName ?? cartItem.Category?.Name,
+                
+                // Атрибуты товара на момент покупки (например: RAM=8GB, Color=Black)
+                ProductAttributesJson = cartItem.AttributeValues != null && cartItem.AttributeValues.Any()
+                    ? System.Text.Json.JsonSerializer.Serialize(
+                        cartItem.AttributeValues.ToDictionary(
+                            av => av.AttributeId.ToString(),
+                            av => av.Value
+                        ))
+                    : null
             };
 
             orderItems.Add(orderItem);
