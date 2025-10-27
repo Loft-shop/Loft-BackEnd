@@ -14,12 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
-        dotnet-install-dir: ~/.dotnet
-        
     - name: Restore dependencies
       run: dotnet restore
       
