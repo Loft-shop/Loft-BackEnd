@@ -72,6 +72,16 @@
                 "NU1605"
               ]
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
             "Microsoft.Identity.Web": {
               "target": "Package",
               "version": "[3.8.2, )"
@@ -79,6 +89,10 @@
             "Microsoft.Identity.Web.DownstreamApi": {
               "target": "Package",
               "version": "[3.2.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

@@ -1,31 +1,31 @@
 {
   "Version": 1,
-  "Hash": "B8nbr48KzUiOg0AxWjaRQzg34ca5viwijveJv2J4ctc=",
+  "Hash": "j9/Ynm+h0IfQpwKORCWOhRaY0M0saIlzsb6xy9ohy5I=",
   "Source": "CartService",
   "BasePath": "_content/CartService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\loft\\Loft-BackEnd\\src\\ProductService\\ProductService.csproj",
+      "Identity": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj",
       "Version": 2,
       "Source": "ProductService",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishProperties": "",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildProperties": "",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     },
     {
-      "Identity": "D:\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj",
+      "Identity": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
       "Version": 2,
       "Source": "UserService",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishProperties": "",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildProperties": "",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],

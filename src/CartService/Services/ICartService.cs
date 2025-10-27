@@ -6,8 +6,9 @@ namespace CartService.Services;
 
 public interface ICartService
 {
+    Task<IEnumerable<CartDTO>> GetAllCarts();
     Task<CartDTO?> GetCartByCustomerId(long customerId);
-    Task<IEnumerable<CartDTO>> GetCartItems(long cartId);
+    Task<IEnumerable<CartItemDTO>> GetCartItems(long cartId);
     Task<CartDTO> AddToCart(long customerId,long productId,int quantity);
     Task<CartItemDTO?> UpdateCartItem(long customerId,long productId,int quantity);
     Task RemoveFormCart(long customerId,long productId);
