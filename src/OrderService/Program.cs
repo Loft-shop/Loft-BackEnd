@@ -16,6 +16,10 @@ namespace OrderService
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+            // Добавляем контроллеры и авторизацию (нужны для UseAuthorization)
+            builder.Services.AddControllers();
+            builder.Services.AddAuthorization();
+            
             builder.Services.AddDbContext<OrderDbContext>(options =>
                 options.UseNpgsql(connectionString, // UseNpgsql использует строку подключения
                     npgsqlOptions =>
@@ -53,10 +57,14 @@ namespace OrderService
 
             // Настраиваем конвейер обработки запросов
             app.UseRouting();
-            app.UseAuthorization();
-            app.MapControllers();
+            // Вызываем UseAuthorization только если зарегистрирован IAuthorizationService
+            if (app.Services.GetService(typeof(Microsoft.AspNetCore.Authorization.IAuthorizationService)) != null)
+            {
+                app.UseAuthorization();
+            }
+             app.MapControllers();
 
-            app.Run();
+             app.Run();
         }
     }
 }

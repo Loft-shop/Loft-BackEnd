@@ -137,8 +137,34 @@ namespace UserService
                 {
                     var conn = builder.Configuration.GetConnectionString("DefaultConnection");
                     Console.WriteLine($"[UserService] Using PostgreSQL connection: {conn}");
-                    db.Database.Migrate();
-                    Console.WriteLine("[UserService] Database migration applied successfully.");
+
+                    // Попытки применения миграций с повторными попытками, чтобы дождаться старта Postgres
+                    var maxAttempts = 10;
+                    var attempt = 0;
+                    var delaySeconds = 2;
+                    while (true)
+                    {
+                        try
+                        {
+                            attempt++;
+                            Console.WriteLine($"[UserService] Attempting DB migrate (attempt {attempt}/{maxAttempts})...");
+                            db.Database.Migrate();
+                            Console.WriteLine("[UserService] Database migration applied successfully.");
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[UserService] Database migration attempt {attempt} failed: {ex.Message}");
+                            if (attempt >= maxAttempts)
+                            {
+                                Console.WriteLine("[UserService] Maximum migration attempts reached, aborting startup.");
+                                throw;
+                            }
+                            var wait = TimeSpan.FromSeconds(delaySeconds * attempt);
+                            Console.WriteLine($"[UserService] Waiting {wait.TotalSeconds} seconds before retrying...");
+                            System.Threading.Thread.Sleep(wait);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -2,6 +2,23 @@ networks:
   loftnet:
     driver: bridge  
 services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: Devp@ssw0rddB4589
+      POSTGRES_DB: test_loft_shop
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - loftnet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U developer"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   apigateway:
     build:
       context: .
@@ -29,6 +46,8 @@ services:
     container_name: cartservice
     networks:
       - loftnet
+    depends_on:
+      - postgres
 
   orderservice:
     build:
@@ -40,12 +59,14 @@ services:
       Services__CartService: http://cartservice:8080
       Services__ProductService: http://productservice:8080
       Services__UserService: http://userservice:8080
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=test_loft_shop;Username=developer;Password=Devp@ssw0rddB4589"
     networks:
       - loftnet
     depends_on:
       - cartservice
       - productservice
       - userservice
+      - postgres
 
   paymentservice:
     build:
@@ -54,6 +75,8 @@ services:
     container_name: paymentservice
     networks:
       - loftnet
+    depends_on:
+      - postgres
 
   productservice:
     build:
@@ -62,6 +85,8 @@ services:
     container_name: productservice
     networks:
       - loftnet
+    depends_on:
+      - postgres
 
   shippingaddressservice:
     build:
@@ -70,6 +95,8 @@ services:
     container_name: shippingaddressservice
     networks:
       - loftnet
+    depends_on:
+      - postgres
 
   userservice:
     build:
@@ -82,5 +109,12 @@ services:
       Jwt__Issuer: LoftUserService
       Jwt__Audience: LoftUsers
       Jwt__ExpireMinutes: "60"
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=test_loft_shop;Username=developer;Password=Devp@ssw0rddB4589"
     networks:
       - loftnet
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
+    driver: local

@@ -40,7 +40,6 @@
     },
     {
       "DownstreamPathTemplate": "/api/payments/{everything}",
-      "DownstreamPathTemplate": "/api/carts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "paymentservice", "Port": 8080 }],
       "UpstreamPathTemplate": "/payment/{everything}",
