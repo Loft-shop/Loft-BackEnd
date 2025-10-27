@@ -17,6 +17,19 @@ namespace CartService
             // Добавляем сервисы контроллеров
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(typeof(CartProfile));
+
+            // Swagger/OpenAPI
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "CartService API", Version = "v1" });
+                c.DocInclusionPredicate((docName, apiDesc) =>
+                {
+                    var cad = apiDesc.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+                    if (cad == null) return false;
+                    return cad.ControllerTypeInfo.Assembly == typeof(Program).Assembly;
+                });
+                c.MapType<Microsoft.AspNetCore.Http.IFormFile>(() => new Microsoft.OpenApi.Models.OpenApiSchema { Type = "string", Format = "binary" });
+            });
             
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -37,6 +50,10 @@ namespace CartService
             
 
             var app = builder.Build();
+
+            // Swagger middleware
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             // Настраиваем конвейер обработки запросов
             app.UseRouting();

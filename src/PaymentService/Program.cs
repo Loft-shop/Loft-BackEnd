@@ -14,9 +14,12 @@ namespace PaymentService
             // Добавляем сервисы контроллеров
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(typeof(PaymentProfile));
+            builder.Services.AddSwaggerGen();
 
 
             var app = builder.Build();
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             // Настраиваем конвейер обработки запросов
             app.UseRouting();

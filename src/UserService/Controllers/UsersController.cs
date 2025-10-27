@@ -74,7 +74,8 @@ namespace UserService.Controllers
         // POST api/users/me/avatar
         [HttpPost("me/avatar")]
         [Authorize]
-        public async Task<IActionResult> UploadAvatar([FromForm] IFormFile avatar)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadAvatar(IFormFile avatar)
         {
             if (avatar == null || avatar.Length == 0) return BadRequest(new { message = "No file uploaded" });
             var userId = GetUserIdFromClaims();

@@ -20,6 +20,19 @@ namespace OrderService
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
             
+            // Swagger/OpenAPI
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "OrderService API", Version = "v1" });
+                c.DocInclusionPredicate((docName, apiDesc) =>
+                {
+                    var cad = apiDesc.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+                    if (cad == null) return false;
+                    return cad.ControllerTypeInfo.Assembly == typeof(Program).Assembly;
+                });
+                c.MapType<Microsoft.AspNetCore.Http.IFormFile>(() => new Microsoft.OpenApi.Models.OpenApiSchema { Type = "string", Format = "binary" });
+            });
+            
             builder.Services.AddDbContext<OrderDbContext>(options =>
                 options.UseNpgsql(connectionString, // UseNpgsql использует строку подключения
                     npgsqlOptions =>
@@ -55,6 +68,10 @@ namespace OrderService
 
             var app = builder.Build();
 
+            // Swagger middleware
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            
             // Настраиваем конвейер обработки запросов
             app.UseRouting();
             // Вызываем UseAuthorization только если зарегистрирован IAuthorizationService

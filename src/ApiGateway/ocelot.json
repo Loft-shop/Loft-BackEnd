@@ -1,6 +1,21 @@
 {
   "Routes": [
     {
+      "DownstreamPathTemplate": "/api/Auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
+      "UpstreamPathTemplate": "/auth/login",
+      "UpstreamHttpMethod": ["POST"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
+      "UpstreamPathTemplate": "/auth/register",
+      "UpstreamHttpMethod": ["POST"]
+    },
+
+    {
       "DownstreamPathTemplate": "/api/carts",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [{ "Host": "cartservice", "Port": 8080 }],

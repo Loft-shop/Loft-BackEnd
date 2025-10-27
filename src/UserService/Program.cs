@@ -29,7 +29,11 @@ namespace UserService
 
             // Configure DbContext (PostgreSQL) - use connection string or default file
             var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<UserDbContext>(options => options.UseNpgsql(defaultConn));
+            builder.Services.AddDbContext<UserDbContext>(options => 
+                options.UseNpgsql(defaultConn, npgsqlOptions =>
+                {
+                    npgsqlOptions.MigrationsAssembly(typeof(Program).Assembly.FullName);
+                }));
 
             // Add CORS policy for frontend development
             builder.Services.AddCors(options =>
@@ -106,26 +110,34 @@ namespace UserService
 
             // Swagger с поддержкой Bearer
             builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService API", Version = "v1" });
-                var securityScheme = new OpenApiSecurityScheme
+             {
+                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService API", Version = "v1" });
+                 var securityScheme = new OpenApiSecurityScheme
+                 {
+                     Name = "Authorization",
+                     Type = SecuritySchemeType.Http,
+                     Scheme = "bearer",
+                     BearerFormat = "JWT",
+                     In = ParameterLocation.Header,
+                     Description = "Enter 'Bearer' [space] and then your valid token in the text input below."
+                 };
+                 c.AddSecurityDefinition("bearerAuth", securityScheme);
+                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                 {
+                     { securityScheme, new string[] { } }
+                 });
+
+                // Only include controllers from this assembly (avoid controllers from referenced projects)
+                c.DocInclusionPredicate((docName, apiDesc) =>
                 {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below."
-                };
-                c.AddSecurityDefinition("bearerAuth", securityScheme);
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    { securityScheme, new string[] { } }
+                    var cad = apiDesc.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+                    if (cad == null) return false;
+                    return cad.ControllerTypeInfo.Assembly == typeof(Program).Assembly;
                 });
 
-                // Support file uploads in Swagger for endpoints with IFormFile
-                //c.OperationFilter<FileUploadOperationFilter>();
-            });
+               // Map IFormFile to binary in OpenAPI - simple mapping without filter
+                c.MapType<Microsoft.AspNetCore.Http.IFormFile>(() => new Microsoft.OpenApi.Models.OpenApiSchema { Type = "string", Format = "binary" });
+             });
 
             var app = builder.Build();
 

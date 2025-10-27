@@ -45,6 +45,8 @@ services:
       context: .
       dockerfile: src/CartService/Dockerfile
     container_name: cartservice
+    ports:
+      - "5003:8080"
     networks:
       - loftnet
     depends_on:
@@ -55,6 +57,8 @@ services:
       context: .
       dockerfile: src/OrderService/Dockerfile
     container_name: orderservice
+    ports:
+      - "5001:8080"
     environment:
       ASPNETCORE_URLS: http://0.0.0.0:8080
       Services__CartService: http://cartservice:8080
@@ -74,6 +78,8 @@ services:
       context: .
       dockerfile: src/PaymentService/Dockerfile
     container_name: paymentservice
+    ports:
+      - "5006:8080"
     networks:
       - loftnet
     depends_on:
@@ -84,6 +90,8 @@ services:
       context: .
       dockerfile: src/ProductService/Dockerfile
     container_name: productservice
+    ports:
+      - "5002:8080"
     networks:
       - loftnet
     depends_on:
@@ -94,6 +102,8 @@ services:
       context: .
       dockerfile: src/ShippingAddressService/Dockerfile
     container_name: shippingaddressservice
+    ports:
+      - "5005:8080"
     networks:
       - loftnet
     depends_on:
@@ -104,6 +114,8 @@ services:
       context: .
       dockerfile: src/UserService/Dockerfile
     container_name: userservice
+    ports:
+      - "5004:8080"
     environment:
       ASPNETCORE_URLS: http://0.0.0.0:8080
       Jwt__Key: ReplaceThisWithASecretKeyForDevOnlyChangeMe

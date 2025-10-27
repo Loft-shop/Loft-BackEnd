@@ -40,16 +40,24 @@ namespace ProductService
 
             // Swagger
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ProductService API", Version = "v1" });
+                
+                // Only include controllers from this assembly (avoid controllers from referenced projects)
+                c.DocInclusionPredicate((docName, apiDesc) =>
+                {
+                    var cad = apiDesc.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+                    if (cad == null) return false;
+                    return cad.ControllerTypeInfo.Assembly == typeof(Program).Assembly;
+                });
+            });
 
             var app = builder.Build();
 
-            // Swagger только в режиме Development 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            // Swagger UI доступен всегда для локального тестирования
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             // Настраиваем конвейер обработки запросов
             app.UseRouting();
