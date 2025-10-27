@@ -1,50 +1,6 @@
-<<<<<<< HEAD
 networks:
   loftnet:
-    driver: bridge
-=======
-﻿services:
-    apigateway:
-      build:
-        context: .
-        dockerfile: src/ApiGateway/Dockerfile
-      container_name: apigateway
-      ports:
-        - "5000:8080"
-    
-    cartservice:
-      build:
-        context: .
-        dockerfile: src/CartService/Dockerfile
-      container_name: cartservice
-      ports:
-        - "5001:8080"
-    
-    orderservice:
-      build:
-        context: .
-        dockerfile: src/OrderService/Dockerfile
-      container_name: orderservice
-      ports:
-        - "5003:8080"
-    
-    paymentservice:
-      build:
-        context: .
-        dockerfile: src/PaymentService/Dockerfile
-      container_name: paymentservice
-      ports:
-        - "5004:8080"
-    
-    productservice:
-      build:
-        context: .
-        dockerfile: src/ProductService/Dockerfile
-      container_name: productservice
-      ports:
-        - "5005:8080"
->>>>>>> ProductService
-
+    driver: bridge  
 services:
   apigateway:
     build:
@@ -72,14 +28,6 @@ services:
       context: ./src/CartService
       dockerfile: Dockerfile
     container_name: cartservice
-    networks:
-      - loftnet
-
-  categoryservice:
-    build:
-      context: ./src/CategoryService
-      dockerfile: Dockerfile
-    container_name: categoryservice
     networks:
       - loftnet
 
@@ -120,5 +68,11 @@ services:
       context: ./src/UserService
       dockerfile: Dockerfile
     container_name: userservice
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      Jwt__Key: ReplaceThisWithASecretKeyForDevOnlyChangeMe
+      Jwt__Issuer: LoftUserService
+      Jwt__Audience: LoftUsers
+      Jwt__ExpireMinutes: "60"
     networks:
       - loftnet

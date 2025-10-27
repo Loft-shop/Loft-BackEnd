@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "Hik9PShz2WEuatMuXtsgczS+rwfpVXgiFyXOmPOeKbA=",
+  "Hash": "VRPQ2dpaMRgVwe2IBFK7zoGnU9WDqBka6hLRmMwyy3M=",
   "Source": "ShippingAddressService",
   "BasePath": "_content/ShippingAddressService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj",
+      "Identity": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
       "Version": 2,
       "Source": "UserService",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
