@@ -41,12 +41,12 @@ services:
       Services__CartService: http://cartservice:8080
       Services__ProductService: http://productservice:8080
       Services__UserService: http://userservice:8080
-      depends_on:
-        - cartservice
-        - productservice
-        - userservice
     networks:
       - loftnet
+    depends_on:
+      - cartservice
+      - productservice
+      - userservice
 
   paymentservice:
     build:
