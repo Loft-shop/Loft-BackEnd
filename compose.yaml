@@ -4,8 +4,8 @@ networks:
 services:
   apigateway:
     build:
-      context: ./src/ApiGateway
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/ApiGateway/Dockerfile
     container_name: apigateway
     ports:
       - "5000:8080"
@@ -14,7 +14,6 @@ services:
       - orderservice
       - productservice
       - userservice
-      - categoryservice
       - shippingaddressservice
       - paymentservice
     networks:
@@ -25,16 +24,16 @@ services:
 
   cartservice:
     build:
-      context: ./src/CartService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/CartService/Dockerfile
     container_name: cartservice
     networks:
       - loftnet
 
   orderservice:
     build:
-      context: ./src/OrderService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/OrderService/Dockerfile
     container_name: orderservice
     environment:
       ASPNETCORE_URLS: http://0.0.0.0:8080
@@ -50,32 +49,32 @@ services:
 
   paymentservice:
     build:
-      context: ./src/PaymentService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/PaymentService/Dockerfile
     container_name: paymentservice
     networks:
       - loftnet
 
   productservice:
     build:
-      context: ./src/ProductService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/ProductService/Dockerfile
     container_name: productservice
     networks:
       - loftnet
 
   shippingaddressservice:
     build:
-      context: ./src/ShippingAddressService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/ShippingAddressService/Dockerfile
     container_name: shippingaddressservice
     networks:
       - loftnet
 
   userservice:
     build:
-      context: ./src/UserService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/UserService/Dockerfile
     container_name: userservice
     environment:
       ASPNETCORE_URLS: http://0.0.0.0:8080

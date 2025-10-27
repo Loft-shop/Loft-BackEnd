@@ -11,7 +11,6 @@ COPY ["Directory.Build.props", "./"]
 # Копируем все .csproj из src, чтобы dotnet restore увидел все ProjectReference (включая транзитивные)
 COPY ["src/ApiGateway/ApiGateway.csproj", "ApiGateway/"]
 COPY ["src/CartService/CartService.csproj", "CartService/"]
-COPY ["src/CategoryService/CategoryService.csproj", "CategoryService/"]
 COPY ["src/Common/Loft.Common/Loft.Common.csproj", "Common/Loft.Common/"]
 COPY ["src/OrderService/OrderService.csproj", "OrderService/"]
 COPY ["src/PaymentService/PaymentService.csproj", "PaymentService/"]

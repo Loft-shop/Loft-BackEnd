@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "u3RbRKvKpOTSWHPKUb7Si1FURW8PcqyF66jTOpZAt5I=",
+  "Hash": "VRPQ2dpaMRgVwe2IBFK7zoGnU9WDqBka6hLRmMwyy3M=",
   "Source": "ShippingAddressService",
   "BasePath": "_content/ShippingAddressService",
   "Mode": "Default",
@@ -11,10 +11,10 @@
       "Version": 2,
       "Source": "UserService",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],
