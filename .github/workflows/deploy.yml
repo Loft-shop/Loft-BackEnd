@@ -1,47 +1,38 @@
-name: CI/CD Build & Push to GHCR
+name: CI/CD Deploy to Test Server
 
 on:
   push:
-    branches:
-      - master
+    branches: [ "master" ]
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      packages: write
-
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Log in to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build and push Docker images
-        uses: docker/build-push-action@v6
+        run: |
+          for service in CartService OrderService PaymentService ProductService ShippingAddressService UserService; do
+            image="ghcr.io/${{ secrets.DOCKER_USERNAME }}/loft-${service,,}:latest"
+            echo "Building and pushing $image..."
+            docker build -t $image -f src/$service/Dockerfile .
+            docker push $image
+          done
+
+      - name: Deploy to test server via SSH
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/loft-apigateway:latest
-            ghcr.io/${{ github.repository_owner }}/loft-cartservice:latest
-            ghcr.io/${{ github.repository_owner }}/loft-orderservice:latest
-            ghcr.io/${{ github.repository_owner }}/loft-paymentservice:latest
-            ghcr.io/${{ github.repository_owner }}/loft-productservice:latest
-            ghcr.io/${{ github.repository_owner }}/loft-shippingaddressservice:latest
-            ghcr.io/${{ github.repository_owner }}/loft-userservice:latest
-          platforms: linux/amd64
-          build-contexts: |
-            apigateway=./src/ApiGateway
-            cartservice=./src/CartService
-            orderservice=./src/OrderService
-            paymentservice=./src/PaymentService
-            productservice=./src/ProductService
-            shippingaddressservice=./src/ShippingAddressService
-            userservice=./src/UserService
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            git pull
+            docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker compose pull
+            docker compose up -d
