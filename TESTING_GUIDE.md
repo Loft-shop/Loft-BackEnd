@@ -88,7 +88,7 @@
      "password": "Test123!"
    }
    ```
-4. Используйте endpoint `POST /api/Auth/login` для получения JWT токена:
+4. 1Используйте endpoint `POST /api/Auth/login` для получения JWT токена:
    ```json
    {
      "email": "test@example.com",
