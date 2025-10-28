@@ -1,107 +1,37 @@
-name: CI/CD Pipeline
+name: Build and Push Docker Images to GHCR
 
 on:
   push:
     branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
       - master
 
 env:
-  DOTNET_VERSION: '8.0.x'
+  REGISTRY: ghcr.io
+  IMAGE_OWNER: ${{ github.repository_owner }}
 
 jobs:
-  build-and-test:
-    name: Build and Test
+  build-and-push:
     runs-on: ubuntu-latest
-    
+
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: Restore dependencies
-      run: dotnet restore LoftBackEnd.sln
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build solution
-      run: dotnet build LoftBackEnd.sln --configuration Release --no-restore
-
-    - name: Run tests
-      run: dotnet test LoftBackEnd.sln --configuration Release --no-build --verbosity normal
-      continue-on-error: true
-
-  deploy:
-    name: Deploy to Server
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Add server to known hosts
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-
-    - name: Deploy to server
-      env:
-        SERVER_HOST: ${{ secrets.SERVER_HOST }}
-        SERVER_USER: ${{ secrets.SERVER_USER }}
-        DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
-      run: |
-        # Копируем файлы на сервер
-        rsync -avz --delete \
-          --exclude '.git' \
-          --exclude 'bin' \
-          --exclude 'obj' \
-          --exclude 'tmp' \
-          ./ $SERVER_USER@$SERVER_HOST:$DEPLOY_PATH/
-
-        # Запускаем деплой скрипт на сервере
-        ssh $SERVER_USER@$SERVER_HOST << 'ENDSSH'
-          cd ${{ secrets.DEPLOY_PATH }}
-          
-          # Останавливаем контейнеры
-          docker compose down
-          
-          # Собираем новые образы
-          docker compose build --no-cache
-          
-          # Запускаем контейнеры
-          docker compose up -d
-          
-          # Показываем статус
-          docker compose ps
-          
-          # Очищаем неиспользуемые образы
-          docker image prune -f
-ENDSSH
-
-    - name: Verify deployment
-      env:
-        SERVER_HOST: ${{ secrets.SERVER_HOST }}
-        SERVER_USER: ${{ secrets.SERVER_USER }}
-        DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
-      run: |
-        ssh $SERVER_USER@$SERVER_HOST << 'ENDSSH'
-          cd ${{ secrets.DEPLOY_PATH }}
-          echo "=== Checking containers status ==="
-          docker compose ps
-          echo "=== Checking logs ==="
-          docker compose logs --tail=50
-ENDSSH
-
+      - name: Build and push all service images
+        run: |
+          docker compose build
+          docker compose push
