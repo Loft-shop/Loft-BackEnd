@@ -55,5 +55,3 @@ coverage.opencover.xml
 # Ignore compiled binaries accidentally added
 src/**/bin/
 src/**/obj/
-
-
