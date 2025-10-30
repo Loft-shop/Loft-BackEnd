@@ -54,9 +54,38 @@ namespace ApiGateway
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            // Правильный порядок middleware для CORS
-            app.UseRouting();
-            app.UseCors("AllowFrontend");
+            // CORS должен быть настроен ДО Ocelot
+            // Обрабатываем preflight запросы (OPTIONS) вручную до Ocelot
+            app.Use(async (context, next) =>
+            {
+                // Проверяем, есть ли Origin в запросе
+                var origin = context.Request.Headers["Origin"].ToString();
+                
+                if (!string.IsNullOrEmpty(origin))
+                {
+                    // Получаем разрешенные origins
+                    var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:3000" };
+                    
+                    // Проверяем, разрешен ли этот origin
+                    if (allowedOrigins.Contains(origin) || allowedOrigins.Contains("*"))
+                    {
+                        context.Response.Headers.Add("Access-Control-Allow-Origin", origin);
+                        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+                        context.Response.Headers.Add("Access-Control-Allow-Headers", 
+                            context.Request.Headers["Access-Control-Request-Headers"].ToString());
+                        context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
+                    }
+                }
+
+                // Если это preflight запрос (OPTIONS), возвращаем 200 и не идем дальше в Ocelot
+                if (context.Request.Method == "OPTIONS")
+                {
+                    context.Response.StatusCode = 200;
+                    return;
+                }
+
+                await next();
+            });
 
             // Перехват корня и health до Ocelot
             app.Use(async (ctx, next) =>
