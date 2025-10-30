@@ -25,7 +25,7 @@ namespace ApiGateway
             };
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontend", policy =>
+                options.AddPolicy("AllowAll", policy =>
                 {
                     policy.WithOrigins(allowedOrigins)
                           .AllowAnyHeader()
@@ -59,7 +59,7 @@ namespace ApiGateway
             app.UseSwaggerUI();
 
             // Включаем CORS для фронтенда
-            app.UseCors("AllowFrontend");
+            app.UseCors("AllowAll");
 
             // Перехват корня и health до Ocelot
             app.Use(async (ctx, next) =>

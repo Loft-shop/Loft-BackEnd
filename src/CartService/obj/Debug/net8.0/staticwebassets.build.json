@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Aoifttu+ecG33UJhIx0CmIUYwJIkg2bQfE0/CtSjngE=",
+  "Hash": "Oea6/+nOl7vyJFSPF6P3XQvuIfy5IT7s2411RWkS5E8=",
   "Source": "CartService",
   "BasePath": "_content/CartService",
   "Mode": "Default",
@@ -29,6 +29,14 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "UserService/wwwroot",
+      "Source": "UserService",
+      "ContentRoot": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/wwwroot/",
+      "BasePath": "_content/UserService",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

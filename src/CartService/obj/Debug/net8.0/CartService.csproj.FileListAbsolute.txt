@@ -279,3 +279,6 @@ D:/loft/Loft-BackEnd/src/CartService/bin/Debug/net8.0/runtimes/win/lib/netstanda
 /Users/platon/RiderProjects/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.pdb
 /Users/platon/RiderProjects/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.genruntimeconfig.cache
 /Users/platon/RiderProjects/Loft-BackEnd/src/CartService/obj/Debug/net8.0/ref/CartService.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/UserService.staticwebassets.runtime.json
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/ProductService.staticwebassets.runtime.json
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/CartService.staticwebassets.runtime.json

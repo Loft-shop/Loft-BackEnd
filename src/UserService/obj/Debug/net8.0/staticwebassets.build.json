@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "O8Tqr60KHaal7sbBqGqAczjLLnVLN/6xBqPiCBbMeO8=",
+  "Hash": "EJSMaDpy+AJi8won8IEJv31v2LktVtzOCU9pqX2SkIw=",
   "Source": "UserService",
   "BasePath": "_content/UserService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "UserService/wwwroot",
+      "Source": "UserService",
+      "ContentRoot": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/wwwroot/",
+      "BasePath": "_content/UserService",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

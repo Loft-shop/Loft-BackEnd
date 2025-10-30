@@ -370,3 +370,4 @@ D:/loft/Loft-BackEnd/src/UserService/obj/Debug/net8.0/ref/UserService.dll
 /src/src/UserService/obj/Debug/net8.0/UserService.pdb
 /src/src/UserService/obj/Debug/net8.0/UserService.genruntimeconfig.cache
 /src/src/UserService/obj/Debug/net8.0/ref/UserService.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/bin/Debug/net8.0/UserService.staticwebassets.runtime.json

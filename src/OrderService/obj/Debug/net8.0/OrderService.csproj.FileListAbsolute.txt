@@ -299,3 +299,7 @@ D:/loft/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/runtimes/win/lib/netstand
 /Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.pdb
 /Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.genruntimeconfig.cache
 /Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/ref/OrderService.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/UserService.staticwebassets.runtime.json
+/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/ProductService.staticwebassets.runtime.json
+/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/ShippingAddressService.staticwebassets.runtime.json
+/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/OrderService.staticwebassets.runtime.json

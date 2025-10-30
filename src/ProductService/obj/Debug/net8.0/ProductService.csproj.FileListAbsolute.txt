@@ -329,3 +329,5 @@ D:/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/runtimes/win/lib/netsta
 /Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/obj/Debug/net8.0/ProductS.A0FC5512.Up2Date
 /Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/obj/Debug/net8.0/ProductService.genruntimeconfig.cache
 /Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/obj/Debug/net8.0/ref/ProductService.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/UserService.staticwebassets.runtime.json
+/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/ProductService.staticwebassets.runtime.json

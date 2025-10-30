@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AjbLoeE+aDF69rWGNbn/TRQsQUfPgU3Ltjq7uLhOink=",
+  "Hash": "xi5gZZA5rWqshXihDRXewBtYAjTP846kvfxVZtU0nK8=",
   "Source": "OrderService",
   "BasePath": "_content/OrderService",
   "Mode": "Default",
@@ -51,6 +51,14 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "UserService/wwwroot",
+      "Source": "UserService",
+      "ContentRoot": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/wwwroot/",
+      "BasePath": "_content/UserService",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

@@ -25,7 +25,7 @@ namespace ProductService
             };
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontend", policy =>
+                options.AddPolicy("AllowAll", policy =>
                 {
                     policy.WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
@@ -74,7 +74,7 @@ namespace ProductService
             var app = builder.Build();
             
             // Включаем CORS
-            app.UseCors("AllowFrontend");
+            app.UseCors("AllowAll");
 
             // Swagger UI доступен всегда для локального тестирования
             app.UseSwagger();

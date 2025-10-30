@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VRPQ2dpaMRgVwe2IBFK7zoGnU9WDqBka6hLRmMwyy3M=",
+  "Hash": "4f7K7o1ku3yVCr2sr6sss1/TtuZUAsOl/NY88+NkuGw=",
   "Source": "ShippingAddressService",
   "BasePath": "_content/ShippingAddressService",
   "Mode": "Default",
@@ -18,6 +18,14 @@
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "UserService/wwwroot",
+      "Source": "UserService",
+      "ContentRoot": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/wwwroot/",
+      "BasePath": "_content/UserService",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

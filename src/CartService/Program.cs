@@ -25,7 +25,7 @@ namespace CartService
             };
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontend", policy =>
+                options.AddPolicy("AllowAll", policy =>
                 {
                     policy.WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
@@ -67,7 +67,7 @@ namespace CartService
 
             var app = builder.Build();
             
-            app.UseCors("AllowFrontend");
+            app.UseCors("AllowAll");
 
             // Swagger middleware
             app.UseSwagger();

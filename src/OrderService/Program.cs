@@ -24,7 +24,7 @@ namespace OrderService
             };
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontend", policy =>
+                options.AddPolicy("AllowAll", policy =>
                 {
                     policy.WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
@@ -93,7 +93,7 @@ namespace OrderService
             app.UseRouting();
 
             // Включаем CORS
-            app.UseCors("AllowFrontend");
+            app.UseCors("AllowAll");
 
             // Вызываем UseAuthorization только если зарегистрирован IAuthorizationService
             if (app.Services.GetService(typeof(Microsoft.AspNetCore.Authorization.IAuthorizationService)) != null)

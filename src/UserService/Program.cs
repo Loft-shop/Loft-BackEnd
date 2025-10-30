@@ -43,7 +43,7 @@ namespace UserService
             };
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowFrontend", policy =>
+                options.AddPolicy("AllowAll", policy =>
                 {
                     policy.WithOrigins(allowedOrigins)
                         .AllowAnyHeader()
@@ -257,7 +257,7 @@ namespace UserService
             app.UseRouting();
 
             // Enable CORS for frontend apps (dev convenience) - after UseRouting and before auth
-            app.UseCors("AllowFrontend");
+            app.UseCors("AllowAll");
 
             app.UseSwagger();
             app.UseSwaggerUI();
