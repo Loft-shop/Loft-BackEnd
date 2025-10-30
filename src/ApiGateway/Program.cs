@@ -18,14 +18,10 @@ namespace ApiGateway
                 .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
             // Добавляем политику CORS, читаем разрешённые origin'ы из конфигурации
-            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[]
-            {
-                "http://localhost:3000",
-                "https://www.loft-shop.pp.ua"
-            };
+            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:3000" };
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", policy =>
+                options.AddPolicy("AllowFrontend", policy =>
                 {
                     policy.WithOrigins(allowedOrigins)
                           .AllowAnyHeader()
@@ -58,8 +54,9 @@ namespace ApiGateway
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            // Включаем CORS для фронтенда
-            app.UseCors("AllowAll");
+            // Правильный порядок middleware для CORS
+            app.UseRouting();
+            app.UseCors("AllowFrontend");
 
             // Перехват корня и health до Ocelot
             app.Use(async (ctx, next) =>
