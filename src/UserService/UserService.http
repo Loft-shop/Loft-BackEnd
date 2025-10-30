@@ -1,6 +1,174 @@
-@UserService_HostAddress = http://localhost:5246
+### UserService API Testing
+### URL для Docker окружения
+@UserService_HostAddress = http://localhost:5004
+@ApiGateway_HostAddress = http://localhost:5000
 
-GET {{UserService_HostAddress}}/weatherforecast/
-Accept: application/json
+### Переменные для тестирования
+@testEmail = test@example.com
+@testPassword = password123
+@accessToken = your_token_here
 
-###
+###############################################
+### АУТЕНТИФИКАЦИЯ И РЕГИСТРАЦИЯ
+###############################################
+
+### 1. Регистрация нового пользователя
+POST {{UserService_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "{{testEmail}}",
+  "password": "{{testPassword}}"
+}
+
+### 2. Регистрация продавца
+POST {{UserService_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "seller@example.com",
+  "password": "seller123"
+}
+
+### 3. Логин пользователя
+POST {{UserService_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{testEmail}}",
+  "password": "{{testPassword}}"
+}
+
+### 4. Логин продавца
+POST {{UserService_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "seller@example.com",
+  "password": "seller123"
+}
+
+###############################################
+### УПРАВЛЕНИЕ ПРОФИЛЕМ
+###############################################
+
+### 5. Получить мой профиль (требуется авторизация)
+GET {{UserService_HostAddress}}/api/users/me
+Authorization: Bearer {{accessToken}}
+
+### 6. Обновить профиль (имя, фамилия, телефон)
+PUT {{UserService_HostAddress}}/api/users/me
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Иван",
+  "lastName": "Иванов",
+  "phone": "+7 (999) 123-45-67"
+}
+
+### 7. Загрузить аватар (требуется файл изображения)
+POST {{UserService_HostAddress}}/api/users/me/avatar
+Authorization: Bearer {{accessToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< ./path/to/your/avatar.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### 8. Удалить мой аккаунт
+DELETE {{UserService_HostAddress}}/api/users/me
+Authorization: Bearer {{accessToken}}
+
+###############################################
+### ФУНКЦИОНАЛ ПРОДАВЦА
+###############################################
+
+### 9. Включить/выключить режим продавца
+POST {{UserService_HostAddress}}/api/users/me/toggle-seller
+Authorization: Bearer {{accessToken}}
+
+### 10. Проверить, может ли пользователь продавать (публичный endpoint)
+GET {{UserService_HostAddress}}/api/users/1/can-sell
+
+### 11. Получить статистику продавца
+GET {{UserService_HostAddress}}/api/users/me/seller-stats
+Authorization: Bearer {{accessToken}}
+
+###############################################
+### УПРАВЛЕНИЕ ТОВАРАМИ ПРОДАВЦА
+###############################################
+
+### 12. Получить все мои товары (только для продавцов)
+GET {{UserService_HostAddress}}/api/seller/products
+Authorization: Bearer {{accessToken}}
+
+### 13. Создать новый товар (только для продавцов)
+POST {{UserService_HostAddress}}/api/seller/products
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Новый товар",
+  "description": "Описание товара",
+  "price": 1999.99,
+  "quantity": 10,
+  "categoryId": 1,
+  "imageUrl": "/images/product.jpg"
+}
+
+### 14. Получить товар по ID (только свой товар)
+GET {{UserService_HostAddress}}/api/seller/products/1
+Authorization: Bearer {{accessToken}}
+
+### 15. Обновить товар (только свой товар)
+PUT {{UserService_HostAddress}}/api/seller/products/1
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Обновленный товар",
+  "description": "Новое описание",
+  "price": 2499.99,
+  "quantity": 15,
+  "categoryId": 1,
+  "imageUrl": "/images/product-updated.jpg"
+}
+
+### 16. Удалить товар (только свой товар)
+DELETE {{UserService_HostAddress}}/api/seller/products/1
+Authorization: Bearer {{accessToken}}
+
+###############################################
+### ТЕСТОВЫЕ СЦЕНАРИИ
+###############################################
+
+### СЦЕНАРИЙ 1: Полный цикл покупателя
+# 1. Регистрация → 2. Логин (сохранить token) → 3. Получить профиль → 4. Обновить профиль
+
+### СЦЕНАРИЙ 2: Полный цикл продавца
+# 1. Регистрация → 2. Логин (сохранить token) → 3. Включить режим продавца → 
+# 4. Создать товар → 5. Получить список товаров → 6. Обновить товар → 7. Получить статистику
+
+### СЦЕНАРИЙ 3: Загрузка аватара
+# 1. Логин → 2. Загрузить аватар → 3. Получить профиль (проверить avatarUrl)
+
+###############################################
+### ЧЕРЕЗ API GATEWAY (если используется)
+###############################################
+
+### Логин через Gateway
+POST {{ApiGateway_HostAddress}}/user/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{testEmail}}",
+  "password": "{{testPassword}}"
+}
+
+### Получить профиль через Gateway
+GET {{ApiGateway_HostAddress}}/user/api/users/me
+Authorization: Bearer {{accessToken}}

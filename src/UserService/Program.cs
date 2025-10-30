@@ -35,10 +35,21 @@ namespace UserService
                     npgsqlOptions.MigrationsAssembly(typeof(Program).Assembly.FullName);
                 }));
 
-            // Add CORS policy for frontend development
+            // Добавляем политику CORS, читаем разрешённые origin'ы из конфигурации
+            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[]
+            {
+                "http://localhost:3000",
+                "https://www.loft-shop.pp.ua"
+            };
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins(allowedOrigins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
             });
 
             // Добавляем TokenService и UserService
@@ -151,7 +162,7 @@ namespace UserService
                     Console.WriteLine($"[UserService] Using PostgreSQL connection: {conn}");
 
                     // Попытки применения миграций с повторными попытками, чтобы дождаться старта Postgres
-                    var maxAttempts = 10;
+                    var maxAttempts = 5;
                     var attempt = 0;
                     var delaySeconds = 2;
                     while (true)
@@ -159,18 +170,67 @@ namespace UserService
                         try
                         {
                             attempt++;
-                            Console.WriteLine($"[UserService] Attempting DB migrate (attempt {attempt}/{maxAttempts})...");
-                            db.Database.Migrate();
-                            Console.WriteLine("[UserService] Database migration applied successfully.");
+                            Console.WriteLine($"[UserService] Attempting DB connection (attempt {attempt}/{maxAttempts})...");
+                            
+                            // Сначала просто проверяем подключение
+                            if (!db.Database.CanConnect())
+                            {
+                                throw new Exception("Cannot connect to database");
+                            }
+
+                            Console.WriteLine("[UserService] Database connection successful.");
+                            
+                            // Проверяем, есть ли pending миграции
+                            var pendingMigrations = db.Database.GetPendingMigrations().ToList();
+                            var appliedMigrations = db.Database.GetAppliedMigrations().ToList();
+                            
+                            Console.WriteLine($"[UserService] Applied migrations: {appliedMigrations.Count}");
+                            Console.WriteLine($"[UserService] Pending migrations: {pendingMigrations.Count}");
+                            
+                            if (pendingMigrations.Any())
+                            {
+                                Console.WriteLine($"[UserService] Pending migrations: {string.Join(", ", pendingMigrations)}");
+                                
+                                try
+                                {
+                                    // Пытаемся применить миграции
+                                    db.Database.Migrate();
+                                    Console.WriteLine("[UserService] Database migrations applied successfully.");
+                                }
+                                catch (Npgsql.PostgresException pgEx) when (pgEx.SqlState == "42P07")
+                                {
+                                    // Ошибка "relation already exists" - таблица уже существует
+                                    // Это означает, что миграция была применена вручную или частично
+                                    Console.WriteLine("[UserService] WARNING: Tables already exist but migration history is incomplete.");
+                                    Console.WriteLine("[UserService] Attempting to use EnsureCreated instead...");
+                                    
+                                    // Используем EnsureCreated для проверки/создания недостающих таблиц
+                                    var created = db.Database.EnsureCreated();
+                                    if (created)
+                                    {
+                                        Console.WriteLine("[UserService] Database schema created successfully.");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("[UserService] Database schema already exists, continuing...");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("[UserService] Database is up-to-date, no pending migrations.");
+                            }
                             break;
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[UserService] Database migration attempt {attempt} failed: {ex.Message}");
+                            Console.WriteLine($"[UserService] Database setup attempt {attempt} failed: {ex.Message}");
                             if (attempt >= maxAttempts)
                             {
-                                Console.WriteLine("[UserService] Maximum migration attempts reached, aborting startup.");
-                                throw;
+                                Console.WriteLine("[UserService] Maximum attempts reached.");
+                                Console.WriteLine("[UserService] WARNING: Starting application without complete database setup!");
+                                Console.WriteLine("[UserService] Please manually fix database migration state.");
+                                break; // Продолжаем запуск, чтобы приложение могло работать
                             }
                             var wait = TimeSpan.FromSeconds(delaySeconds * attempt);
                             Console.WriteLine($"[UserService] Waiting {wait.TotalSeconds} seconds before retrying...");
@@ -180,8 +240,8 @@ namespace UserService
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[UserService] Database migration failed: {ex}");
-                    throw;
+                    Console.WriteLine($"[UserService] Database setup error: {ex.Message}");
+                    Console.WriteLine("[UserService] WARNING: Application will start but database may not be properly configured!");
                 }
             }
 
@@ -197,7 +257,7 @@ namespace UserService
             app.UseRouting();
 
             // Enable CORS for frontend apps (dev convenience) - after UseRouting and before auth
-            app.UseCors("AllowAll");
+            app.UseCors("AllowFrontend");
 
             app.UseSwagger();
             app.UseSwaggerUI();

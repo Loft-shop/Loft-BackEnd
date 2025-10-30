@@ -16,6 +16,24 @@ namespace ProductService
             var builder = WebApplication.CreateBuilder(args);
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            
+            // Добавляем политику CORS, читаем разрешённые origin'ы из конфигурации
+            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[]
+            {
+                "http://localhost:3000",
+                "https://www.loft-shop.pp.ua"
+            };
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins(allowedOrigins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
+
 
             builder.Services.AddDbContext<ProductDbContext>(options =>
                 options.UseNpgsql(connectionString, // UseNpgsql использует строку подключения
@@ -54,6 +72,9 @@ namespace ProductService
             });
 
             var app = builder.Build();
+            
+            // Включаем CORS
+            app.UseCors("AllowFrontend");
 
             // Swagger UI доступен всегда для локального тестирования
             app.UseSwagger();

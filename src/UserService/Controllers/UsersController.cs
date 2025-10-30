@@ -285,7 +285,6 @@ namespace UserService.Controllers
 
         // Публичный эндпойнт: получить пользователя по ID (для межсервисных запросов)
         [HttpGet("{id:long}")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetById(long id)
         {
             var user = await _userService.GetUserById(id);
