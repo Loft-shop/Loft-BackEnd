@@ -29,16 +29,15 @@ public class UserService : IUserService
     public async Task<UserDTO?> GetUserById(long userId)
     {
         var user = await _db.Users.FindAsync(userId);
-        if (user == null) return null;
-        return _mapper.Map<UserDTO>(user);
+        return user == null ? null : _mapper.Map<UserDTO>(user);
     }
 
     public async Task<UserDTO?> GetUserByEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email)) return null;
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.Trim().ToLower());
-        if (user == null) return null;
-        return _mapper.Map<UserDTO>(user);
+        var normalized = email.Trim().ToLower();
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == normalized);
+        return user == null ? null : _mapper.Map<UserDTO>(user);
     }
 
     public async Task<UserDTO> CreateUser(UserDTO userDto, string password)
@@ -48,8 +47,6 @@ public class UserService : IUserService
         if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Password is required", nameof(password));
 
         var email = userDto.Email.Trim();
-
-        // check existing
         if (await _db.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
             throw new InvalidOperationException("Email already taken");
 
@@ -60,12 +57,11 @@ public class UserService : IUserService
             LastName = userDto.LastName,
             AvatarUrl = userDto.AvatarUrl,
             Phone = userDto.Phone,
-            Role = Role.CUSTOMER,
+            Role = userDto.Role,
             CanSell = userDto.CanSell
         };
 
         user.PasswordHash = _passwordHasher.HashPassword(user, password);
-
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
 
@@ -75,7 +71,6 @@ public class UserService : IUserService
     public async Task<UserDTO?> UpdateUser(long userId, UserDTO user)
     {
         if (user == null) throw new ArgumentNullException(nameof(user));
-
         var existing = await _db.Users.FindAsync(userId);
         if (existing == null) return null;
 
@@ -83,7 +78,7 @@ public class UserService : IUserService
         existing.LastName = user.LastName;
         existing.AvatarUrl = user.AvatarUrl;
         existing.Phone = user.Phone;
-        // Role and Email updates are omitted here; implement carefully if needed
+        // Email/Role изменения опускаем для безопасности
 
         await _db.SaveChangesAsync();
         return _mapper.Map<UserDTO>(existing);
@@ -102,7 +97,8 @@ public class UserService : IUserService
     public async Task<bool> IsEmailTaken(string email)
     {
         if (string.IsNullOrWhiteSpace(email)) return false;
-        return await _db.Users.AnyAsync(u => u.Email.ToLower() == email.Trim().ToLower());
+        var normalized = email.Trim().ToLower();
+        return await _db.Users.AnyAsync(u => u.Email.ToLower() == normalized);
     }
 
     public async Task<UserDTO?> AuthenticateUser(string email, string password)
@@ -110,9 +106,9 @@ public class UserService : IUserService
         if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             return null;
 
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.Trim().ToLower());
+        var normalized = email.Trim().ToLower();
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == normalized);
         if (user == null) return null;
-
         if (string.IsNullOrEmpty(user.PasswordHash)) return null;
 
         var verification = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
@@ -120,7 +116,6 @@ public class UserService : IUserService
         {
             return _mapper.Map<UserDTO>(user);
         }
-
         return null;
     }
 
@@ -134,10 +129,7 @@ public class UserService : IUserService
     {
         var user = await _db.Users.FindAsync(userId);
         if (user == null) return null;
-
-        // Переключаем статус продавца
         user.CanSell = !user.CanSell;
-        
         await _db.SaveChangesAsync();
         return _mapper.Map<UserDTO>(user);
     }

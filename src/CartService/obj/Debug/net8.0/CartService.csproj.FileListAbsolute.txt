@@ -279,3 +279,10 @@ D:/loft/Loft-BackEnd/src/CartService/bin/Debug/net8.0/runtimes/win/lib/netstanda
 /Users/platon/RiderProjects/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.pdb
 /Users/platon/RiderProjects/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.genruntimeconfig.cache
 /Users/platon/RiderProjects/Loft-BackEnd/src/CartService/obj/Debug/net8.0/ref/CartService.dll
+D:\loft\Loft-Moderation\Loft-BackEnd\src\CartService\obj\Debug\net8.0\CartService.csproj.AssemblyReference.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\CartService\obj\Debug\net8.0\CartService.GeneratedMSBuildEditorConfig.editorconfig
+D:\loft\Loft-Moderation\Loft-BackEnd\src\CartService\obj\Debug\net8.0\CartService.AssemblyInfoInputs.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\CartService\obj\Debug\net8.0\CartService.AssemblyInfo.cs
+D:\loft\Loft-Moderation\Loft-BackEnd\src\CartService\obj\Debug\net8.0\CartService.csproj.CoreCompileInputs.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\CartService\obj\Debug\net8.0\CartService.MvcApplicationPartsAssemblyInfo.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\CartService\obj\Debug\net8.0\CartService.sourcelink.json

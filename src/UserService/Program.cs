@@ -75,13 +75,24 @@ namespace UserService
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.FromMinutes(5),
-                        NameClaimType = ClaimTypes.Name,
+                        NameClaimType = ClaimTypes.NameIdentifier,
                         RoleClaimType = ClaimTypes.Role
                     };
-                    
+
                     // Добавляем события для отладки
                     options.Events = new JwtBearerEvents
                     {
+                        OnMessageReceived = context =>
+                        {
+                            var authHeader = context.Request.Headers["Authorization"].ToString();
+                            if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                            {
+                                context.Token = authHeader.Substring("Bearer ".Length).Trim();
+                            }
+
+                            Console.WriteLine($"[UserService] Received Authorization header: {(string.IsNullOrEmpty(authHeader) ? "EMPTY" : "SET")}");
+                            return Task.CompletedTask;
+                        },
                         OnAuthenticationFailed = context =>
                         {
                             Console.WriteLine($"[UserService] Authentication failed: {context.Exception.Message}");
@@ -92,12 +103,6 @@ namespace UserService
                             var userId = context.Principal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                             var userName = context.Principal?.Identity?.Name;
                             Console.WriteLine($"[UserService] Token validated - UserId: {userId}, UserName: {userName}");
-                            return Task.CompletedTask;
-                        },
-                        OnMessageReceived = context =>
-                        {
-                            var authHeader = context.Request.Headers["Authorization"].ToString();
-                            Console.WriteLine($"[UserService] Received Authorization header: {(string.IsNullOrEmpty(authHeader) ? "EMPTY" : "SET")}");
                             return Task.CompletedTask;
                         }
                     };
@@ -123,12 +128,22 @@ namespace UserService
                  };
                  c.AddSecurityDefinition("bearerAuth", securityScheme);
                  c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                 {
-                     { securityScheme, new string[] { } }
-                 });
+{
+                    {
+                      new OpenApiSecurityScheme
+                     {
+                        Reference = new OpenApiReference
+                   {
+                 Type = ReferenceType.SecurityScheme,
+                 Id = "bearerAuth"  // <- обязательно совпадает с AddSecurityDefinition
+                   }
+                   },
+                  Array.Empty<string>()
+                 }
+                    });
 
-                // Only include controllers from this assembly (avoid controllers from referenced projects)
-                c.DocInclusionPredicate((docName, apiDesc) =>
+                 // Only include controllers from this assembly (avoid controllers from referenced projects)
+                 c.DocInclusionPredicate((docName, apiDesc) =>
                 {
                     var cad = apiDesc.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
                     if (cad == null) return false;

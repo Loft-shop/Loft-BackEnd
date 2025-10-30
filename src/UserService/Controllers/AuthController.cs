@@ -1,16 +1,17 @@
+using Loft.Common.DTOs;
+using Loft.Common.Enums;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Loft.Common.DTOs;
-using UserService.Services;
-using UserService.Entities;
 using UserService.DTOs;
+using UserService.Entities;
+using UserService.Services;
 
 namespace UserService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase 
+public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;
 
@@ -28,16 +29,13 @@ public class AuthController : ControllerBase
         if (await _userService.IsEmailTaken(request.Email))
             return BadRequest(new { message = "Email already taken" });
 
-        // Генерируем имя из email автоматически
         var name = request.Email.Split('@')[0];
 
-        // For self-registration: role is always CUSTOMER; selling ability is controlled by CanSell flag
-        var userDto = new UserDTO(0, name, request.Email, Loft.Common.Enums.Role.CUSTOMER.ToString(), string.Empty, string.Empty, string.Empty, string.Empty, false);
+        var userDto = new UserDTO(0, name, request.Email, Role.CUSTOMER, string.Empty, string.Empty, string.Empty, string.Empty, false);
 
         try
         {
             var created = await _userService.CreateUser(userDto, request.Password);
-            // generate token
             var token = await _userService.GenerateJwt(created);
             return Created($"/api/users/{created.Id}", new { user = created, token });
         }
@@ -58,7 +56,6 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = "Invalid credentials" });
 
         var token = await _userService.GenerateJwt(user);
-
         return Ok(new { success = true, message = "Authenticated", user, token });
     }
 }

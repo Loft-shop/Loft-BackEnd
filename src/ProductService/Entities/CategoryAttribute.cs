@@ -34,8 +34,7 @@ namespace ProductService.Entities
     public class AttributeDto
     {
         public int? Id { get; set; }
-        public string Name { get; set; } = null!;          // общее название атрибута
-        public string DisplayName { get; set; } = null!;   // название атрибута  
+        public string Name { get; set; } = null!;          // Название атрибута
         public AttributeType Type { get; set; }            // Тип данных: String, Number, List
         public string TypeDisplayName { get; set; } = null!; // Отображение единицы измерения или типа ("кг", "см")
         public string? OptionsJson { get; set; }           // JSON-строка с вариантами для типа List

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "ProductService",
-    "version": "1.0"
+    "title": "ProductService API",
+    "version": "v1"
   },
   "paths": {
     "/api/Attribute": {
@@ -354,6 +354,48 @@
         }
       }
     },
+    "/api/Moderation/products/pending": {
+      "get": {
+        "tags": [
+          "Moderation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Moderation/products/{id}/status": {
+      "put": {
+        "tags": [
+          "Moderation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/ModerationStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/products/filter": {
       "post": {
         "tags": [
@@ -499,18 +541,6 @@
           }
         }
       }
-    },
-    "/api/users": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -559,6 +589,10 @@
           "attributeId": {
             "type": "integer",
             "format": "int32"
+          },
+          "attributeName": {
+            "type": "string",
+            "nullable": true
           },
           "isRequired": {
             "type": "boolean"
@@ -763,6 +797,17 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "sellerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "sellerEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "$ref": "#/components/schemas/CategoryDto"
           },
           "attributeValues": {
             "type": "array",

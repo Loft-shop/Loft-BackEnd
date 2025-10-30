@@ -166,3 +166,10 @@ D:/loft/Loft-BackEnd/src/ShippingAddressService/obj/Debug/net8.0/ref/ShippingAdd
 /Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/bin/Debug/net8.0/Npgsql.dll
 /Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ShippingAddressService\obj\Debug\net8.0\ShippingAddressService.csproj.AssemblyReference.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ShippingAddressService\obj\Debug\net8.0\ShippingAddressService.GeneratedMSBuildEditorConfig.editorconfig
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ShippingAddressService\obj\Debug\net8.0\ShippingAddressService.AssemblyInfoInputs.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ShippingAddressService\obj\Debug\net8.0\ShippingAddressService.AssemblyInfo.cs
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ShippingAddressService\obj\Debug\net8.0\ShippingAddressService.csproj.CoreCompileInputs.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ShippingAddressService\obj\Debug\net8.0\ShippingAddressService.MvcApplicationPartsAssemblyInfo.cache
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ShippingAddressService\obj\Debug\net8.0\ShippingAddressService.sourcelink.json

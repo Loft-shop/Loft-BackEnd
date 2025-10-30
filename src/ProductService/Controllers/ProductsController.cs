@@ -1,30 +1,36 @@
-using System.Threading.Tasks;
 using Loft.Common.DTOs;
+using Loft.Common.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Services;
+using System.Threading.Tasks;
+using UserService.Services;
 
 namespace ProductService.Controllers
 {
     [ApiController]
     [Route("api/products")]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseController
     {
         private readonly IProductService _service;
+        private readonly IUserService _userService;
 
-        public ProductController(IProductService service)
+        public ProductController(IProductService service, IUserService userService)
         {
             _service = service;
+            _userService = userService;
         }
 
-        // ��������� ������ ������� � �������� �� ���������/�������� � ����������
+        // Получение списка товаров с фильтром по категории/продавцу и пагинацией
         [HttpPost("filter")]
         public async Task<IActionResult> GetFilteredProducts([FromBody] ProductFilterDto filter)
         {
             var products = await _service.GetAllProducts(filter);
+
             return Ok(products);
         }
 
-        // ��������� ������ ������ �� ID
+        // Получение одного товара по ID
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -33,49 +39,68 @@ namespace ProductService.Controllers
             return Ok(product);
         }
 
-        // �������� ������ ������
-        [HttpPost]
+        // Создание нового товара
+        [HttpPost("create")]
+        [Authorize] // <-- Требуем аутентификацию
         public async Task<IActionResult> Create([FromBody] ProductDto productDto)
         {
+            var userId = GetUserId(); // Получаем ID пользователя из токена
+            if (userId == null) return Unauthorized();
+
+            productDto.IdUser = (int)userId; // Устанавливаем ID пользователя в DTO
+            productDto.Status = Loft.Common.Enums.ModerationStatus.Pending; // Устанавливаем статус на PENDING по умолчанию
+
             var product = await _service.CreateProduct(productDto);
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
 
-        // Обновление товара — требуется X-User-Id
+        // Обновление товара
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ProductDto productDto, [FromHeader(Name = "X-User-Id")] int? userId = null)
+        [Authorize] // <-- Требуем аутентификацию
+        public async Task<IActionResult> Update(int id, [FromBody] ProductDto productDto)
         {
-            if (!userId.HasValue)
-                return BadRequest(new { message = "X-User-Id header is required" });
+            var userId = GetUserId(); // Получаем ID пользователя из токена
+            if (userId == null) return Unauthorized();
 
-            var updated = await _service.UpdateProduct(id, productDto, userId);
-            if (updated == null)
-                return Forbid();
+            // Загружаем данные пользователя
+            var user = await _userService.GetUserById(userId.Value);
+            if (user == null) return Unauthorized();
+
+            // Загружаем продукт
+            var existingProduct = await _service.GetProductById(id);
+            if (existingProduct == null) return NotFound();
+
+            // Проверяем: владелец продукта или администратор
+            if (existingProduct.IdUser != (int)userId && user.Role != Role.MODERATOR)
+                return Forbid(); // 403 Forbidden
+
+            var updated = await _service.UpdateProduct(id, productDto);
+            if (updated == null) return NotFound();
             return Ok(updated);
         }
 
-        // Удаление товара — требуется X-User-Id
+        // Удаление товара
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, [FromHeader(Name = "X-User-Id")] int? userId = null)
+        [Authorize] // Требуем аутентификацию
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!userId.HasValue)
-                return BadRequest(new { message = "X-User-Id header is required" });
+            var userId = GetUserId();
+            if (userId == null) return Unauthorized();
 
-            var deleted = await _service.DeleteProduct(id, userId);
-            if (!deleted)
-                return Forbid();
+            // Загружаем данные пользователя
+            var user = await _userService.GetUserById(userId.Value);
+            if (user == null) return Unauthorized();
+
+            // Загружаем продукт
+            var existingProduct = await _service.GetProductById(id);
+            if (existingProduct == null) return NotFound();
+
+            // Проверяем: владелец продукта или модератор
+            if (existingProduct.IdUser != (int)userId && user.Role != Role.MODERATOR)
+                return Forbid(); // 403 Forbidden
+
+            await _service.DeleteProduct(id);
             return NoContent();
-        }
-
-        // Проверка прав доступа к товару
-        [HttpGet("{id}/can-modify")]
-        public async Task<IActionResult> CanModify(int id, [FromHeader(Name = "X-User-Id")] int? userId = null)
-        {
-            if (!userId.HasValue)
-                return BadRequest(new { message = "User ID is required" });
-
-            var canModify = await _service.CanUserModifyProduct(id, userId.Value);
-            return Ok(new { canModify });
         }
     }
 }
