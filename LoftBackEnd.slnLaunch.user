@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Новый профиль",
+    "Projects": [
+      {
+        "Path": "src\\ProductService\\ProductService.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\UserService\\UserService.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
