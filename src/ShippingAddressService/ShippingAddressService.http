@@ -1,0 +1,6 @@
+@ShippingAddressService_HostAddress = http://localhost:5233
+
+GET {{ShippingAddressService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

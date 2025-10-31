@@ -1,0 +1,133 @@
+# Docker Compose для продакшн окружения
+# Этот файл используется на сервере для деплоя
+
+networks:
+  loftnet:
+    driver: bridge  
+
+volumes:
+  pgdata:
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-developer}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-test_loft_shop}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - loftnet
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-developer}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  apigateway:
+    image: ${DOCKER_USERNAME}/loft-apigateway:latest
+    container_name: apigateway
+    ports:
+      - "5000:8080"
+    depends_on:
+      - cartservice
+      - orderservice
+      - productservice
+      - userservice
+      - shippingaddressservice
+      - paymentservice
+    networks:
+      - loftnet
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Production}
+      - ASPNETCORE_URLS=http://+:8080
+
+  cartservice:
+    image: ${DOCKER_USERNAME}/loft-cartservice:latest
+    container_name: cartservice
+    ports:
+      - "5003:8080"
+    networks:
+      - loftnet
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB:-test_loft_shop};Username=${POSTGRES_USER:-developer};Password=${POSTGRES_PASSWORD}
+
+  orderservice:
+    image: ${DOCKER_USERNAME}/loft-orderservice:latest
+    container_name: orderservice
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+      - Services__CartService=http://cartservice:8080
+      - Services__ProductService=http://productservice:8080
+      - Services__UserService=http://userservice:8080
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB:-test_loft_shop};Username=${POSTGRES_USER:-developer};Password=${POSTGRES_PASSWORD}
+    networks:
+      - loftnet
+    depends_on:
+      - cartservice
+      - productservice
+      - userservice
+      - postgres
+    restart: unless-stopped
+
+  paymentservice:
+    image: ${DOCKER_USERNAME}/loft-paymentservice:latest
+    container_name: paymentservice
+    ports:
+      - "5006:8080"
+    networks:
+      - loftnet
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB:-test_loft_shop};Username=${POSTGRES_USER:-developer};Password=${POSTGRES_PASSWORD}
+
+  productservice:
+    image: ${DOCKER_USERNAME}/loft-productservice:latest
+    container_name: productservice
+    ports:
+      - "5002:8080"
+    networks:
+      - loftnet
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB:-test_loft_shop};Username=${POSTGRES_USER:-developer};Password=${POSTGRES_PASSWORD}
+
+  shippingaddressservice:
+    image: ${DOCKER_USERNAME}/loft-shippingaddressservice:latest
+    container_name: shippingaddressservice
+    ports:
+      - "5005:8080"
+    networks:
+      - loftnet
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB:-test_loft_shop};Username=${POSTGRES_USER:-developer};Password=${POSTGRES_PASSWORD}
+
+  userservice:
+    image: ${DOCKER_USERNAME}/loft-userservice:latest
+    container_name: userservice
+    ports:
+      - "5004:8080"
+    networks:
+      - loftnet
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB:-test_loft_shop};Username=${POSTGRES_USER:-developer};Password=${POSTGRES_PASSWORD}
+
