@@ -17,22 +17,6 @@ namespace CartService
             // Добавляем сервисы контроллеров
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(typeof(CartProfile));
-            
-            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[]
-            {
-                "http://localhost:3000",
-                "https://www.loft-shop.pp.ua"
-            };
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", policy =>
-                {
-                    policy.WithOrigins(allowedOrigins)
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
 
             // Swagger/OpenAPI
             builder.Services.AddSwaggerGen(c =>
@@ -66,8 +50,6 @@ namespace CartService
             
 
             var app = builder.Build();
-            
-            app.UseCors("AllowAll");
 
             // Swagger middleware
             app.UseSwagger();

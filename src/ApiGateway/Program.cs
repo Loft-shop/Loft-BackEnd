@@ -17,19 +17,6 @@ namespace ApiGateway
                 .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
-            // Добавляем политику CORS, читаем разрешённые origin'ы из конфигурации
-            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:3000" };
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowFrontend", policy =>
-                {
-                    policy.WithOrigins(allowedOrigins)
-                          .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials();
-                });
-            });
-
             builder.Services.AddOcelot();
 
             // Добавляем контроллеры (для /api/gateway и прочих локальных эндпоинтов)
@@ -53,39 +40,6 @@ namespace ApiGateway
             // Swagger middleware (должно идти до Ocelot middleware)
             app.UseSwagger();
             app.UseSwaggerUI();
-
-            // CORS должен быть настроен ДО Ocelot
-            // Обрабатываем preflight запросы (OPTIONS) вручную до Ocelot
-            app.Use(async (context, next) =>
-            {
-                // Проверяем, есть ли Origin в запросе
-                var origin = context.Request.Headers["Origin"].ToString();
-                
-                if (!string.IsNullOrEmpty(origin))
-                {
-                    // Получаем разрешенные origins
-                    var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:3000" };
-                    
-                    // Проверяем, разрешен ли этот origin
-                    if (allowedOrigins.Contains(origin) || allowedOrigins.Contains("*"))
-                    {
-                        context.Response.Headers.Add("Access-Control-Allow-Origin", origin);
-                        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
-                        context.Response.Headers.Add("Access-Control-Allow-Headers", 
-                            context.Request.Headers["Access-Control-Request-Headers"].ToString());
-                        context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH");
-                    }
-                }
-
-                // Если это preflight запрос (OPTIONS), возвращаем 200 и не идем дальше в Ocelot
-                if (context.Request.Method == "OPTIONS")
-                {
-                    context.Response.StatusCode = 200;
-                    return;
-                }
-
-                await next();
-            });
 
             // Перехват корня и health до Ocelot
             app.Use(async (ctx, next) =>

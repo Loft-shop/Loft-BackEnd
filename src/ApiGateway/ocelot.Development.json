@@ -1,133 +1,117 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/Auth/login",
+      "DownstreamPathTemplate": "/api/users",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/auth/login",
-      "UpstreamHttpMethod": ["Post"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5008 } ],
+      "UpstreamPathTemplate": "/api/users",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/Auth/register",
+      "DownstreamPathTemplate": "/api/users/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/auth/register",
-      "UpstreamHttpMethod": ["Post"]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/carts",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "cartservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/carts",
-      "UpstreamHttpMethod": ["Get", "Post"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5008 } ],
+      "UpstreamPathTemplate": "/api/users/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/carts/{everything}",
+      "DownstreamPathTemplate": "/api/sellers",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "cartservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/carts/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/orders",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "orderservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/orders",
-      "UpstreamHttpMethod": ["Get", "Post"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5006 } ],
+      "UpstreamPathTemplate": "/api/sellers",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/orders/{everything}",
+      "DownstreamPathTemplate": "/api/sellers/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "orderservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/orders/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5006 } ],
+      "UpstreamPathTemplate": "/api/sellers/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
-
-    {
-      "DownstreamPathTemplate": "/api/payments",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "paymentservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/payments",
-      "UpstreamHttpMethod": ["Get"]
-    },
-
     {
       "DownstreamPathTemplate": "/api/products",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/products",
-      "UpstreamHttpMethod": ["Get", "Post"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5005 } ],
+      "UpstreamPathTemplate": "/api/products",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
       "DownstreamPathTemplate": "/api/products/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/products/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5005 } ],
+      "UpstreamPathTemplate": "/api/products/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/category",
+      "DownstreamPathTemplate": "/api/payments",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/category",
-      "UpstreamHttpMethod": ["Get", "Post"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5004 } ],
+      "UpstreamPathTemplate": "/api/payments",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/category/{everything}",
+      "DownstreamPathTemplate": "/api/payments/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/category/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5004 } ],
+      "UpstreamPathTemplate": "/api/payments/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/attribute",
+      "DownstreamPathTemplate": "/api/orders",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/attribute",
-      "UpstreamHttpMethod": ["Get", "Post"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5003 } ],
+      "UpstreamPathTemplate": "/api/orders",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/attribute/{everything}",
+      "DownstreamPathTemplate": "/api/orders/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "productservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/attribute/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5003 } ],
+      "UpstreamPathTemplate": "/api/orders/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
-
+    {
+      "DownstreamPathTemplate": "/api/categories",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5002 } ],
+      "UpstreamPathTemplate": "/api/categories",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5002 } ],
+      "UpstreamPathTemplate": "/api/categories/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/carts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5001 } ],
+      "UpstreamPathTemplate": "/api/carts",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/carts/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5001 } ],
+      "UpstreamPathTemplate": "/api/carts/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
     {
       "DownstreamPathTemplate": "/api/shipping-addresses",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "shippingaddressservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/shipping-addresses",
-      "UpstreamHttpMethod": ["Get"]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/users/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/users/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5007 } ],
+      "UpstreamPathTemplate": "/api/shipping-addresses",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/api/seller/products",
+      "DownstreamPathTemplate": "/api/shipping-addresses/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/seller/products",
-      "UpstreamHttpMethod": ["Get", "Post"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/seller/products/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [{ "Host": "userservice", "Port": 8080 }],
-      "UpstreamPathTemplate": "/seller/products/{everything}",
-      "UpstreamHttpMethod": ["Get", "Post", "Put", "Delete"]
+      "DownstreamHostAndPorts": [ { "Host": "localhost", "Port": 5007 } ],
+      "UpstreamPathTemplate": "/api/shipping-addresses/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     }
   ],
-  "GlobalConfiguration": {
-    "BaseUrl": "https://loft-shop.pp.ua"
-  }
+  "GlobalConfiguration": { "BaseUrl": "http://localhost:5000" }
 }
-

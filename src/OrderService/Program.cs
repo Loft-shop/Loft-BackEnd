@@ -16,23 +16,6 @@ namespace OrderService
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            // Добавляем политику CORS, читаем разрешённые origin'ы из конфигурации
-            var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? new[]
-            {
-                "http://localhost:3000",
-                "https://www.loft-shop.pp.ua"
-            };
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", policy =>
-                {
-                    policy.WithOrigins(allowedOrigins)
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
-                });
-            });
-
             // Добавляем контроллеры и авторизацию (нужны для UseAuthorization)
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
@@ -91,10 +74,6 @@ namespace OrderService
             
             // Настраиваем конвейер обработки запросов
             app.UseRouting();
-
-            // Включаем CORS
-            app.UseCors("AllowAll");
-
             // Вызываем UseAuthorization только если зарегистрирован IAuthorizationService
             if (app.Services.GetService(typeof(Microsoft.AspNetCore.Authorization.IAuthorizationService)) != null)
             {
