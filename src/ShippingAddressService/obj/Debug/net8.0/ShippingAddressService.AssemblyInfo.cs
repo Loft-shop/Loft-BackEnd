@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShippingAddressService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6fe7cf5a7f452881ca162c8139dcd40b21dc33ec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f5ba081749c322a48321c8d342767c2077c95f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShippingAddressService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShippingAddressService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

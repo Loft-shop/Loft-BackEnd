@@ -13,12 +13,10 @@ namespace monolith_version.Controllers
     public class ModerationController : BaseController
     {
         private readonly IProductService _service;
-        private readonly IUserService _userService;
 
-        public ModerationController(IProductService service, IUserService userService)
+        public ModerationController(IProductService service)
         {
             _service = service;
-            _userService = userService;
         }
 
 
@@ -29,9 +27,7 @@ namespace monolith_version.Controllers
             var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            var user = await _userService.GetUserById(userId.Value);
-
-            if (user == null || user.Role != Role.MODERATOR) return Forbid();
+            if (!IsModerator()) return Forbid();
 
             var products = await _service.GetProductsByModerationStatus(ModerationStatus.Pending);
             return Ok(products);
@@ -45,8 +41,7 @@ namespace monolith_version.Controllers
             var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null || user.Role != Role.MODERATOR) return Forbid();
+            if (!IsModerator()) return Forbid();
 
             var updated = await _service.UpdateProductModerationStatus(id, status);
             if (updated == null) return NotFound();

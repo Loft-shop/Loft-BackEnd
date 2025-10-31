@@ -54,8 +54,8 @@ namespace UserService
             if (!string.IsNullOrEmpty(jwtKey))
             {
                 var key = Encoding.UTF8.GetBytes(jwtKey);
-                Console.WriteLine($"[UserService] JWT Configuration - Key: {(!string.IsNullOrEmpty(jwtKey) ? "SET" : "NOT SET")}, Issuer: {issuer}, Audience: {audience}");
-                
+              //  Console.WriteLine($"[UserService] JWT Configuration - Key: {(!string.IsNullOrEmpty(jwtKey) ? "SET" : "NOT SET")}, Issuer: {issuer}, Audience: {audience}");
+              //  Console.WriteLine($"[DEBUG] JWT Key length: {jwtKey?.Length ?? 0}, First 5 chars: {jwtKey?.Substring(0, Math.Min(5, jwtKey.Length))}");
                 builder.Services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -483,3 +483,4 @@ D:\loft\Loft-Moderation\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\refint\
 D:\loft\Loft-Moderation\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\ProductService.pdb
 D:\loft\Loft-Moderation\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\ProductService.genruntimeconfig.cache
 D:\loft\Loft-Moderation\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\ref\ProductService.dll
+D:\loft\Loft-Moderation\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\ProductService.MvcApplicationPartsAssemblyInfo.cs

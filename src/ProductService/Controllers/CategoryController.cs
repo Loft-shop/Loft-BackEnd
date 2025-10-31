@@ -14,12 +14,10 @@ namespace ProductService.Controllers
     public class CategoryController : BaseController
     {
         private readonly IProductService _service;
-        private readonly IUserService _userService;
 
-        public CategoryController(IProductService service, IUserService userService)
+        public CategoryController(IProductService service)
         {
             _service = service;
-            _userService = userService;
         }
 
         // Получение списка категорий с фильтром по родителю
@@ -40,20 +38,34 @@ namespace ProductService.Controllers
         }
 
         // Создание категории
-        [HttpPost]
+       /* [HttpPost]
         [Authorize] // <-- Требуем аутентификацию
         public async Task<IActionResult> Create([FromBody] CategoryDto categoryDto)
         {
-            var userId = GetUserId(); // Получаем ID пользователя из токена
+            var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            // Получаем пользователя
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null) return Unauthorized();
+            if (!IsModerator()) return Forbid();
 
-            // Проверяем роль: только модератор
-            if (user.Role != Role.MODERATOR)
-                return Forbid(); // 403 Forbidden
+            var category = await _service.CreateCategory(categoryDto);
+            return CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
+        }*/
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create([FromBody] CategoryDto categoryDto)
+        {
+            var userId = GetUserId();
+            if (userId == null) return Unauthorized();
+
+            // 🔹 Отладка: вывести все claims из токена
+            Console.WriteLine("=== JWT Claims Start ===");
+            foreach (var claim in User.Claims)
+            {
+                Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
+            }
+            Console.WriteLine("=== JWT Claims End ===");
+
+            if (!IsModerator()) return Forbid();
 
             var category = await _service.CreateCategory(categoryDto);
             return CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
@@ -64,16 +76,10 @@ namespace ProductService.Controllers
         [Authorize] // <-- Требуем аутентификацию
         public async Task<IActionResult> Update(int id, [FromBody] CategoryDto categoryDto)
         {
-            var userId = GetUserId(); // Получаем ID пользователя из токена
+            var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            // Получаем пользователя
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null) return Unauthorized();
-
-            // Проверяем роль: только модератор
-            if (user.Role != Role.MODERATOR)
-                return Forbid(); // 403 Forbidden
+            if (!IsModerator()) return Forbid();
 
             var updated = await _service.UpdateCategory(id, categoryDto);
             if (updated == null) return NotFound();
@@ -85,16 +91,10 @@ namespace ProductService.Controllers
         [Authorize] // <-- Требуем аутентификацию
         public async Task<IActionResult> Delete(int id)
         {
-            var userId = GetUserId(); // Получаем ID пользователя из токена
+            var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            // Получаем пользователя
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null) return Unauthorized();
-
-            // Проверяем роль: только модератор
-            if (user.Role != Role.MODERATOR)
-                return Forbid(); // 403 Forbidden
+            if (!IsModerator()) return Forbid();
 
             await _service.DeleteCategory(id);
             return NoContent();
@@ -105,16 +105,10 @@ namespace ProductService.Controllers
         [Authorize] // <-- Требуем аутентификацию
         public async Task<IActionResult> AssignAttribute(int id, [FromQuery] int attributeId, [FromQuery] bool isRequired, [FromQuery] int orderIndex)
         {
-            var userId = GetUserId(); // Получаем ID пользователя из токена
+            var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            // Получаем пользователя
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null) return Unauthorized();
-
-            // Проверяем роль: только модератор
-            if (user.Role != Role.MODERATOR)
-                return Forbid(); // 403 Forbidden
+            if (!IsModerator()) return Forbid();
 
             var categoryAttribute = await _service.AssignAttributeToCategory(id, attributeId, isRequired, orderIndex);
             return Ok(categoryAttribute);
@@ -125,16 +119,10 @@ namespace ProductService.Controllers
         [Authorize] // <-- Требуем аутентификацию
         public async Task<IActionResult> RemoveAttribute(int id, int attributeId)
         {
-            var userId = GetUserId(); // Получаем ID пользователя из токена
+            var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            // Получаем пользователя
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null) return Unauthorized();
-
-            // Проверяем роль: только модератор
-            if (user.Role != Role.MODERATOR)
-                return Forbid(); // 403 Forbidden
+            if (!IsModerator()) return Forbid();
 
             await _service.RemoveAttributeFromCategory(id, attributeId);
             return NoContent();

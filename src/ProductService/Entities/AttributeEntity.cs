@@ -11,10 +11,7 @@ namespace ProductService.Entities
         // Уникальный идентификатор атрибута (PK)
 
         public string Name { get; set; } = null!;
-        // Техническое название атрибута 
-
-        public string DisplayName { get; set; } = null!;
-        // Отображаемое имя атрибута для пользователя 
+        // название атрибута 
 
         public AttributeType Type { get; set; }
         // Тип данных: String (строка), Number (число), List (список вариантов)

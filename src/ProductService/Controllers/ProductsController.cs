@@ -13,12 +13,10 @@ namespace ProductService.Controllers
     public class ProductController : BaseController
     {
         private readonly IProductService _service;
-        private readonly IUserService _userService;
 
-        public ProductController(IProductService service, IUserService userService)
+        public ProductController(IProductService service)
         {
             _service = service;
-            _userService = userService;
         }
 
         // Получение списка товаров с фильтром по категории/продавцу и пагинацией
@@ -59,20 +57,14 @@ namespace ProductService.Controllers
         [Authorize] // <-- Требуем аутентификацию
         public async Task<IActionResult> Update(int id, [FromBody] ProductDto productDto)
         {
-            var userId = GetUserId(); // Получаем ID пользователя из токена
+            var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            // Загружаем данные пользователя
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null) return Unauthorized();
+            var product = await _service.GetProductById(id);
+            if (product == null) return NotFound();
 
-            // Загружаем продукт
-            var existingProduct = await _service.GetProductById(id);
-            if (existingProduct == null) return NotFound();
-
-            // Проверяем: владелец продукта или администратор
-            if (existingProduct.IdUser != (int)userId && user.Role != Role.MODERATOR)
-                return Forbid(); // 403 Forbidden
+            if (product.IdUser != userId)
+                return Forbid();
 
             var updated = await _service.UpdateProduct(id, productDto);
             if (updated == null) return NotFound();
@@ -87,17 +79,11 @@ namespace ProductService.Controllers
             var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            // Загружаем данные пользователя
-            var user = await _userService.GetUserById(userId.Value);
-            if (user == null) return Unauthorized();
+            var product = await _service.GetProductById(id);
+            if (product == null) return NotFound();
 
-            // Загружаем продукт
-            var existingProduct = await _service.GetProductById(id);
-            if (existingProduct == null) return NotFound();
-
-            // Проверяем: владелец продукта или модератор
-            if (existingProduct.IdUser != (int)userId && user.Role != Role.MODERATOR)
-                return Forbid(); // 403 Forbidden
+            if (product.IdUser != userId)
+                return Forbid();
 
             await _service.DeleteProduct(id);
             return NoContent();
