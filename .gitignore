@@ -1,0 +1,37 @@
+# Visual Studio / VS Code
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+*.dll
+*.exe
+*.log
+*.vsix
+
+# Rider
+.idea/
+
+# Docker
+*.env
+docker-compose.override.yml
+docker-compose.override.*.yml
+
+# EF Core Migrations (если хочешь коммитить миграции, оставь Migrations/)
+# Migrations/
+
+# Node/npm (если есть фронт)
+node_modules/
+
+# ОС файлы
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pfx
+*.key
+*.pem
