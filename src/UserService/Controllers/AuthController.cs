@@ -20,6 +20,12 @@ public class AuthController : ControllerBase
         _userService = userService;
     }
 
+    [HttpGet("ping")]
+    public IActionResult Ping()
+    {
+        return Ok(new { status = "UserService is running", timestamp = DateTime.UtcNow });
+    }
+
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
