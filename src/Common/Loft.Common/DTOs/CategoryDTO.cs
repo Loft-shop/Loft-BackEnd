@@ -32,7 +32,6 @@ namespace Loft.Common.DTOs
     {
         public int AttributeId { get; set; }
         public string AttributeName { get; set; } = null!;
-        public string DisplayName { get; set; } = null!;
         public AttributeType Type { get; set; }
         public string TypeDisplayName { get; set; } = null!;
         public string? OptionsJson { get; set; }
