@@ -1,0 +1,8 @@
+<Project>
+  <!-- По умолчанию: не копировать appsettings*.json при publish для проектов, которые включены как ProjectReference -->
+  <ItemGroup>
+    <Content Update="appsettings*.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
