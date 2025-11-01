@@ -22,6 +22,18 @@ namespace ApiGateway
             // Добавляем контроллеры (для /api/gateway и прочих локальных эндпоинтов)
             builder.Services.AddControllers();
 
+            // Настройка CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.SetIsOriginAllowed(_ => true) // Разрешаем все origins
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials(); // Важно для работы с cookies/auth
+                });
+            });
+
             // Swagger/OpenAPI
             builder.Services.AddSwaggerGen(c =>
             {
@@ -36,6 +48,20 @@ namespace ApiGateway
             });
 
             var app = builder.Build();
+
+            // CORS должен идти ПЕРВЫМ, до Ocelot
+            app.UseCors("AllowAll");
+
+            // Убираем trailing slash ДО Ocelot
+            app.Use(async (context, next) =>
+            {
+                var path = context.Request.Path.Value;
+                if (!string.IsNullOrEmpty(path) && path.Length > 1 && path.EndsWith("/"))
+                {
+                    context.Request.Path = path.TrimEnd('/');
+                }
+                await next();
+            });
 
             // Swagger middleware (должно идти до Ocelot middleware)
             app.UseSwagger();

@@ -35,12 +35,6 @@ namespace UserService
                     npgsqlOptions.MigrationsAssembly(typeof(Program).Assembly.FullName);
                 }));
 
-            // Add CORS policy for frontend development
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            });
-
             // Добавляем TokenService и UserService
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IUserService, UserService.Services.UserService>();
@@ -211,8 +205,7 @@ namespace UserService
             // Настраиваем конвейер обработки запросов
             app.UseRouting();
 
-            // Enable CORS for frontend apps (dev convenience) - after UseRouting and before auth
-            app.UseCors("AllowAll");
+            // CORS удалён - он обрабатывается только в ApiGateway
 
             app.UseSwagger();
             app.UseSwaggerUI();
