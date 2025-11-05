@@ -21,7 +21,10 @@ COPY ["src/UserService/UserService.csproj", "UserService/"]
 RUN dotnet restore "OrderService/OrderService.csproj"
 
 # Копируем все исходники
-COPY src/ .
+COPY src/OrderService/ ./OrderService/
+WORKDIR /src/OrderService
+RUN dotnet restore "OrderService.csproj"
+RUN dotnet publish "OrderService.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 WORKDIR /src/OrderService
 RUN dotnet build "OrderService.csproj" -c $BUILD_CONFIGURATION -o /app/build
