@@ -39,10 +39,16 @@
     </ItemGroup>
 
     <!-- Разрешаем публикацию appsettings только для этого проекта -->
+    <!-- Публиковать только свои appsettings для Docker -->
     <ItemGroup>
-        <Content Update="appsettings*.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </Content>
+        <!-- Убрать appsettings.Development.json из publish -->
+        <None Update="appsettings.Development.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>

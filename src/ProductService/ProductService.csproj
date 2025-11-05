@@ -37,10 +37,11 @@
 
     <!-- Публиковать только свои appsettings для Docker -->
     <ItemGroup>
-        <Content Update="appsettings*.json">
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <!-- Убрать appsettings.Development.json из publish -->
+        <None Update="appsettings.Development.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Migrations\" />
