@@ -1949,8 +1949,10 @@
           "Loft.Common": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.20",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "8.0.20",
+          "Microsoft.EntityFrameworkCore": "9.0.9",
           "Microsoft.Identity.Web": "3.8.2",
           "Microsoft.Identity.Web.DownstreamApi": "3.2.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "compile": {
@@ -5748,7 +5750,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/Users/platon/.dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

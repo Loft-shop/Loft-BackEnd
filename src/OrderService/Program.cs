@@ -64,6 +64,13 @@ namespace OrderService
                 var userServiceUrl = builder.Configuration["Services:UserService"] ?? "http://localhost:5003";
                 client.BaseAddress = new Uri(userServiceUrl);
             });
+            
+            // HttpClient для PaymentService
+            builder.Services.AddHttpClient("PaymentService", client =>
+            {
+                var paymentServiceUrl = builder.Configuration["Services:PaymentService"] ?? "http://localhost:5005";
+                client.BaseAddress = new Uri(paymentServiceUrl);
+            });
 
 
             var app = builder.Build();
