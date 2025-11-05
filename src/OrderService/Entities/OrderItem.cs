@@ -15,7 +15,7 @@ public class OrderItem
     // информация о том, что было куплено
     
     public string? ProductName { get; set; }
-    public string? ProductDescription { get; set; }
+    public string? ImageUrl { get; set; }
     
     // Информация о категории на момент заказа
     public int? CategoryId { get; set; }

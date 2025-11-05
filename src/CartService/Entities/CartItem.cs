@@ -11,9 +11,16 @@ public class CartItem
     public Cart? Cart { get; set; }
     public Product? Product { get; set; }
 
+    // =============================================================================
+    // Сохраняем минимально необходимую информацию о товаре для отображения корзины
+    // =============================================================================
     public decimal Price { get; set; }
-    
     public string? ProductName { get; set; }
+    public string? ImageUrl { get; set; }
     
-    public string? ProductDescription { get; set; }
+    // Категория товара (для фильтрации и группировки)
+    public int? CategoryId { get; set; }
+    public string? CategoryName { get; set; }
+    
+    public DateTime AddedAt { get; set; } = DateTime.UtcNow;
 }

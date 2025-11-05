@@ -70,6 +70,9 @@ namespace OrderService.Migrations
                     b.Property<string>("CategoryName")
                         .HasColumnType("text");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
@@ -77,9 +80,6 @@ namespace OrderService.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("ProductAttributesJson")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProductDescription")
                         .HasColumnType("text");
 
                     b.Property<long>("ProductId")

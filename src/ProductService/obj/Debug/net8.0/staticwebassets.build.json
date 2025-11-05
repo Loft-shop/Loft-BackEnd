@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "mQNjyZN8mUuITAQrZNjmbDigjitTRdwrDH8C8tj26wA=",
+  "Hash": "EU4Sa3H69hgOhY3rICrw1O5nBmqbJjRGHQ1Nhr92Nvs=",
   "Source": "ProductService",
   "BasePath": "_content/ProductService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\loft\\test\\Loft-BackEnd\\src\\UserService\\UserService.csproj",
+      "Identity": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
       "Version": 2,
       "Source": "UserService",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",

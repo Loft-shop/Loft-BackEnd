@@ -93,15 +93,33 @@ public class CartService : ICartService
         if (quantity <= 0) quantity = 1;
         
         // Получаем информацию о товаре из ProductService
-        ProductInfo? productInfo = null;
+        ProductDto? productInfo = null;
+        CategoryDto? categoryInfo = null;
         try
         {
-            var client = _httpClientFactory.CreateClient();
-            var productResponse = await client.GetAsync($"http://productservice:8080/api/products/{productId}");
+            var client = _httpClientFactory.CreateClient("ProductService");
+            var productResponse = await client.GetAsync($"/api/products/{productId}");
             
             if (productResponse.IsSuccessStatusCode)
             {
-                productInfo = await productResponse.Content.ReadFromJsonAsync<ProductInfo>();
+                productInfo = await productResponse.Content.ReadFromJsonAsync<ProductDto>();
+                
+                // Получаем информацию о категории
+                if (productInfo != null && productInfo.CategoryId > 0)
+                {
+                    try
+                    {
+                        var categoryResponse = await client.GetAsync($"/api/categories/{productInfo.CategoryId}");
+                        if (categoryResponse.IsSuccessStatusCode)
+                        {
+                            categoryInfo = await categoryResponse.Content.ReadFromJsonAsync<CategoryDto>();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, $"Error loading category {productInfo.CategoryId}");
+                    }
+                }
             }
             else
             {
@@ -134,8 +152,9 @@ public class CartService : ICartService
             {
                 existing.ProductName = productInfo.Name;
                 existing.Price = productInfo.Price;
-                existing.ProductDescription = productInfo.Description;
-                // Категорию не сохраняем в БД, отдадим через обогащение DTO
+                existing.ImageUrl = productInfo.MediaFiles?.FirstOrDefault()?.Url;
+                existing.CategoryId = productInfo.CategoryId;
+                existing.CategoryName = categoryInfo?.Name;
             }
             
             _db.CartItems.Update(existing);
@@ -149,7 +168,10 @@ public class CartService : ICartService
                 Cart = cart,
                 ProductName = productInfo?.Name,
                 Price = productInfo?.Price ?? 0,
-                ProductDescription = productInfo?.Description
+                ImageUrl = productInfo?.MediaFiles?.FirstOrDefault()?.Url,
+                CategoryId = productInfo?.CategoryId,
+                CategoryName = categoryInfo?.Name,
+                AddedAt = DateTime.UtcNow
             };
             cart.CartItems.Add(item);
             _db.CartItems.Add(item);
@@ -232,7 +254,9 @@ public class CartService : ICartService
                 {
                     existing.ProductName = item.ProductName;
                     existing.Price = item.Price;
-                    existing.ProductDescription = item.ProductDescription;
+                    existing.ImageUrl = item.ImageUrl;
+                    existing.CategoryId = item.CategoryId;
+                    existing.CategoryName = item.CategoryName;
                 }
                 
                 _db.CartItems.Update(existing);
@@ -246,7 +270,10 @@ public class CartService : ICartService
                     Cart = toCart,
                     ProductName = item.ProductName,
                     Price = item.Price,
-                    ProductDescription = item.ProductDescription
+                    ImageUrl = item.ImageUrl,
+                    CategoryId = item.CategoryId,
+                    CategoryName = item.CategoryName,
+                    AddedAt = item.AddedAt
                 };
                 toCart.CartItems.Add(newItem);
                 _db.CartItems.Add(newItem);
@@ -258,80 +285,6 @@ public class CartService : ICartService
         await _db.SaveChangesAsync();
     }
 
-    // Новый метод: обогащение информации о товарах из ProductService
-    private async Task EnrichCartItemsWithProductInfo(CartDTO cart)
-    {
-        if (cart.CartItems == null || !cart.CartItems.Any()) return;
-        await EnrichCartItemsWithProductInfo(cart.CartItems.ToList());
-    }
-
-    private async Task EnrichCartItemsWithProductInfo(List<CartItemDTO> items)
-    {
-        if (items == null || !items.Any()) return;
-
-        try
-        {
-            var client = _httpClientFactory.CreateClient();
-            
-            var enrichedItems = new List<CartItemDTO>();
-            
-            foreach (var item in items)
-            {
-                try
-                {
-                    // Запрашиваем информацию о товаре из ProductService
-                    var productResponse = await client.GetAsync($"http://productservice:8080/api/products/{item.ProductId}");
-                    
-                    if (productResponse.IsSuccessStatusCode)
-                    {
-                        var product = await productResponse.Content.ReadFromJsonAsync<ProductInfo>();
-                        
-                        if (product != null)
-                        {
-                            // Создаем новый CartItemDTO с обогащенными данными (в т.ч. категории)
-                            var enrichedItem = item with
-                            {
-                                Price = product.Price,
-                                ProductName = product.Name,
-                                ProductDescription = product.Description,
-                                CategoryId = product.CategoryId,
-                                // Конвертируем CategoryInfo в CategoryDto
-                                Category = product.Category != null ? new CategoryDto
-                                {
-                                    Id = product.Category.Id,
-                                    Name = product.Category.Name,
-                                    ParentCategoryId = product.Category.ParentCategoryId
-                                } : null,
-                                CategoryName = product.CategoryName
-                            };
-                            
-                            enrichedItems.Add(enrichedItem);
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        _logger.LogWarning($"Failed to load product {item.ProductId}: {productResponse.StatusCode}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogWarning(ex, $"Error loading product {item.ProductId}");
-                }
-                
-                // Если не удалось загрузить - оставляем как есть
-                enrichedItems.Add(item);
-            }
-            
-            // Обновляем список (это работает для ссылочного типа)
-            items.Clear();
-            items.AddRange(enrichedItems);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error enriching cart items with product info");
-        }
-    }
 
     private async Task<List<CartItemDTO>> EnrichCartItemsWithProductInfoReturn(List<CartItemDTO> items)
     {
@@ -340,31 +293,48 @@ public class CartService : ICartService
         var result = new List<CartItemDTO>(items.Count);
         try
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = _httpClientFactory.CreateClient("ProductService");
             foreach (var item in items)
             {
+                // Если данные уже есть, используем их
+                if (!string.IsNullOrEmpty(item.ProductName) && item.Price > 0 && item.CategoryId != null)
+                {
+                    result.Add(item);
+                    continue;
+                }
+                
+                // Если данных нет - загружаем из ProductService
                 try
                 {
-                    var productResponse = await client.GetAsync($"http://productservice:8080/api/products/{item.ProductId}");
+                    var productResponse = await client.GetAsync($"/api/products/{item.ProductId}");
                     if (productResponse.IsSuccessStatusCode)
                     {
-                        var product = await productResponse.Content.ReadFromJsonAsync<ProductInfo>();
+                        var product = await productResponse.Content.ReadFromJsonAsync<ProductDto>();
                         if (product != null)
                         {
+                            // Пытаемся получить категорию
+                            CategoryDto? category = null;
+                            try
+                            {
+                                var categoryResponse = await client.GetAsync($"/api/categories/{product.CategoryId}");
+                                if (categoryResponse.IsSuccessStatusCode)
+                                {
+                                    category = await categoryResponse.Content.ReadFromJsonAsync<CategoryDto>();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.LogWarning(ex, $"Error loading category {product.CategoryId}");
+                            }
+                            
                             result.Add(item with
                             {
                                 Price = product.Price,
                                 ProductName = product.Name,
-                                ProductDescription = product.Description,
+                                ImageUrl = product.MediaFiles?.FirstOrDefault()?.Url,
                                 CategoryId = product.CategoryId,
-                                // Конвертируем CategoryInfo в CategoryDto
-                                Category = product.Category != null ? new CategoryDto
-                                {
-                                    Id = product.Category.Id,
-                                    Name = product.Category.Name,
-                                    ParentCategoryId = product.Category.ParentCategoryId
-                                } : null,
-                                CategoryName = product.CategoryName
+                                CategoryName = category?.Name,
+                                Category = null
                             });
                             continue;
                         }
@@ -388,47 +358,5 @@ public class CartService : ICartService
             return items; // fallback без изменений
         }
         return result;
-    }
-
-    // Вспомогательный класс для десериализации ответа ProductService
-    private class ProductInfo
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public decimal Price { get; set; }
-        public int CategoryId { get; set; }
-        
-        // =============================================================================
-        // НОВАЯ СИСТЕМА: Категория теперь объект, а не просто строка
-        // =============================================================================
-        public CategoryInfo? Category { get; set; }
-        
-        // Для обратной совместимости (если Category null)
-        public string? CategoryName => Category?.Name;
-        
-        // =============================================================================
-        // НОВАЯ СИСТЕМА: Динамические атрибуты товара
-        // =============================================================================
-        public List<ProductAttributeInfo>? AttributeValues { get; set; }
-    }
-    
-    // =============================================================================
-    // НОВАЯ СИСТЕМА: Информация о категории товара
-    // =============================================================================
-    private class CategoryInfo
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public int? ParentCategoryId { get; set; }
-    }
-    
-    // =============================================================================
-    // НОВАЯ СИСТЕМА: Информация об атрибуте товара (например: RAM=8GB, Color=Red)
-    // =============================================================================
-    private class ProductAttributeInfo
-    {
-        public int AttributeId { get; set; }
-        public string Value { get; set; } = string.Empty;
     }
 }

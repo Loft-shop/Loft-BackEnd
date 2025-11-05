@@ -25,21 +25,21 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ProductService\ProductService.csproj" />
-      <ProjectReference Include="..\UserService\UserService.csproj" />
+        <ProjectReference Include="..\ProductService\ProductService.csproj" />
+        <ProjectReference Include="..\UserService\UserService.csproj" />
     </ItemGroup>
 
     <!-- Не публиковать appsettings из этого проекта -->
     <ItemGroup>
-      <Content Update="appsettings*.json">
-        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-      </Content>
+        <Content Update="appsettings*.json">
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

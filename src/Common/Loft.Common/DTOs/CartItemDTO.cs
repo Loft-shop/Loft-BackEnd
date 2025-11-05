@@ -7,7 +7,7 @@ public record CartItemDTO(
     int Quantity,
     decimal Price = 0,
     string? ProductName = null,
-    string? ProductDescription = null,
+    string? ImageUrl = null,
     
     // =============================================================================
     // НОВАЯ СИСТЕМА: Информация о категории товара
@@ -21,5 +21,7 @@ public record CartItemDTO(
     // =============================================================================
     // НОВАЯ СИСТЕМА: Динамические атрибуты товара (например: RAM=8GB, Size=L)
     // =============================================================================
-    List<ProductAttributeValueDto>? AttributeValues = null
+    List<ProductAttributeValueDto>? AttributeValues = null,
+    
+    DateTime? AddedAt = null
 );

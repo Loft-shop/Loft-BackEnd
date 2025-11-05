@@ -15,8 +15,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0" NoWarn="NU1605" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Identity.Web" Version="3.8.2" />
         <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="3.2.0" />
@@ -25,24 +25,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\\..\\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\\..\\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\UserService\UserService.csproj" />
-      <ProjectReference Include="..\\Common\\Loft.Common\\Loft.Common.csproj" />
+        <ProjectReference Include="..\UserService\UserService.csproj" />
+        <ProjectReference Include="..\\Common\\Loft.Common\\Loft.Common.csproj" />
     </ItemGroup>
 
-    <!-- Не публиковать appsettings из этого проекта -->
+    <!-- Публиковать только свои appsettings для Docker -->
     <ItemGroup>
-      <Content Update="appsettings*.json">
-        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-      </Content>
+        <Content Update="appsettings*.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Migrations\" />
+        <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>

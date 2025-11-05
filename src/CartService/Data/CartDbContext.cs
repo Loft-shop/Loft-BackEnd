@@ -32,7 +32,8 @@ public class CartDbContext : DbContext
             // Настраиваем типы данных для оптимизации производительности
             b.Property(ci => ci.Price).HasColumnType("decimal(18,2)");
             b.Property(ci => ci.ProductName).HasMaxLength(500);
-            b.Property(ci => ci.ProductDescription).HasMaxLength(2000);
+            b.Property(ci => ci.ImageUrl).HasMaxLength(1000);
+            b.Property(ci => ci.CategoryName).HasMaxLength(200);
         });
     }
 }

@@ -20,6 +20,9 @@ public class CartProfile : Profile
             .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
             .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
             .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
-            .ForMember(dest => dest.ProductDescription, opt => opt.MapFrom(src => src.ProductDescription));
+            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
+            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
+            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CategoryName))
+            .ForMember(dest => dest.AddedAt, opt => opt.MapFrom(src => src.AddedAt));
     }
 }

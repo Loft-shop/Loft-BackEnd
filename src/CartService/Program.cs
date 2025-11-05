@@ -43,11 +43,18 @@ namespace CartService
             // Сервис корзины
             builder.Services.AddScoped<ICartService, CartService.Services.CartService>();
             
-            
-            // HttpClient для связи с ProductService
-            builder.Services.AddHttpClient();
+            // HttpClient для связи с ProductService и UserService - используем именованные клиенты
+            builder.Services.AddHttpClient("ProductService", client =>
+            {
+                var productServiceUrl = builder.Configuration["Services:ProductService"] ?? "http://productservice:8080";
+                client.BaseAddress = new Uri(productServiceUrl);
+            });
 
-            
+            builder.Services.AddHttpClient("UserService", client =>
+            {
+                var userServiceUrl = builder.Configuration["Services:UserService"] ?? "http://userservice:8080";
+                client.BaseAddress = new Uri(userServiceUrl);
+            });
 
             var app = builder.Build();
 

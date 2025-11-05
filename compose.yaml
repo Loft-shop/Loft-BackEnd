@@ -26,7 +26,7 @@ services:
       dockerfile: src/ApiGateway/Dockerfile
     container_name: apigateway
     ports:
-      - "5000:8080"
+      - "8000:8080"
     depends_on:
       - cartservice
       - orderservice

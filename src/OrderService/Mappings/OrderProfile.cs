@@ -20,6 +20,10 @@ public class OrderProfile : Profile
             .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.OrderId))
             .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
             .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
-            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price));
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
+            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
+            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
+            .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.CategoryName));
     }
 }

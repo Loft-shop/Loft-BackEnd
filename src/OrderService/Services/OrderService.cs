@@ -34,7 +34,7 @@ public class OrderService : IOrderService
         var itemsList = items.ToList();
         
         // =============================================================================
-        // НОВАЯ СИСТЕМА: Загружаем полную информацию о товарах для сохранения в заказе
+        // НОВАЯ СИСТЕМА: Загружаем информацию о товарах для сохранения в заказе
         // =============================================================================
         var enrichedItems = new List<OrderItem>();
         
@@ -46,7 +46,7 @@ public class OrderService : IOrderService
                 Quantity = itemDto.Quantity,
                 Price = itemDto.Price,
                 ProductName = itemDto.ProductName,
-                ProductDescription = itemDto.ProductDescription,
+                ImageUrl = itemDto.ImageUrl,
                 CategoryId = itemDto.CategoryId,
                 CategoryName = itemDto.CategoryName
             };
@@ -142,7 +142,7 @@ public class OrderService : IOrderService
                 Quantity = itemDto.Quantity,
                 Price = itemDto.Price,
                 ProductName = itemDto.ProductName,
-                ProductDescription = itemDto.ProductDescription,
+                ImageUrl = itemDto.ImageUrl,
                 CategoryId = itemDto.CategoryId,
                 CategoryName = itemDto.CategoryName
             };
@@ -242,34 +242,63 @@ public class OrderService : IOrderService
 
         foreach (var cartItem in cartItems)
         {
-            var productResponse = await productClient.GetAsync($"/api/products/{cartItem.ProductId}");
-            if (!productResponse.IsSuccessStatusCode)
+            // Если данные уже есть в корзине, используем их (актуальная цена всё равно берётся из ProductService)
+            ProductDto? product = null;
+            CategoryDto? category = null;
+            
+            try
             {
-                throw new Exception($"Товар с ID {cartItem.ProductId} не найден");
-            }
+                var productResponse = await productClient.GetAsync($"/api/products/{cartItem.ProductId}");
+                if (!productResponse.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Товар с ID {cartItem.ProductId} не найден");
+                }
 
-            var product = await productResponse.Content.ReadFromJsonAsync<ProductDto>();
-            if (product == null)
+                product = await productResponse.Content.ReadFromJsonAsync<ProductDto>();
+                if (product == null)
+                {
+                    throw new Exception($"Товар с ID {cartItem.ProductId} не найден");
+                }
+                
+                // Загружаем категорию если её нет в корзине
+                if (string.IsNullOrEmpty(cartItem.CategoryName))
+                {
+                    try
+                    {
+                        var categoryResponse = await productClient.GetAsync($"/api/categories/{product.CategoryId}");
+                        if (categoryResponse.IsSuccessStatusCode)
+                        {
+                            category = await categoryResponse.Content.ReadFromJsonAsync<CategoryDto>();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, $"Error loading category {product.CategoryId}");
+                    }
+                }
+            }
+            catch (Exception ex)
             {
-                throw new Exception($"Товар с ID {cartItem.ProductId} не найден");
+                _logger.LogError(ex, $"Failed to load product {cartItem.ProductId}");
+                throw;
             }
 
             // =============================================================================
-            // НОВАЯ СИСТЕМА: Сохраняем полную информацию о товаре из корзины
+            // НОВАЯ СИСТЕМА: Сохраняем минимально необходимую информацию о товаре
             // =============================================================================
             var orderItem = new OrderItem
             {
                 ProductId = cartItem.ProductId,
                 Quantity = cartItem.Quantity,
-                Price = product.Price,
+                Price = product.Price, // Актуальная цена на момент заказа
                 
                 // Сохраняем информацию о товаре на момент покупки
-                ProductName = product.Name,
-                ProductDescription = product.Description,
+                ProductName = cartItem.ProductName ?? product.Name,
+                ImageUrl = cartItem.ImageUrl ?? product.MediaFiles?.FirstOrDefault()?.Url,
                 
                 // Категория на момент покупки
                 CategoryId = cartItem.CategoryId ?? product.CategoryId,
-                CategoryName = cartItem.CategoryName ?? cartItem.Category?.Name,
+                CategoryName = cartItem.CategoryName ?? category?.Name,
                 
                 // Атрибуты товара на момент покупки (например: RAM=8GB, Color=Black)
                 ProductAttributesJson = cartItem.AttributeValues != null && cartItem.AttributeValues.Any()
