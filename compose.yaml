@@ -1,6 +1,6 @@
 networks:
   loftnet:
-    driver: bridge  
+    driver: bridge
 services:
   postgres:
     image: postgres:15

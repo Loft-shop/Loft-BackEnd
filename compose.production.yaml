@@ -3,7 +3,7 @@
 
 networks:
   loftnet:
-    driver: bridge  
+    driver: bridge
 
 volumes:
   pgdata:
