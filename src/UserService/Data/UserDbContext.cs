@@ -18,6 +18,11 @@ public class UserDbContext : DbContext
         modelBuilder.Entity<User>(b =>
         {
             b.HasKey(u => u.Id);
+            
+            // Добавляем автоинкремент для PostgreSQL
+            b.Property(u => u.Id)
+                .UseIdentityColumn();
+            
             b.Property(u => u.Email).IsRequired();
             b.HasIndex(u => u.Email).IsUnique();
             b.Property(u => u.PasswordHash).IsRequired();
