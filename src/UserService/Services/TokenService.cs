@@ -39,12 +39,13 @@ public class TokenService : ITokenService
     {
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Sub, user.Email),
+            // subject should be user's id so mapped NameIdentifier contains numeric id
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new(JwtRegisteredClaimNames.Email, user.Email),
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new(ClaimTypes.Name, user.Email),
             new(ClaimTypes.Email, user.Email),
-            new(ClaimTypes.Role, user.Role.ToString()),
             new("canSell", user.CanSell.ToString())
         };
 
