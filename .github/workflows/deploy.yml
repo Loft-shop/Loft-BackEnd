@@ -9,22 +9,12 @@ jobs:
     runs-on: label-1
 
     steps:
+      # 1️⃣ Checkout репозитория на runner (не используется для билда, но можно для логов/тестов)
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to GHCR
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-
-      - name: Build and push Docker images
-        run: |
-          for service in CartService OrderService PaymentService ProductService ShippingAddressService UserService; do
-            image="ghcr.io/${{ secrets.DOCKER_USERNAME }}/loft-${service,,}:latest"
-            echo "Building and pushing $image..."
-            docker build -t $image -f src/$service/Dockerfile .
-            docker push $image
-          done
-
-      - name: Deploy to test server via SSH
+      # 2️⃣ Деплой на сервер через SSH
+      - name: Deploy and build Docker images on server
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -32,7 +22,22 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.DEPLOY_PATH }}
-            git pull origin master
-            docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker compose pull
-            docker compose up -d
+
+            # Сбрасываем локальные изменения и подтягиваем свежий master
+            git fetch origin
+            git reset --hard origin/master
+            git clean -fd
+
+            # Логинимся в GHCR
+            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+            # Сборка и пуш Docker-образов для всех сервисов
+            for service in CartService OrderService PaymentService ProductService ShippingAddressService UserService; do
+              image="ghcr.io/${{ secrets.DOCKER_USERNAME }}/loft-${service,,}:latest"
+              echo "Building and pushing $image..."
+              docker build -t $image -f src/$service/Dockerfile .
+              docker push $image
+            done
+
+            # Запуск контейнеров с новыми образами
+            docker compose up -d --build
