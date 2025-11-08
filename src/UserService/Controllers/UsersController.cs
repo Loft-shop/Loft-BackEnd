@@ -29,6 +29,7 @@ namespace UserService.Controllers
             _env = env;
         }
         
+        // [HttpGet("{id:long}")]
         // public async Task<IActionResult> GetUserById(long id)
 
         [HttpGet("me")]
