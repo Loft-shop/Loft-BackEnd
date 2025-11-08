@@ -32,7 +32,7 @@ namespace UserService
             builder.Services.AddDbContext<UserDbContext>(options => 
                 options.UseNpgsql(defaultConn, npgsqlOptions =>
                 {
-                    npgsqlOptions.MigrationsAssembly(typeof(Program).Assembly.FullName);
+            //        npgsqlOptions.MigrationsAssembly(typeof(Program).Assembly.FullName);
                 }));
 
             // Добавляем TokenService и UserService
@@ -159,28 +159,66 @@ namespace UserService
                     var conn = builder.Configuration.GetConnectionString("DefaultConnection");
                     Console.WriteLine($"[UserService] Using PostgreSQL connection: {conn}");
 
-                    // Попытки применения миграций с повторными попытками, чтобы дождаться старта Postgres
+                    // Попытки подключения к БД с повторными попытками, чтобы дождаться старта Postgres
                     var maxAttempts = 10;
                     var attempt = 0;
                     var delaySeconds = 2;
-                    while (true)
+                    
+                    while (attempt < maxAttempts)
                     {
                         try
                         {
                             attempt++;
-                            Console.WriteLine($"[UserService] Attempting DB migrate (attempt {attempt}/{maxAttempts})...");
-                            db.Database.Migrate();
-                            Console.WriteLine("[UserService] Database migration applied successfully.");
+                            Console.WriteLine($"[UserService] Attempting DB connection (attempt {attempt}/{maxAttempts})...");
+                            
+                            // Проверяем подключение к БД
+                            var canConnect = db.Database.CanConnect();
+                            if (!canConnect)
+                            {
+                                throw new Exception("Cannot connect to database");
+                            }
+                            
+                            Console.WriteLine("[UserService] Database connection successful.");
+                            
+                            // Проверяем наличие pending migrations
+                            var pendingMigrations = db.Database.GetPendingMigrations().ToList();
+                            var appliedMigrations = db.Database.GetAppliedMigrations().ToList();
+                            
+                            Console.WriteLine($"[UserService] Applied migrations: {appliedMigrations.Count}");
+                            Console.WriteLine($"[UserService] Pending migrations: {pendingMigrations.Count}");
+                            
+                            if (pendingMigrations.Any())
+                            {
+                                Console.WriteLine($"[UserService] Applying {pendingMigrations.Count} pending migration(s):");
+                                foreach (var migration in pendingMigrations)
+                                {
+                                    Console.WriteLine($"  - {migration}");
+                                }
+                                
+                                db.Database.Migrate();
+                                Console.WriteLine("[UserService] Migrations applied successfully.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("[UserService] Database is up to date, no pending migrations.");
+                            }
+                            
+                            // Проверяем что можем выполнить запрос
+                            var userCount = db.Users.Count();
+                            Console.WriteLine($"[UserService] Database verification successful. Current user count: {userCount}");
+                            
                             break;
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[UserService] Database migration attempt {attempt} failed: {ex.Message}");
+                            Console.WriteLine($"[UserService] Database operation attempt {attempt} failed: {ex.Message}");
+                            
                             if (attempt >= maxAttempts)
                             {
-                                Console.WriteLine("[UserService] Maximum migration attempts reached, aborting startup.");
+                                Console.WriteLine("[UserService] Maximum connection attempts reached, aborting startup.");
                                 throw;
                             }
+                            
                             var wait = TimeSpan.FromSeconds(delaySeconds * attempt);
                             Console.WriteLine($"[UserService] Waiting {wait.TotalSeconds} seconds before retrying...");
                             System.Threading.Thread.Sleep(wait);
@@ -189,7 +227,7 @@ namespace UserService
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[UserService] Database migration failed: {ex}");
+                    Console.WriteLine($"[UserService] Database initialization failed: {ex}");
                     throw;
                 }
             }

@@ -40,5 +40,7 @@
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
     </ItemGroup>
-
+    <ItemGroup>
+        <Folder Include="Migrations\" />
+    </ItemGroup>
 </Project>
