@@ -23,35 +23,35 @@ namespace PaymentService.Migrations
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("PaymentService.Entities.Payment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+            {
+                b.Property<long>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric(18,2)");
+                b.Property<decimal>("Amount")
+                    .HasColumnType("numeric(18,2)");
 
-                    b.Property<int>("Method")
-                        .HasColumnType("integer");
+                b.Property<int>("Method")
+                    .HasColumnType("integer");
 
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
+                b.Property<long>("OrderId")
+                    .HasColumnType("bigint");
 
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("timestamp with time zone");
+                b.Property<DateTime>("PaymentDate")
+                    .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                b.Property<int>("Status")
+                    .HasColumnType("integer");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("OrderId")
-                        .IsUnique();
+                b.HasIndex("OrderId")
+                    .IsUnique();
 
-                    b.ToTable("Payments");
-                });
+                b.ToTable("Payments");
+            });
 #pragma warning restore 612, 618
         }
     }
