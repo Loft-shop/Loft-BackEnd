@@ -13,12 +13,10 @@ namespace OrderService.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        private readonly IHttpClientFactory _httpClientFactory;
 
-        public OrdersController(IOrderService orderService, IHttpClientFactory httpClientFactory)
+        public OrdersController(IOrderService orderService)
         {
             _orderService = orderService;
-            _httpClientFactory = httpClientFactory;
         }
 
         [HttpPost]
@@ -106,25 +104,7 @@ namespace OrderService.Controllers
                 {
                     return BadRequest("Не удалось создать заказ");
                 }
-
-                // Получаем доступные методы оплаты от PaymentService
-                IEnumerable<string> paymentMethods = Array.Empty<string>();
-                try
-                {
-                    var paymentClient = _httpClientFactory.CreateClient("PaymentService");
-                    var resp = await paymentClient.GetAsync($"/api/payments/methods");
-                    if (resp.IsSuccessStatusCode)
-                    {
-                        var methods = await resp.Content.ReadFromJsonAsync<IEnumerable<string>>();
-                        if (methods != null) paymentMethods = methods;
-                    }
-                }
-                catch
-                {
-                    // Если не удалось получить методы — вернём пустой список, фронтенд должен обработать
-                }
-
-                return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, new { Order = order, PaymentMethods = paymentMethods });
+                return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, order);
             }
             catch (Exception ex)
             {
