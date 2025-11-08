@@ -75,6 +75,30 @@
       "UpstreamPathTemplate": "/api/payments",
       "UpstreamHttpMethod": [ "GET", "OPTIONS" ]
     },
+    {
+      "DownstreamPathTemplate": "/api/moderation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/moderation",
+      "UpstreamHttpMethod": [ "GET", "POST", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/moderation/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/moderation/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+    },
 
     {
       "DownstreamPathTemplate": "/api/products",
@@ -202,7 +226,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "RequestIdKey": "OcRequestId",
-    "DownstreamScheme": "http"
+    "BaseUrl": "https://loft-shop.pp.ua"
   }
 }
