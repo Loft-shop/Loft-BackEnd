@@ -1,3 +1,4 @@
+using AutoMapper;
 using Loft.Common.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -22,15 +23,28 @@ namespace UserService.Controllers
     {
         private readonly IUserService _userService;
         private readonly IWebHostEnvironment _env;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService, IWebHostEnvironment env)
+        public UsersController(IUserService userService, IWebHostEnvironment env, IMapper mapper)
         {
             _userService = userService;
             _env = env;
+            _mapper = mapper;
         }
-        
-        // [HttpGet("{id:long}")]
-        // public async Task<IActionResult> GetUserById(long id)
+
+        [HttpGet("{id:long}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUserById(long id)
+        {
+            var user = await _userService.GetUserById(id);
+            if (user == null)
+                return NotFound(new { message = $"User with id {id} not found" });
+
+            // AutoMapper сделает конверсию сам:
+            var publicUser = _mapper.Map<PublicUserDTO>(user);
+
+            return Ok(publicUser);
+        }
 
         [HttpGet("me")]
         [Authorize]

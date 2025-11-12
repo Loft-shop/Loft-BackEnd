@@ -10,9 +10,12 @@ public class UserProfile : Profile
     public UserProfile()
     {
         // --- User -> UserDto ---
-        CreateMap<User, UserDTO>();
+        CreateMap<User, UserDTO>().ReverseMap();
 
         // --- UserDto -> User ---
         CreateMap<UserDTO, User>();
+
+        // --- UserDTO -> PublicUserDTO ---
+        CreateMap<UserDTO, PublicUserDTO>();
     }
 }

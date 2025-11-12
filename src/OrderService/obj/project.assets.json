@@ -1949,8 +1949,10 @@
           "Loft.Common": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.20",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "8.0.20",
+          "Microsoft.EntityFrameworkCore": "9.0.9",
           "Microsoft.Identity.Web": "3.8.2",
           "Microsoft.Identity.Web.DownstreamApi": "3.2.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "compile": {
@@ -5623,44 +5625,52 @@
     ]
   },
   "packageFolders": {
-    "/Users/platon/.nuget/packages/": {}
+    "C:\\Users\\samit\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/OrderService.csproj",
+      "projectUniqueName": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\OrderService.csproj",
       "projectName": "OrderService",
-      "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/OrderService.csproj",
-      "packagesPath": "/Users/platon/.nuget/packages/",
-      "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/obj/",
+      "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\OrderService.csproj",
+      "packagesPath": "C:\\Users\\samit\\.nuget\\packages\\",
+      "outputPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/platon/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\samit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-              "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+            "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj": {
+              "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj"
             },
-            "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj": {
-              "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj"
+            "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\PaymentService.csproj": {
+              "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\PaymentService.csproj"
             },
-            "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj": {
-              "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/ProductService.csproj"
+            "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\ProductService.csproj": {
+              "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\ProductService.csproj"
             },
-            "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/ShippingAddressService.csproj": {
-              "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/ShippingAddressService.csproj"
+            "D:\\loft\\loft\\Loft-BackEnd\\src\\ShippingAddressService\\ShippingAddressService.csproj": {
+              "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\ShippingAddressService\\ShippingAddressService.csproj"
             },
-            "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj": {
-              "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj"
+            "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj": {
+              "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj"
             }
           }
         }
@@ -5748,7 +5758,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/Users/platon/.dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

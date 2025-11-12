@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj": {}
+    "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\PaymentService.csproj": {}
   },
   "projects": {
-    "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+    "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj",
+        "projectUniqueName": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj",
         "projectName": "Loft.Common",
-        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj",
-        "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/obj/",
+        "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj",
+        "packagesPath": "C:\\Users\\samit\\.nuget\\packages\\",
+        "outputPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/platon/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\samit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -58,34 +65,41 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Users/platon/.dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj": {
+    "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\PaymentService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj",
+        "projectUniqueName": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\PaymentService.csproj",
         "projectName": "PaymentService",
-        "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/PaymentService.csproj",
-        "packagesPath": "/Users/platon/.nuget/packages/",
-        "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/obj/",
+        "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\PaymentService.csproj",
+        "packagesPath": "C:\\Users\\samit\\.nuget\\packages\\",
+        "outputPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/platon/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\samit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
-                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj": {
+                "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj"
               }
             }
           }
@@ -127,6 +141,16 @@
                 "NU1605"
               ]
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
             "Microsoft.Identity.Web": {
               "target": "Package",
               "version": "[3.8.2, )"
@@ -134,6 +158,10 @@
             "Microsoft.Identity.Web.DownstreamApi": {
               "target": "Package",
               "version": "[3.2.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -159,7 +187,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Users/platon/.dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
