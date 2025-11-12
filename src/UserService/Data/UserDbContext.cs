@@ -10,7 +10,8 @@ public class UserDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; } = null!;
-
+    public DbSet<Chat> Chats { get; set; } = null!;
+    public DbSet<ChatMessage> ChatMessages { get; set; } = null!;
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -26,6 +27,22 @@ public class UserDbContext : DbContext
             b.Property(u => u.Email).IsRequired();
             b.HasIndex(u => u.Email).IsUnique();
             b.Property(u => u.PasswordHash).IsRequired();
+        });
+
+        modelBuilder.Entity<Chat>(b =>
+        {
+            b.HasKey(c => c.Id);
+            b.HasMany(c => c.Messages)
+             .WithOne(m => m.Chat)
+             .HasForeignKey(m => m.ChatId)
+             .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // Конфигурация для ChatMessage
+        modelBuilder.Entity<ChatMessage>(b =>
+        {
+            b.HasKey(m => m.Id);
+            b.Property(m => m.MessageText).HasMaxLength(2000);
         });
     }
 }
