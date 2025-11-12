@@ -4,7 +4,6 @@
 *.suo
 *.userosscache
 *.sln.docstates
-*.vs/
 
 # Build output
 bin/
