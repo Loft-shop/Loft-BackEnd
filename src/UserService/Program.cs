@@ -1,19 +1,20 @@
-using System;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using UserService.Data;
-using UserService.Mappings;
-using UserService.Services;
-using Microsoft.EntityFrameworkCore;
-//using UserService.Swagger;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System;
+//using UserService.Swagger;
+using System.IO;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using UserService.Data;
+using UserService.Hubs;
+using UserService.Mappings;
+using UserService.Services;
 
 namespace UserService
 {
@@ -26,6 +27,7 @@ namespace UserService
             // Добавляем сервисы контроллеров
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(typeof(UserProfile));
+            builder.Services.AddSignalR(); // Добавляем SignalR сервис
 
             // Configure DbContext (PostgreSQL) - use connection string or default file
             var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -256,6 +258,7 @@ namespace UserService
             app.UseAuthorization();
 
             app.MapControllers();
+            app.MapHub<ChatHub>("/chatHub");
 
             app.Run();
         }

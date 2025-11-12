@@ -1,4 +1,5 @@
 ﻿using Loft.Common.DTOs;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,15 +7,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using UserService.Data;
 using UserService.Entities;
+using UserService.Hubs;
 using UserService.Services;
 
 public class ChatService : IChatService
 {
     private readonly UserDbContext _db;
+    private readonly IHubContext<ChatHub> _hub;
 
-    public ChatService(UserDbContext db)
+    public ChatService(UserDbContext db, IHubContext<ChatHub> hub)
     {
         _db = db;
+        _hub = hub;
     }
 
     public async Task<ChatMessageDTO> SendMessage(long senderId, long recipientId, string? messageText, string? fileUrl = null)
@@ -47,6 +51,19 @@ public class ChatService : IChatService
 
         _db.ChatMessages.Add(message);
         await _db.SaveChangesAsync();
+
+        // Отправляем сообщение получателю через SignalR
+        await _hub.Clients.User(recipientId.ToString())
+            .SendAsync("ReceiveMessage", new ChatMessageDTO
+            {
+                Id = message.Id,
+                SenderId = senderId,
+                RecipientId = recipientId,
+                MessageText = messageText,
+                FileUrl = fileUrl,
+                IsRead = false,
+                SentAt = message.SentAt
+            });
 
         return new ChatMessageDTO
         {
