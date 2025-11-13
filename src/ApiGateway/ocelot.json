@@ -25,38 +25,6 @@
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
     },
     {
-      "DownstreamPathTemplate": "/chatHub/negotiate",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "userservice",
-          "Port": 8080
-        }
-      ],
-      "UpstreamPathTemplate": "/chatHub/negotiate",
-      "UpstreamHttpMethod": [ "POST", "OPTIONS" ],
-      "UpstreamHeaderTransform": {
-        "Connection": "Upgrade",
-        "Upgrade": "websocket"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/chatHub",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "userservice",
-          "Port": 8080
-        }
-      ],
-      "UpstreamPathTemplate": "/chatHub",
-      "UpstreamHttpMethod": [ "GET", "POST", "OPTIONS" ],
-      "UpstreamHeaderTransform": {
-        "Connection": "Upgrade",
-        "Upgrade": "websocket"
-      }
-    },
-    {
       "DownstreamPathTemplate": "/api/users/{id}/public",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

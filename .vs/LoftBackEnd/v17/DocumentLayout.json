@@ -180,7 +180,7 @@
               "RelativeDocumentMoniker": "src\\ApiGateway\\ocelot.json",
               "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ApiGateway\\ocelot.json",
               "RelativeToolTip": "src\\ApiGateway\\ocelot.json",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAcwCkAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-10-31T14:40:19.515Z",
               "EditorCaption": ""
@@ -207,8 +207,7 @@
               "RelativeToolTip": "src\\ProductService\\Controllers\\CategoryController.cs",
               "ViewState": "AgIAAFIAAAAAAAAAAAAAAIoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T08:40:50.487Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-31T08:40:50.487Z"
             },
             {
               "$type": "Document",
@@ -220,8 +219,7 @@
               "RelativeToolTip": "src\\UserService\\Services\\ChatService.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T19:57:46.456Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T19:57:46.456Z"
             },
             {
               "$type": "Document",
@@ -233,8 +231,7 @@
               "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\ChatMessageDTO.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAuwAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T19:47:10.265Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T19:47:10.265Z"
             },
             {
               "$type": "Document",
