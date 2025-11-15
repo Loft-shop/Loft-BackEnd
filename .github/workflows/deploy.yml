@@ -1,4 +1,6 @@
 name: CI/CD Deploy to Test Server
+permissions:
+  contents: read
 
 on:
   push:
