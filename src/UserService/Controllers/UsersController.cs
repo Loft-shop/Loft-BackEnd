@@ -86,9 +86,9 @@ namespace UserService.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UploadAvatar(IFormFile avatar)
         {
-            if (avatar == null || avatar.Length == 0) return BadRequest(new { message = "No file uploaded" });
             var userId = GetUserIdFromClaims();
             if (userId == null) return Unauthorized();
+            if (avatar == null || avatar.Length == 0) return BadRequest(new { message = "No file uploaded" });
 
             var existing = await _userService.GetUserById(userId.Value);
             if (existing == null) return NotFound();
