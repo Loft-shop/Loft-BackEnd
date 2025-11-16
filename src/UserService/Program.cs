@@ -41,6 +41,7 @@ namespace UserService
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IUserService, UserService.Services.UserService>();
             builder.Services.AddScoped<IChatService, ChatService>();
+            builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 
             // Настройка аутентификации JWT
             var jwtSection = builder.Configuration.GetSection("Jwt");

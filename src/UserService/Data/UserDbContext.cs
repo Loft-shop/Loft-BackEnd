@@ -27,6 +27,11 @@ public class UserDbContext : DbContext
             b.Property(u => u.Email).IsRequired();
             b.HasIndex(u => u.Email).IsUnique();
             b.Property(u => u.PasswordHash).IsRequired();
+
+            // массив избранных товаров
+            b.Property(u => u.FavoriteProductIds)
+             .HasColumnType("integer[]")
+             .HasDefaultValue(Array.Empty<int>());
         });
 
         modelBuilder.Entity<Chat>(b =>

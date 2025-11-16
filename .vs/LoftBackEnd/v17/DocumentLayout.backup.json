@@ -3,20 +3,100 @@
   "WorkspaceRootPath": "D:\\loft\\loft\\Loft-BackEnd\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\data\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\data\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\favoriteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\favoriteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\ifavoriteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\ifavoriteservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\mappings\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\mappings\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\controllers\\favoritescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\controllers\\favoritescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\favoriteslistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\favoriteslistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7024C8BD-DDDB-4E3D-A1EC-FB7002F0C571}|src\\ApiGateway\\ApiGateway.csproj|d:\\loft\\loft\\loft-backend\\src\\apigateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{7024C8BD-DDDB-4E3D-A1EC-FB7002F0C571}|src\\ApiGateway\\ApiGateway.csproj|solutionrelative:src\\apigateway\\ocelot.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\chatmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\chatmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\chatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\chatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\data\\productdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\data\\productdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\entities\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\entities\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\entities\\productattributevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\entities\\productattributevalue.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\controllers\\moderationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\controllers\\moderationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\chatmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\chatmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\hubs\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,24 +111,12 @@
       "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\entities\\chatmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -59,28 +127,12 @@
       "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\controllers\\chatcontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\ichatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\data\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\data\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\publicuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\publicuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\mappings\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\mappings\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -95,10 +147,6 @@
       "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2C05E36C-AB26-4BC1-A609-987F6C75CB51}|src\\OrderService\\OrderService.csproj|d:\\loft\\loft\\loft-backend\\src\\orderservice\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2C05E36C-AB26-4BC1-A609-987F6C75CB51}|src\\OrderService\\OrderService.csproj|solutionrelative:src\\orderservice\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -111,20 +159,12 @@
       "RelativeMoniker": "D:0:0:{7024C8BD-DDDB-4E3D-A1EC-FB7002F0C571}|src\\ApiGateway\\ApiGateway.csproj|solutionrelative:src\\apigateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\controllers\\moderationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\controllers\\moderationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\controllers\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\controllers\\attributecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|d:\\loft\\loft\\loft-backend\\src\\productservice\\entities\\attributeentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E36EC5D1-7DD7-4CD2-9C3B-04FC37264AEC}|src\\ProductService\\ProductService.csproj|solutionrelative:src\\productservice\\entities\\attributeentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\productdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -162,56 +202,163 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BaseController.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\BaseController.cs",
-              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\BaseController.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\BaseController.cs",
-              "RelativeToolTip": "src\\ProductService\\Controllers\\BaseController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Entities\\User.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\User.cs",
+              "RelativeToolTip": "src\\UserService\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T13:51:52.684Z"
+              "WhenOpened": "2025-10-31T12:04:38.017Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "UserDbContext.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Data\\UserDbContext.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Data\\UserDbContext.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Data\\UserDbContext.cs",
+              "RelativeToolTip": "src\\UserService\\Data\\UserDbContext.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T10:00:51.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Controllers\\UsersController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "src\\UserService\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAABsAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T09:58:21.791Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FavoriteService.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\FavoriteService.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Services\\FavoriteService.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\FavoriteService.cs",
+              "RelativeToolTip": "src\\UserService\\Services\\FavoriteService.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAgwD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:51:21.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IChatService.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IChatService.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Services\\IChatService.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IChatService.cs",
+              "RelativeToolTip": "src\\UserService\\Services\\IChatService.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAswA8AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T19:56:38.534Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IFavoriteService.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IFavoriteService.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Services\\IFavoriteService.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IFavoriteService.cs",
+              "RelativeToolTip": "src\\UserService\\Services\\IFavoriteService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:50:54.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserProfile.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Mappings\\UserProfile.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Mappings\\UserProfile.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Mappings\\UserProfile.cs",
+              "RelativeToolTip": "src\\UserService\\Mappings\\UserProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T12:04:34.578Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FavoritesController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\FavoritesController.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Controllers\\FavoritesController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\FavoritesController.cs",
+              "RelativeToolTip": "src\\UserService\\Controllers\\FavoritesController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAA0wBwAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:49:40.148Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FavoritesListDto.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\FavoritesListDto.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\FavoritesListDto.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\FavoritesListDto.cs",
+              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\FavoritesListDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:46:07.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Program.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Program.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Program.cs",
+              "RelativeToolTip": "src\\UserService\\Program.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAA6wCsAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T10:02:58.542Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "ocelot.json",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ApiGateway\\ocelot.json",
               "RelativeDocumentMoniker": "src\\ApiGateway\\ocelot.json",
               "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ApiGateway\\ocelot.json",
               "RelativeToolTip": "src\\ApiGateway\\ocelot.json",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-10-31T14:40:19.515Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Chat.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\Chat.cs",
-              "RelativeDocumentMoniker": "src\\UserService\\Entities\\Chat.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\Chat.cs",
-              "RelativeToolTip": "src\\UserService\\Entities\\Chat.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\ProductsController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "src\\ProductService\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAuwA4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T20:35:20.631Z"
+              "WhenOpened": "2025-10-31T08:25:43.545Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CategoryController.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\CategoryController.cs",
-              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\CategoryController.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\CategoryController.cs",
-              "RelativeToolTip": "src\\ProductService\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAAAIoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T08:40:50.487Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "ChatService.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\ChatService.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Services\\ChatService.cs",
@@ -219,11 +366,142 @@
               "RelativeToolTip": "src\\UserService\\Services\\ChatService.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T19:57:46.456Z"
+              "WhenOpened": "2025-11-12T19:57:46.456Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 13,
+              "Title": "CategoryDTO.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\CategoryDTO.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\CategoryDTO.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\CategoryDTO.cs",
+              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\CategoryDTO.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAIwA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:08:49.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Services\\ProductService.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Services\\ProductService.cs",
+              "RelativeToolTip": "src\\ProductService\\Services\\ProductService.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAgwGkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T06:56:10.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "OrderDTO.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T19:47:16.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Entities\\Product.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Entities\\Product.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Entities\\Product.cs",
+              "RelativeToolTip": "src\\ProductService\\Entities\\Product.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA+wBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T06:59:15.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Entities\\Category.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Entities\\Category.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Entities\\Category.cs",
+              "RelativeToolTip": "src\\ProductService\\Entities\\Category.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAQwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:05:39.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ProductAttributeValue.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Entities\\ProductAttributeValue.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Entities\\ProductAttributeValue.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Entities\\ProductAttributeValue.cs",
+              "RelativeToolTip": "src\\ProductService\\Entities\\ProductAttributeValue.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:06:07.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ProductDbContext.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Data\\ProductDbContext.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Data\\ProductDbContext.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Data\\ProductDbContext.cs",
+              "RelativeToolTip": "src\\ProductService\\Data\\ProductDbContext.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAkwEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-16T07:12:43.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ProductDTO.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
+              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAswAwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T12:49:12.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "ModerationController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ModerationController.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\ModerationController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ModerationController.cs",
+              "RelativeToolTip": "src\\ProductService\\Controllers\\ModerationController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAswBAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T13:53:10.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\CategoryController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "src\\ProductService\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAYwIoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T08:40:50.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "ChatMessageDTO.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\ChatMessageDTO.cs",
               "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\ChatMessageDTO.cs",
@@ -235,7 +513,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 25,
+              "Title": "Chat.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\Chat.cs",
+              "RelativeDocumentMoniker": "src\\UserService\\Entities\\Chat.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\Chat.cs",
+              "RelativeToolTip": "src\\UserService\\Entities\\Chat.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T20:35:20.631Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\BaseController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "src\\ProductService\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T13:51:52.684Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Controllers\\AuthController.cs",
@@ -247,19 +549,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "src\\UserService\\Controllers\\UsersController.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "src\\UserService\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAL4AAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T09:58:21.791Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 26,
               "Title": "ChatMessage.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\ChatMessage.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Entities\\ChatMessage.cs",
@@ -271,7 +561,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 24,
               "Title": "ChatHub.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Hubs\\ChatHub.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Hubs\\ChatHub.cs",
@@ -283,31 +573,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Program.cs",
-              "RelativeDocumentMoniker": "src\\UserService\\Program.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Program.cs",
-              "RelativeToolTip": "src\\UserService\\Program.cs",
-              "ViewState": "AgIAAPsAAAAAAAAAAAAAAA0AAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T10:02:58.542Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\User.cs",
-              "RelativeDocumentMoniker": "src\\UserService\\Entities\\User.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\User.cs",
-              "RelativeToolTip": "src\\UserService\\Entities\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T12:04:38.017Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 29,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Services\\UserService.cs",
@@ -319,31 +585,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "IChatService.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IChatService.cs",
-              "RelativeDocumentMoniker": "src\\UserService\\Services\\IChatService.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IChatService.cs",
-              "RelativeToolTip": "src\\UserService\\Services\\IChatService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T19:56:38.534Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UserDbContext.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Data\\UserDbContext.cs",
-              "RelativeDocumentMoniker": "src\\UserService\\Data\\UserDbContext.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Data\\UserDbContext.cs",
-              "RelativeToolTip": "src\\UserService\\Data\\UserDbContext.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAwC0AAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T10:00:51.675Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 30,
               "Title": "ChatController .cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\ChatController .cs",
               "RelativeDocumentMoniker": "src\\UserService\\Controllers\\ChatController .cs",
@@ -355,31 +597,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "OrderDTO.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
-              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
-              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T19:47:16.08Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "UserProfile.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Mappings\\UserProfile.cs",
-              "RelativeDocumentMoniker": "src\\UserService\\Mappings\\UserProfile.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Mappings\\UserProfile.cs",
-              "RelativeToolTip": "src\\UserService\\Mappings\\UserProfile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T12:04:34.578Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 38,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ApiGateway\\Program.cs",
               "RelativeDocumentMoniker": "src\\ApiGateway\\Program.cs",
@@ -391,7 +609,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 31,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IUserService.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Services\\IUserService.cs",
@@ -403,7 +621,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 32,
               "Title": "PublicUserDTO.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\PublicUserDTO.cs",
               "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\PublicUserDTO.cs",
@@ -415,7 +633,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 33,
               "Title": "UserDTO.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\UserDTO.cs",
               "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\UserDTO.cs",
@@ -427,7 +645,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 34,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\appsettings.Development.json",
               "RelativeDocumentMoniker": "src\\ProductService\\appsettings.Development.json",
@@ -439,7 +657,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 35,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\appsettings.json",
               "RelativeDocumentMoniker": "src\\ProductService\\appsettings.json",
@@ -451,19 +669,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ProductsController.cs",
-              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\ProductsController.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ProductsController.cs",
-              "RelativeToolTip": "src\\ProductService\\Controllers\\ProductsController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAA7wB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T08:25:43.545Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 36,
               "Title": "OrdersController.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\Controllers\\OrdersController.cs",
               "RelativeDocumentMoniker": "src\\OrderService\\Controllers\\OrdersController.cs",
@@ -475,7 +681,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 39,
               "Title": "AttributeController.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\AttributeController.cs",
               "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\AttributeController.cs",
@@ -487,7 +693,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 37,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Program.cs",
               "RelativeDocumentMoniker": "src\\ProductService\\Program.cs",
@@ -499,19 +705,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "ModerationController.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ModerationController.cs",
-              "RelativeDocumentMoniker": "src\\ProductService\\Controllers\\ModerationController.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Controllers\\ModerationController.cs",
-              "RelativeToolTip": "src\\ProductService\\Controllers\\ModerationController.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAswBAAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T13:53:10.79Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 40,
               "Title": "AttributeEntity.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ProductService\\Entities\\AttributeEntity.cs",
               "RelativeDocumentMoniker": "src\\ProductService\\Entities\\AttributeEntity.cs",
@@ -523,7 +717,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 43,
               "Title": "TokenService.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\TokenService.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Services\\TokenService.cs",
@@ -535,7 +729,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 41,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\appsettings.Development.json",
               "RelativeDocumentMoniker": "src\\UserService\\appsettings.Development.json",
@@ -547,19 +741,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "ProductDTO.cs",
-              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
-              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
-              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
-              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\ProductDTO.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAwwDIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T12:49:12.625Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 42,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\appsettings.json",
               "RelativeDocumentMoniker": "src\\UserService\\appsettings.json",
@@ -571,7 +753,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 44,
               "Title": "ITokenService.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\ITokenService.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Services\\ITokenService.cs",
@@ -583,7 +765,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 45,
               "Title": "UserDbContextModelSnapshot.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Migrations\\UserDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Migrations\\UserDbContextModelSnapshot.cs",

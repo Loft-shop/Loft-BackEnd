@@ -1,3 +1,4 @@
+using Loft.Common.Enums;
 using Microsoft.EntityFrameworkCore;
 using ProductService.Entities;
 
@@ -80,6 +81,9 @@ public class ProductDbContext : DbContext
                 .WithOne(ca => ca.Category)
                 .HasForeignKey(ca => ca.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade); // ������� ����� ��� �������� ���������
+
+            entity.Property(c => c.Type)
+                .HasDefaultValue(ProductType.Physical);
 
             // ����� ��� � ����� ��� ������������
             entity.HasOne(c => c.ParentCategory)

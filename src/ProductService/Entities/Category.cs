@@ -18,6 +18,9 @@ namespace ProductService.Entities
         public ICollection<Category>? SubCategories { get; set; }
         // Навигационное свойство EF для связи с дочерними категориями
 
+        public ProductType Type { get; set; } = ProductType.Physical;
+        // Тип категории: Physical (физические товары), Digital (цифровые товары)
+
         public string Name { get; set; } = null!;
         // Название категории, отображаемое пользователю
         public string? ImageUrl { get; set; } = null!;

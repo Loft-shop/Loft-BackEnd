@@ -12,6 +12,8 @@ namespace Loft.Common.DTOs
         public string? ImageUrl { get; set; } = null!;
         public ModerationStatus? Status { get; set; }
 
+        public ProductType Type { get; set; }
+
         public int? ViewCount { get; set; }
         
         public ICollection<CategoryAttributeDto>? Attributes { get; set; }

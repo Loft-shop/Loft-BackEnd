@@ -628,6 +628,9 @@
           "status": {
             "$ref": "#/components/schemas/ModerationStatus"
           },
+          "type": {
+            "$ref": "#/components/schemas/ProductType"
+          },
           "viewCount": {
             "type": "integer",
             "format": "int32",

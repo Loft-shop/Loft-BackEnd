@@ -1,6 +1,30 @@
 {
   "Routes": [
     {
+      "DownstreamPathTemplate": "/api/favorites",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/favorites",
+      "UpstreamHttpMethod": [ "GET", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/favorites/{productId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/favorites/{productId}",
+      "UpstreamHttpMethod": [ "POST", "DELETE", "OPTIONS" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/auth/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

@@ -93,6 +93,17 @@ public class ProductService : IProductService
         .Include(p => p.Comments).ThenInclude(c => c.MediaFiles)
         .FirstOrDefaultAsync(p => p.Id == productId && p.Status == ModerationStatus.Approved);
 
+        if (product == null)
+            return null;
+
+        // Мгновенно увеличивает ViewCount без перезагрузки
+        await _db.Products
+            .Where(p => p.Id == productId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(p => p.ViewCount, p => p.ViewCount + 1));
+
+        product.ViewCount++; // Чтобы DTO отдал актуальное количество
+
         return _mapper.Map<ProductDto?>(product);
     }
 

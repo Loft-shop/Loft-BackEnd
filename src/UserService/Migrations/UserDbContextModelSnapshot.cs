@@ -96,6 +96,12 @@ namespace UserService.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int[]>("FavoriteProductIds")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer[]")
+                        .HasDefaultValue(new int[0]);
+
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
 
