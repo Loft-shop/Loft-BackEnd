@@ -466,3 +466,4 @@ D:/loft/Loft-Moderation/Loft-BackEnd/src/CartService/obj/Debug/net8.0/refint/Car
 D:/loft/Loft-Moderation/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.pdb
 D:/loft/Loft-Moderation/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.genruntimeconfig.cache
 D:/loft/Loft-Moderation/Loft-BackEnd/src/CartService/obj/Debug/net8.0/ref/CartService.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/Newtonsoft.Json.dll

@@ -255,3 +255,4 @@ D:/loft/Loft-Moderation/Loft-BackEnd/src/ShippingAddressService/obj/Debug/net8.0
 D:/loft/Loft-Moderation/Loft-BackEnd/src/ShippingAddressService/obj/Debug/net8.0/ShippingAddressService.pdb
 D:/loft/Loft-Moderation/Loft-BackEnd/src/ShippingAddressService/obj/Debug/net8.0/ShippingAddressService.genruntimeconfig.cache
 D:/loft/Loft-Moderation/Loft-BackEnd/src/ShippingAddressService/obj/Debug/net8.0/ref/ShippingAddressService.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/ShippingAddressService/bin/Debug/net8.0/Newtonsoft.Json.dll

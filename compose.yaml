@@ -16,6 +16,7 @@ services:
       - userservice
       - shippingaddressservice
       - paymentservice
+      - mediaservice
     networks:
       - loftnet
     environment:
@@ -114,6 +115,26 @@ services:
     networks:
       - loftnet
 
+  mediaservice:
+    build:
+      context: .
+      dockerfile: src/MediaService/Dockerfile
+    container_name: mediaservice
+    ports:
+      - "5008:8080"
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      Jwt__Key: DevKey_ChangeMe_ForLocalOnly_1234567890
+      Jwt__Issuer: LoftUserService
+      Jwt__Audience: LoftUsers
+      Jwt__ExpireMinutes: "60"
+    volumes:
+      - media_uploads:/app/uploads
+    networks:
+      - loftnet
+
 volumes:
   pgdata:
+    driver: local
+  media_uploads:
     driver: local
