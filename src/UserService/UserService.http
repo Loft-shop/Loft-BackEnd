@@ -4,3 +4,4 @@ GET {{UserService_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+

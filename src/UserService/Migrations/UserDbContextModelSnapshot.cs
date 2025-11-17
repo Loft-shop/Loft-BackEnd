@@ -96,6 +96,12 @@ namespace UserService.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ExternalProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ExternalProviderId")
+                        .HasColumnType("text");
+
                     b.Property<int[]>("FavoriteProductIds")
                         .IsRequired()
                         .ValueGeneratedOnAdd()

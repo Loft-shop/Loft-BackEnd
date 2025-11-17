@@ -14,6 +14,10 @@ public class User
     public string? LastName { get; set; }
     public string? Phone { get; set; }
 
-    // Список идентификаторов избранных продуктов пользователя
+    // OAuth fields
+    public string? ExternalProvider { get; set; } // e.g., "Google", "Facebook"
+    public string? ExternalProviderId { get; set; } // User ID from external provider
+
+    // РњР°СЃСЃРёРІ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂРѕРІ РёР·Р±СЂР°РЅРЅС‹С… РїСЂРѕРґСѓРєС‚РѕРІ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
     public int[] FavoriteProductIds { get; set; } = Array.Empty<int>();
 }

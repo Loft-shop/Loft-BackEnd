@@ -139,4 +139,79 @@ public class UserService : IUserService
         var user = await _db.Users.FindAsync(userId);
         return user?.CanSell ?? false;
     }
+
+    public async Task<UserDTO?> GetUserByExternalProvider(string provider, string providerId)
+    {
+        if (string.IsNullOrWhiteSpace(provider) || string.IsNullOrWhiteSpace(providerId))
+            return null;
+
+        var user = await _db.Users.FirstOrDefaultAsync(u => 
+            u.ExternalProvider == provider && u.ExternalProviderId == providerId);
+        
+        return user == null ? null : _mapper.Map<UserDTO>(user);
+    }
+
+    public async Task<UserDTO> CreateOrUpdateOAuthUser(string email, string provider, string providerId, 
+        string? firstName = null, string? lastName = null, string? avatarUrl = null)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            throw new ArgumentException("Email is required", nameof(email));
+        if (string.IsNullOrWhiteSpace(provider))
+            throw new ArgumentException("Provider is required", nameof(provider));
+        if (string.IsNullOrWhiteSpace(providerId))
+            throw new ArgumentException("Provider ID is required", nameof(providerId));
+
+        var normalizedEmail = email.Trim().ToLower();
+
+        // Check if user exists by external provider
+        var user = await _db.Users.FirstOrDefaultAsync(u => 
+            u.ExternalProvider == provider && u.ExternalProviderId == providerId);
+
+        if (user != null)
+        {
+            // Update existing OAuth user
+            user.Email = email;
+            user.FirstName = firstName ?? user.FirstName;
+            user.LastName = lastName ?? user.LastName;
+            user.AvatarUrl = avatarUrl ?? user.AvatarUrl;
+            
+            await _db.SaveChangesAsync();
+            return _mapper.Map<UserDTO>(user);
+        }
+
+        // Check if user exists by email (linking existing account)
+        user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == normalizedEmail);
+        
+        if (user != null)
+        {
+            // Link external provider to existing user
+            user.ExternalProvider = provider;
+            user.ExternalProviderId = providerId;
+            user.FirstName = firstName ?? user.FirstName;
+            user.LastName = lastName ?? user.LastName;
+            user.AvatarUrl = avatarUrl ?? user.AvatarUrl;
+            
+            await _db.SaveChangesAsync();
+            return _mapper.Map<UserDTO>(user);
+        }
+
+        // Create new OAuth user
+        var newUser = new User
+        {
+            Email = email,
+            FirstName = firstName ?? email.Split('@')[0],
+            LastName = lastName,
+            AvatarUrl = avatarUrl,
+            Role = Role.CUSTOMER,
+            CanSell = false,
+            ExternalProvider = provider,
+            ExternalProviderId = providerId,
+            PasswordHash = string.Empty // OAuth users don't have password
+        };
+
+        _db.Users.Add(newUser);
+        await _db.SaveChangesAsync();
+
+        return _mapper.Map<UserDTO>(newUser);
+    }
 }

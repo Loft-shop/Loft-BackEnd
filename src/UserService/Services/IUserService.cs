@@ -16,4 +16,8 @@ public interface IUserService
     Task<string> GenerateJwt(UserDTO user);
     Task<UserDTO?> ToggleSellerStatus(long userId);
     Task<bool> CanUserSell(long userId);
+
+    // OAuth methods
+    Task<UserDTO?> GetUserByExternalProvider(string provider, string providerId);
+    Task<UserDTO> CreateOrUpdateOAuthUser(string email, string provider, string providerId, string? firstName = null, string? lastName = null, string? avatarUrl = null);
 }

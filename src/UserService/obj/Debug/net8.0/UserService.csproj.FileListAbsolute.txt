@@ -818,3 +818,8 @@ D:/loft/loft/Loft-BackEnd/src/UserService/obj/Debug/net8.0/ref/UserService.dll
 D:/loft/loft/Loft-BackEnd/src/UserService/bin/Debug/net8.0/UserService.staticwebassets.runtime.json
 D:/loft/loft/Loft-BackEnd/src/UserService/bin/Debug/net8.0/Newtonsoft.Json.dll
 /Users/platon/RiderProjects/Loft-BackEnd/src/UserService/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/bin/Debug/net8.0/Google.Apis.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/bin/Debug/net8.0/Google.Apis.Auth.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/bin/Debug/net8.0/Google.Apis.Core.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/bin/Debug/net8.0/System.Management.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Management.dll
