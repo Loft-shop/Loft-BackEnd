@@ -10,4 +10,5 @@ public class Payment
     public PaymentMethod Method { get; set; }
     public PaymentStatus Status { get; set; }
     public DateTime PaymentDate { get; set; }
+    public string? TransactionId { get; set; }
 }

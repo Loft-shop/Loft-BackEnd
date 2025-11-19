@@ -1,6 +1,72 @@
-@PaymentService_HostAddress = http://localhost:5142
+### PaymentService API Tests - Real Stripe Integration
 
-GET {{PaymentService_HostAddress}}/weatherforecast/
-Accept: application/json
+@baseUrl = http://localhost:5005
+@contentType = application/json
+
+### 1. Получить доступные методы оплаты
+GET {{baseUrl}}/api/payments/methods
+
+### 2. Создать платеж через STRIPE (£5.00 = 500 pence)
+POST {{baseUrl}}/api/payments
+Content-Type: {{contentType}}
+
+{
+  "orderId": 1,
+  "amount": 5.00,
+  "method": 2
+}
+
+### 3. Создать платеж через STRIPE (£10.50)
+POST {{baseUrl}}/api/payments
+Content-Type: {{contentType}}
+
+{
+  "orderId": 2,
+  "amount": 10.50,
+  "method": 2
+}
+
+### 4. Создать платеж через CREDIT_CARD
+POST {{baseUrl}}/api/payments
+Content-Type: {{contentType}}
+
+{
+  "orderId": 3,
+  "amount": 149.50,
+  "method": 0
+}
+
+### 5. Создать платеж НАЛИЧНЫМИ (Cash on Delivery)
+POST {{baseUrl}}/api/payments
+Content-Type: {{contentType}}
+
+{
+  "orderId": 4,
+  "amount": 75.00,
+  "method": 1
+}
+
+### 6. Получить платеж по ID
+GET {{baseUrl}}/api/payments/1
+
+### 7. Получить все платежи по заказу
+GET {{baseUrl}}/api/payments/order/1
+
+### 8. Подтвердить платеж Stripe (замените ID на реальный)
+POST {{baseUrl}}/api/payments/1/confirm
+
+### 9. Вернуть платеж (замените ID на реальный)
+POST {{baseUrl}}/api/payments/1/refund
 
 ###
+### Примечание: 
+### PaymentMethod Enum значения:
+### 0 = CREDIT_CARD
+### 1 = CASH_ON_DELIVERY
+### 2 = STRIPE
+###
+### Валюта: GBP (British Pounds)
+### Amount передается в фунтах, конвертируется в пенсы (x100)
+### Например: 5.00 = £5.00 = 500 pence
+###
+

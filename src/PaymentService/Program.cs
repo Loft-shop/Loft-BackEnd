@@ -5,6 +5,7 @@ using PaymentService.Mappings;
 using PaymentService.Data;
 using Microsoft.EntityFrameworkCore;
 using PaymentService.Services;
+using PaymentService.Services.Providers;
 
 namespace PaymentService
 {
@@ -29,6 +30,14 @@ namespace PaymentService
             builder.Services.AddDbContext<PaymentDbContext>(options =>
                 options.UseNpgsql(conn));
 
+            // Регистрация платежных провайдеров
+            builder.Services.AddSingleton<IPaymentProvider, RealStripeProvider>();
+            builder.Services.AddSingleton<IPaymentProvider, MockCreditCardProvider>();
+            builder.Services.AddSingleton<IPaymentProvider, MockCashOnDeliveryProvider>();
+
+            // Фабрика провайдеров
+            builder.Services.AddSingleton<PaymentProviderFactory>();
+
             // Регистрация сервисов
             builder.Services.AddScoped<IPaymentService, PaymentService.Services.PaymentService>();
             builder.Services.AddHttpClient();
@@ -41,6 +50,13 @@ namespace PaymentService
             app.UseRouting();
             app.UseAuthorization();
             app.MapControllers();
+
+            Console.WriteLine("=== Payment Service Started ===");
+            Console.WriteLine("Supported payment methods:");
+            Console.WriteLine("  - STRIPE (Real - Test Mode)");
+            Console.WriteLine("  - CREDIT_CARD (Mock)");
+            Console.WriteLine("  - CASH_ON_DELIVERY (Mock)");
+            Console.WriteLine("================================");
 
             app.Run();
         }

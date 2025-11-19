@@ -2,96 +2,129 @@ using AutoMapper;
 using Loft.Common.DTOs;
 using Loft.Common.Enums;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using PaymentService.Data;
 using PaymentService.Entities;
+using PaymentService.Services.Providers;
 
 namespace PaymentService.Services;
 
 public class PaymentService : IPaymentService
 {
     private readonly PaymentDbContext _context;
+    private readonly PaymentProviderFactory _providerFactory;
     private readonly IMapper _mapper;
     private readonly ILogger<PaymentService> _logger;
 
-    public PaymentService(PaymentDbContext context, IMapper mapper, ILogger<PaymentService> logger)
+    public PaymentService(
+        PaymentDbContext context,
+        PaymentProviderFactory providerFactory,
+        IMapper mapper,
+        ILogger<PaymentService> logger)
     {
         _context = context;
+        _providerFactory = providerFactory;
         _mapper = mapper;
         _logger = logger;
     }
 
-    public async Task<PaymentDTO> CreatePayment(PaymentDTO payment)
+    public async Task<PaymentDTO> CreatePaymentAsync(CreatePaymentDTO dto)
     {
-        var entity = _mapper.Map<Payment>(payment);
-        entity.PaymentDate = DateTime.UtcNow;
-        _context.Payments.Add(entity);
-        await _context.SaveChangesAsync();
-        return _mapper.Map<PaymentDTO>(entity);
-    }
+        _logger.LogInformation("Creating payment for order {OrderId} with method {Method}", 
+            dto.OrderId, dto.Method);
 
-    public async Task<PaymentDTO> ProcessPayment(long orderId, PaymentMethod method, string? providerData = null)
-    {
-        // Попытка найти уже существующий платеж по заказу
-        var existing = await _context.Payments.FirstOrDefaultAsync(p => p.OrderId == orderId);
-        if (existing != null)
-        {
-            return _mapper.Map<PaymentDTO>(existing);
-        }
+        // Получаем провайдер для выбранного метода
+        var provider = _providerFactory.GetProvider(dto.Method);
+        
+        // Создаем транзакцию через провайдер
+        var transactionId = await provider.CreatePaymentAsync(dto.Amount, dto.OrderId);
 
-        // В реальном приложении тут бы вызывался провайдер оплаты
+        // Создаем запись в БД
         var payment = new Payment
         {
-            OrderId = orderId,
-            Amount = 0m, // неизвестно — в реальном кейсе можно запросить сумму у OrderService
-            Method = method,
-            PaymentDate = DateTime.UtcNow
+            OrderId = dto.OrderId,
+            Amount = dto.Amount,
+            Method = dto.Method,
+            Status = dto.Method == PaymentMethod.CASH_ON_DELIVERY 
+                ? PaymentStatus.PENDING 
+                : PaymentStatus.REQUIRES_CONFIRMATION,
+            PaymentDate = DateTime.UtcNow,
+            TransactionId = transactionId
         };
-
-        // Простая имитация: если метод не CASH_ON_DELIVERY — считаем успешным
-        if (method == PaymentMethod.CASH_ON_DELIVERY)
-        {
-            payment.Status = PaymentStatus.PEDDING;
-        }
-        else
-        {
-            payment.Status = PaymentStatus.COMPLETED;
-        }
 
         _context.Payments.Add(payment);
         await _context.SaveChangesAsync();
-        _logger.LogInformation("Processed payment for order {OrderId} with status {Status}", orderId, payment.Status);
+
+        _logger.LogInformation("Payment created with ID {PaymentId}, TransactionId {TransactionId}", 
+            payment.Id, transactionId);
+
         return _mapper.Map<PaymentDTO>(payment);
     }
 
-    public async Task<PaymentDTO?> GetPaymentById(long paymentId)
-    {
-        var p = await _context.Payments.FindAsync(paymentId);
-        return p == null ? null : _mapper.Map<PaymentDTO>(p);
-    }
-
-    public async Task<PaymentDTO?> GetPaymentByOrderId(long orderId)
-    {
-        var p = await _context.Payments.FirstOrDefaultAsync(x => x.OrderId == orderId);
-        return p == null ? null : _mapper.Map<PaymentDTO>(p);
-    }
-
-    public async Task<PaymentDTO> RefundPayment(long paymentId)
+    public async Task<PaymentDTO> ConfirmPaymentAsync(long paymentId)
     {
         var payment = await _context.Payments.FindAsync(paymentId);
         if (payment == null)
             throw new KeyNotFoundException($"Payment {paymentId} not found");
 
-        payment.Status = PaymentStatus.REFUNDED;
-        await _context.SaveChangesAsync();
+        if (payment.Status == PaymentStatus.COMPLETED)
+        {
+            _logger.LogWarning("Payment {PaymentId} already completed", paymentId);
+            return _mapper.Map<PaymentDTO>(payment);
+        }
+
+        // Получаем провайдер и подтверждаем платеж
+        var provider = _providerFactory.GetProvider(payment.Method);
+        var success = await provider.ConfirmPaymentAsync(payment.TransactionId!);
+
+        if (success)
+        {
+            payment.Status = PaymentStatus.COMPLETED;
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Payment {PaymentId} confirmed successfully", paymentId);
+        }
+
         return _mapper.Map<PaymentDTO>(payment);
     }
 
-    public async Task<PaymentStatus> GetPaymentStatus(long paymentId)
+    public async Task<PaymentDTO> GetPaymentByIdAsync(long paymentId)
     {
         var payment = await _context.Payments.FindAsync(paymentId);
         if (payment == null)
             throw new KeyNotFoundException($"Payment {paymentId} not found");
-        return payment.Status;
+
+        return _mapper.Map<PaymentDTO>(payment);
+    }
+
+    public async Task<IEnumerable<PaymentDTO>> GetPaymentsByOrderIdAsync(long orderId)
+    {
+        var payments = await _context.Payments
+            .Where(p => p.OrderId == orderId)
+            .OrderByDescending(p => p.PaymentDate)
+            .ToListAsync();
+
+        return _mapper.Map<IEnumerable<PaymentDTO>>(payments);
+    }
+
+    public async Task<PaymentDTO> RefundPaymentAsync(long paymentId)
+    {
+        var payment = await _context.Payments.FindAsync(paymentId);
+        if (payment == null)
+            throw new KeyNotFoundException($"Payment {paymentId} not found");
+
+        if (payment.Status != PaymentStatus.COMPLETED)
+            throw new InvalidOperationException("Can only refund completed payments");
+
+        // Получаем провайдер и делаем возврат
+        var provider = _providerFactory.GetProvider(payment.Method);
+        var success = await provider.RefundPaymentAsync(payment.TransactionId!);
+
+        if (success)
+        {
+            payment.Status = PaymentStatus.REFUNDED;
+            await _context.SaveChangesAsync();
+            _logger.LogInformation("Payment {PaymentId} refunded successfully", paymentId);
+        }
+
+        return _mapper.Map<PaymentDTO>(payment);
     }
 }
