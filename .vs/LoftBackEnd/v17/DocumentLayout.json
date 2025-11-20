@@ -41,8 +41,7 @@
               "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\CategoryDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-20T18:35:45.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T18:35:45.148Z"
             },
             {
               "$type": "Document",
@@ -54,8 +53,7 @@
               "RelativeToolTip": "src\\ProductService\\Controllers\\CategoryController.cs",
               "ViewState": "AgIAAC0AAAAAAAAAAAAgwDMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-20T18:32:49.976Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T18:32:49.976Z"
             },
             {
               "$type": "Document",
@@ -80,8 +78,7 @@
               "RelativeToolTip": "..\\..\\..\\microsoft\\VisualStudio\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
               "ViewState": "AgIAADkWAAAAAAAAAIAwwEsWAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-11-20T18:26:56.425Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-20T18:26:56.425Z"
             }
           ]
         }
