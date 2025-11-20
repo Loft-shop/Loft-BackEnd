@@ -1,7 +1,9 @@
 name: CI/CD Deploy to Test Server
 permissions:
   contents: read
-
+  packages: write
+  id-token: write
+  
 on:
   push:
     branches: [ "master" ]
