@@ -84,14 +84,22 @@ public class ProductService : IProductService
     }
 
     // Получение одного товара по ID
-    public async Task<ProductDto?> GetProductById(int productId)
+    public async Task<ProductDto?> GetProductById(int productId, bool isModerator)
     {
-        var product = await _db.Products
-        .Include(p => p.Category)
-        .Include(p => p.AttributeValues).ThenInclude(av => av.Attribute)
-        .Include(p => p.MediaFiles)
-        .Include(p => p.Comments).ThenInclude(c => c.MediaFiles)
-        .FirstOrDefaultAsync(p => p.Id == productId && p.Status == ModerationStatus.Approved);
+        var query = _db.Products
+            .Include(p => p.Category)
+            .Include(p => p.AttributeValues).ThenInclude(av => av.Attribute)
+            .Include(p => p.MediaFiles)
+            .Include(p => p.Comments).ThenInclude(c => c.MediaFiles)
+            .AsQueryable();
+
+        if (!isModerator)
+        {
+            // Обычные пользователи видят только одобренные товары
+            query = query.Where(p => p.Status == ModerationStatus.Approved);
+        }
+
+        var product = await query.FirstOrDefaultAsync(p => p.Id == productId);
 
         if (product == null)
             return null;
@@ -236,8 +244,9 @@ public class ProductService : IProductService
         {
             Name = dto.Name,
             ImageUrl = dto.ImageUrl,
-            ParentCategoryId = dto.ParentCategoryId, // если null, категория будет верхнего уровня
-            Status = 0,
+            ParentCategoryId = dto.ParentCategoryId,
+            Status = 0,  // <- берем из DTO
+            Type = dto.Type,      // <- берем из DTO
             ViewCount = 0
         };
 

@@ -11,7 +11,7 @@ public interface IProductService
     // ------------------ PRODUCTS ------------------
     Task<IEnumerable<ProductDto>> GetAllProducts(ProductFilterDto filter);
 
-    Task<ProductDto?> GetProductById(int productId);
+    Task<ProductDto?> GetProductById(int productId,bool isModerator);
 
     Task<ProductDto> CreateProduct(ProductDto product);
 

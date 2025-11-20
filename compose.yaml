@@ -19,6 +19,7 @@ services:
       - mediaservice
     networks:
       - loftnet
+    restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
@@ -37,6 +38,7 @@ services:
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     networks:
       - loftnet
+    restart: always
     depends_on:
       - productservice
       - userservice
@@ -57,6 +59,7 @@ services:
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     networks:
       - loftnet
+    restart: always
     depends_on:
       - cartservice
       - productservice
@@ -74,6 +77,7 @@ services:
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     networks:
       - loftnet
+    restart: always
 
   productservice:
     build:
@@ -91,6 +95,7 @@ services:
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     networks:
       - loftnet
+    restart: always
 
   shippingaddressservice:
     build:
@@ -101,6 +106,7 @@ services:
       - "5005:8080"
     networks:
       - loftnet
+    restart: always
 
   userservice:
     build:
@@ -124,6 +130,7 @@ services:
       AllowedOrigins__2: "https://loft-shop.pp.ua"
     networks:
       - loftnet
+    restart: always
 
   mediaservice:
     build:
@@ -144,6 +151,7 @@ services:
       - /var/www/MediaFileLoft/private:/app/storage/private
     networks:
       - loftnet
+    restart: always
 
 volumes:
   pgdata:

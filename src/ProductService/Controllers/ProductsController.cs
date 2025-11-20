@@ -32,7 +32,12 @@ namespace ProductService.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var product = await _service.GetProductById(id);
+            var userId = GetUserId();
+            if (userId == null) return Unauthorized();
+
+            bool isModerator = IsModerator();
+
+            var product = await _service.GetProductById(id, isModerator);
             if (product == null) return NotFound();
             return Ok(product);
         }
@@ -60,7 +65,7 @@ namespace ProductService.Controllers
             var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            var product = await _service.GetProductById(id);
+            var product = await _service.GetProductById(id, true);
             if (product == null) return NotFound();
 
             if (product.IdUser != userId)
@@ -79,7 +84,7 @@ namespace ProductService.Controllers
             var userId = GetUserId();
             if (userId == null) return Unauthorized();
 
-            var product = await _service.GetProductById(id);
+            var product = await _service.GetProductById(id, true);
             if (product == null) return NotFound();
 
             if (product.IdUser != userId)
