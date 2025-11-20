@@ -641,9 +641,7 @@ D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/appsettings.Develo
 D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/appsettings.json
 D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/UserService.deps.json
 D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/UserService.runtimeconfig.json
-D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/UserService.staticwebassets.runtime.json
 D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/UserService.exe
-D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/ProductService.staticwebassets.runtime.json
 D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/ProductService.exe
 D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/ProductService.deps.json
 D:/loft/loft/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/ProductService.runtimeconfig.json
@@ -796,11 +794,9 @@ D:/loft/loft/Loft-BackEnd/src/ProductService/obj/Debug/net8.0/ref/ProductService
 /Users/platon/RiderProjects/Loft-BackEnd/src/ProductService/bin/Debug/net8.0/Newtonsoft.Json.dll
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\UserService.deps.json
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\UserService.runtimeconfig.json
-D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\UserService.staticwebassets.runtime.json
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\UserService.exe
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\appsettings.Development.json
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\appsettings.json
-D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\ProductService.staticwebassets.runtime.json
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\ProductService.exe
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\ProductService.deps.json
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\ProductService.runtimeconfig.json
@@ -956,3 +952,5 @@ D:\loft\loft\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\ProductService.pdb
 D:\loft\loft\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\ProductService.genruntimeconfig.cache
 D:\loft\loft\Loft-BackEnd\src\ProductService\obj\Debug\net8.0\ref\ProductService.dll
 D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\UserService.staticwebassets.runtime.json
+D:\loft\loft\Loft-BackEnd\src\ProductService\bin\Debug\net8.0\ProductService.staticwebassets.runtime.json

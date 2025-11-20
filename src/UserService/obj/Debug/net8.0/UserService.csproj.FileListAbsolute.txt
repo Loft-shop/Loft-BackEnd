@@ -976,5 +976,5 @@ D:\loft\loft\Loft-BackEnd\src\UserService\obj\Debug\net8.0\refint\UserService.dl
 D:\loft\loft\Loft-BackEnd\src\UserService\obj\Debug\net8.0\UserService.pdb
 D:\loft\loft\Loft-BackEnd\src\UserService\obj\Debug\net8.0\UserService.genruntimeconfig.cache
 D:\loft\loft\Loft-BackEnd\src\UserService\obj\Debug\net8.0\ref\UserService.dll
-D:\loft\loft\Loft-BackEnd\src\UserService\bin\Debug\net8.0\UserService.staticwebassets.runtime.json
 D:\loft\loft\Loft-BackEnd\src\UserService\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+D:\loft\loft\Loft-BackEnd\src\UserService\bin\Debug\net8.0\UserService.staticwebassets.runtime.json
