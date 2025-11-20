@@ -5591,40 +5591,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\samit\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/platon/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj",
+      "projectUniqueName": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
       "projectName": "UserService",
-      "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj",
-      "packagesPath": "C:\\Users\\samit\\.nuget\\packages\\",
-      "outputPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\obj\\",
+      "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
+      "packagesPath": "/Users/platon/.nuget/packages/",
+      "outputPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\samit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/platon/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj": {
-              "projectPath": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\Loft.Common.csproj"
+            "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+              "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
             }
           }
         }
@@ -5728,7 +5720,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.415/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

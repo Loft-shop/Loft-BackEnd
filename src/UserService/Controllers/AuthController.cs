@@ -2,13 +2,14 @@ using Loft.Common.DTOs;
 using Loft.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using UserService.DTOs;
 using UserService.Entities;
 using UserService.Services;
 using Google.Apis.Auth;
 using Microsoft.Extensions.Configuration;
-
+using System.Security.Claims;
 namespace UserService.Controllers;
 
 [ApiController]
@@ -79,6 +80,28 @@ public class AuthController : ControllerBase
         {
             var googleClientId = _configuration["Authentication:Google:ClientId"];
             
+            Console.WriteLine($"[GoogleAuth] Backend expected Client ID: {googleClientId ?? "NULL (NOT SET!)"}");
+            
+            if (string.IsNullOrEmpty(googleClientId))
+            {
+                Console.WriteLine("[GoogleAuth] ERROR: Google Client ID is not configured!");
+                return Unauthorized(new { message = "Google OAuth not configured on server" });
+            }
+            
+            // Декодируем токен для логирования (без валидации)
+            try
+            {
+                var handler = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(request.IdToken) as System.IdentityModel.Tokens.Jwt.JwtSecurityToken;
+                var tokenAud = jsonToken?.Audiences?.FirstOrDefault();
+                Console.WriteLine($"[GoogleAuth] Token's aud (Client ID from frontend): {tokenAud}");
+                Console.WriteLine($"[GoogleAuth] Match: {tokenAud == googleClientId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[GoogleAuth] Could not decode token for logging: {ex.Message}");
+            }
+            
             // Verify Google ID token
             var payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken, new GoogleJsonWebSignature.ValidationSettings
             {
@@ -86,7 +109,12 @@ public class AuthController : ControllerBase
             });
 
             if (payload == null)
+            {
+                Console.WriteLine("[GoogleAuth] Token validation returned null payload");
                 return Unauthorized(new { message = "Invalid Google token" });
+            }
+            
+            Console.WriteLine($"[GoogleAuth] Token validated successfully for email: {payload.Email}");
 
             // Extract user information
             var email = payload.Email;
@@ -105,6 +133,8 @@ public class AuthController : ControllerBase
                 avatarUrl
             );
 
+            Console.WriteLine($"[GoogleAuth] User created/updated: ID={user.Id}, Email={user.Email}");
+
             // Generate JWT token
             var token = await _userService.GenerateJwt(user);
 
@@ -119,11 +149,12 @@ public class AuthController : ControllerBase
         }
         catch (InvalidJwtException ex)
         {
+            Console.WriteLine($"[GoogleAuth] InvalidJwtException: {ex.Message}");
             return Unauthorized(new { message = "Invalid Google token", error = ex.Message });
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"[AuthController] Google auth error: {ex}");
+            Console.WriteLine($"[GoogleAuth] Exception: {ex}");
             return StatusCode(500, new { message = "Internal server error during Google authentication" });
         }
     }

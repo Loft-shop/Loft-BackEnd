@@ -245,7 +245,6 @@ namespace UserService
 
             // Настраиваем конвейер обработки запросов
             app.UseRouting();
-
             // CORS удалён - он обрабатывается только в ApiGateway
 
             app.UseSwagger();

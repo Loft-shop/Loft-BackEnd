@@ -263,3 +263,5 @@ D:/loft/Loft-Moderation/Loft-BackEnd/src/PaymentService/obj/Debug/net8.0/ref/Pay
 /Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/bin/Debug/net8.0/Stripe.net.dll
 /Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
 /Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/bin/Debug/net8.0/Microsoft.Extensions.ObjectPool.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/PaymentService/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
