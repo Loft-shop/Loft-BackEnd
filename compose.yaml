@@ -111,11 +111,17 @@ services:
       - "5004:8080"
     environment:
       ASPNETCORE_URLS: http://0.0.0.0:8080
+      ASPNETCORE_ENVIRONMENT: Development
       Jwt__Key: DevKey_ChangeMe_ForLocalOnly_1234567890
       Jwt__Issuer: LoftUserService
       Jwt__Audience: LoftUsers
       Jwt__ExpireMinutes: "60"
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
+      Authentication__Google__ClientId: "1031648550234-v296d5d0efagr4mlmpigha8kb1ufmouo.apps.googleusercontent.com"
+      Authentication__Google__ClientSecret: "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"
+      AllowedOrigins__0: "http://localhost:3000"
+      AllowedOrigins__1: "http://127.0.0.1:3000"
+      AllowedOrigins__2: "https://loft-shop.pp.ua"
     networks:
       - loftnet
 

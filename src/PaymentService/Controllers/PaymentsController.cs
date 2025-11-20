@@ -3,62 +3,143 @@ using PaymentService.Services;
 using Loft.Common.DTOs;
 using Loft.Common.Enums;
 
-namespace PaymentService.Controllers
+namespace PaymentService.Controllers;
+
+[ApiController]
+[Route("api/payments")]
+public class PaymentsController : ControllerBase
 {
-    [ApiController]
-    [Route("api/payments")]
-    public class PaymentsController : ControllerBase
+    private readonly IPaymentService _paymentService;
+    private readonly ILogger<PaymentsController> _logger;
+
+    public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger)
     {
-        private readonly IPaymentService _paymentService;
+        _paymentService = paymentService;
+        _logger = logger;
+    }
 
-        public PaymentsController(IPaymentService paymentService)
+    /// <summary>
+    /// Создать новый платеж
+    /// </summary>
+    [HttpPost]
+    public async Task<IActionResult> CreatePayment([FromBody] CreatePaymentDTO dto)
+    {
+        try
         {
-            _paymentService = paymentService;
+            var payment = await _paymentService.CreatePaymentAsync(dto);
+            return CreatedAtAction(nameof(GetPaymentById), new { id = payment.Id }, payment);
         }
-        
-        [HttpGet("{id:long}")]
-        public async Task<IActionResult> GetById(long id)
+        catch (NotSupportedException ex)
         {
-            var p = await _paymentService.GetPaymentById(id);
-            if (p == null) return NotFound();
-            return Ok(p);
+            return BadRequest(new { error = ex.Message });
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating payment");
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
 
-        [HttpGet("by-order/{orderId:long}")]
-        public async Task<IActionResult> GetByOrder(long orderId)
+    /// <summary>
+    /// Подтвердить платеж
+    /// </summary>
+    [HttpPost("{id}/confirm")]
+    public async Task<IActionResult> ConfirmPayment(long id)
+    {
+        try
         {
-            var p = await _paymentService.GetPaymentByOrderId(orderId);
-            if (p == null) return NotFound();
-            return Ok(p);
+            var payment = await _paymentService.ConfirmPaymentAsync(id);
+            return Ok(payment);
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { error = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error confirming payment");
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
 
-        [HttpPost("process")]
-        public async Task<IActionResult> Process([FromQuery] long orderId, [FromQuery] PaymentMethod method)
+    /// <summary>
+    /// Получить платеж по ID
+    /// </summary>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetPaymentById(long id)
+    {
+        try
         {
-            var result = await _paymentService.ProcessPayment(orderId, method);
-            return Ok(result);
+            var payment = await _paymentService.GetPaymentByIdAsync(id);
+            return Ok(payment);
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting payment");
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
 
-        [HttpPost("refund/{id:long}")]
-        public async Task<IActionResult> Refund(long id)
+    /// <summary>
+    /// Получить все платежи по заказу
+    /// </summary>
+    [HttpGet("order/{orderId}")]
+    public async Task<IActionResult> GetPaymentsByOrder(long orderId)
+    {
+        try
         {
-            var result = await _paymentService.RefundPayment(id);
-            return Ok(result);
+            var payments = await _paymentService.GetPaymentsByOrderIdAsync(orderId);
+            return Ok(payments);
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting payments");
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
 
-        [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] PaymentDTO payment)
+    /// <summary>
+    /// Сделать возврат платежа
+    /// </summary>
+    [HttpPost("{id}/refund")]
+    public async Task<IActionResult> RefundPayment(long id)
+    {
+        try
         {
-            var created = await _paymentService.CreatePayment(payment);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            var payment = await _paymentService.RefundPaymentAsync(id);
+            return Ok(payment);
         }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { error = ex.Message });
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error refunding payment");
+            return StatusCode(500, new { error = ex.Message });
+        }
+    }
 
-        [HttpGet("methods")]
-        public IActionResult GetMethods()
-        {
-            // Возвращаем все методы оплаты, определённые в Loft.Common.Enums.PaymentMethod
-            var methods = Enum.GetNames(typeof(PaymentMethod));
-            return Ok(methods);
-        }
+    /// <summary>
+    /// Получить доступные методы оплаты
+    /// </summary>
+    [HttpGet("methods")]
+    public IActionResult GetPaymentMethods()
+    {
+        var methods = Enum.GetValues<PaymentMethod>()
+            .Select(m => new { value = (int)m, name = m.ToString() });
+        return Ok(methods);
     }
 }

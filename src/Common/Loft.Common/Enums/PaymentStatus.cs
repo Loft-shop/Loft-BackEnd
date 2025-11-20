@@ -2,8 +2,11 @@ namespace Loft.Common.Enums;
 
 public enum PaymentStatus
 {
-    PEDDING,
+    PENDING,
+    REQUIRES_CONFIRMATION,
+    PROCESSING,
     COMPLETED,
     FAILED,
-    REFUNDED
+    REFUNDED,
+    PARTIALLY_REFUNDED
 }
