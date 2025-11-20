@@ -7,7 +7,7 @@
         "Action": "Start"
       },
       {
-        "Path": "src\\MediaService\\MediaService.csproj",
+        "Path": "src\\ProductService\\ProductService.csproj",
         "Action": "Start"
       }
     ]
