@@ -1,240 +1,143 @@
 using Loft.Common.DTOs;
+using MediaService.Data;
 using MediaService.Entities;
 
 namespace MediaService.Services
 {
     public class MediaStorageService : IMediaService
     {
-        private readonly IConfiguration _configuration;
-        private readonly ILogger<MediaStorageService> _logger;
-        private readonly IImageProcessingService _imageProcessingService;
-        private readonly string _uploadPath;
-        private readonly long _maxFileSizeBytes;
-        private readonly List<string> _allowedImageExtensions;
 
-        public MediaStorageService(
-            IConfiguration configuration,
-            ILogger<MediaStorageService> logger,
-            IImageProcessingService imageProcessingService)
+        private readonly MediaDbContext _db;
+        private readonly string _storageRoot = Path.Combine(Directory.GetCurrentDirectory(), "storage");
+
+        public MediaStorageService(MediaDbContext db) { _db = db; }
+
+        public async Task<MediaFile> UploadFileAsync(IFormFile file, string category, int uploadedBy, bool isPrivate = false)
         {
-            _configuration = configuration;
-            _logger = logger;
-            _imageProcessingService = imageProcessingService;
+            if (file == null || file.Length == 0) throw new ArgumentException("File is empty");
 
-            // Получаем настройки из конфигурации
-            var mediaSettings = _configuration.GetSection("MediaSettings");
-            _uploadPath = mediaSettings.GetValue<string>("UploadPath") ?? "uploads";
-            _maxFileSizeBytes = mediaSettings.GetValue<int>("MaxFileSizeMB") * 1024 * 1024;
-            _allowedImageExtensions = mediaSettings.GetSection("AllowedImageExtensions").Get<List<string>>() 
-                ?? new List<string> { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+            var extension = Path.GetExtension(file.FileName);
+            var storedName = $"{Guid.NewGuid()}{extension}";
 
-            // Создаем директорию для загрузок, если её нет
-            if (!Directory.Exists(_uploadPath))
+            // Выбираем корневую папку в зависимости от приватности
+            var baseFolder = isPrivate ? "private" : "public";
+            var categoryPath = Path.Combine(_storageRoot, baseFolder, category);
+
+            if (!Directory.Exists(categoryPath))
+                Directory.CreateDirectory(categoryPath);
+
+            var path = Path.Combine(categoryPath, storedName);
+            using var stream = new FileStream(path, FileMode.Create);
+            await file.CopyToAsync(stream);
+
+            var media = new MediaFile
             {
-                Directory.CreateDirectory(_uploadPath);
-            }
+                OriginalName = file.FileName,
+                StoredName = storedName,
+                Extension = extension,
+                ContentType = file.ContentType,
+                FileSize = file.Length,
+                RelativePath = Path.Combine(baseFolder, category, storedName),
+                IsPrivate = isPrivate,
+                FileType = GetFileType(extension),
+                Url = isPrivate ? null : $"/media/{category}/{storedName}", // публичный URL только для public
+                UploadedBy = uploadedBy
+            };
+
+            _db.MediaFiles.Add(media);
+            await _db.SaveChangesAsync();
+
+            return media;
         }
 
-        public async Task<UploadResponseDTO> UploadFileAsync(IFormFile file, string category = "general")
+        private string GetFileType(string ext)
         {
-            try
-            {
-                // Валидация файла
-                if (file == null || file.Length == 0)
-                {
-                    throw new ArgumentException("File is empty or null");
-                }
-
-                if (file.Length > _maxFileSizeBytes)
-                {
-                    throw new ArgumentException($"File size exceeds maximum allowed size of {_maxFileSizeBytes / 1024 / 1024} MB");
-                }
-
-                var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                if (!_allowedImageExtensions.Contains(extension))
-                {
-                    throw new ArgumentException($"File extension {extension} is not allowed");
-                }
-
-                // Проверяем, что это действительно изображение
-                using var memoryStream = new MemoryStream();
-                await file.CopyToAsync(memoryStream);
-                memoryStream.Position = 0;
-
-                if (!await _imageProcessingService.IsValidImageAsync(memoryStream))
-                {
-                    throw new ArgumentException("Invalid image file");
-                }
-
-                // Создаем уникальное имя файла
-                var uniqueFileName = $"{Guid.NewGuid()}{extension}";
-                var categoryPath = Path.Combine(_uploadPath, category);
-                
-                if (!Directory.Exists(categoryPath))
-                {
-                    Directory.CreateDirectory(categoryPath);
-                }
-
-                var filePath = Path.Combine(categoryPath, uniqueFileName);
-
-                // Сохраняем файл
-                memoryStream.Position = 0;
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await memoryStream.CopyToAsync(fileStream);
-                }
-
-                _logger.LogInformation($"File uploaded: {filePath}");
-
-                // Создаем миниатюру для изображений
-                string? thumbnailPath = null;
-                try
-                {
-                    var thumbnailWidth = _configuration.GetSection("MediaSettings").GetValue<int>("ThumbnailWidth");
-                    var thumbnailHeight = _configuration.GetSection("MediaSettings").GetValue<int>("ThumbnailHeight");
-                    thumbnailPath = await _imageProcessingService.CreateThumbnailAsync(filePath, thumbnailWidth, thumbnailHeight);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogWarning(ex, "Failed to create thumbnail");
-                }
-
-                var response = new UploadResponseDTO
-                {
-                    Id = 0, // Будет обновлен после сохранения в БД
-                    FileName = uniqueFileName,
-                    FileUrl = $"/media/{category}/{uniqueFileName}",
-                    ThumbnailUrl = thumbnailPath != null ? $"/media/{category}/thumbnails/thumb_{uniqueFileName}" : null,
-                    FileSize = file.Length,
-                    ContentType = file.ContentType,
-                    Category = category,
-                    UploadedAt = DateTime.UtcNow
-                };
-
-                return response;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error uploading file");
-                throw;
-            }
+            ext = ext.ToLower();
+            if (new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" }.Contains(ext)) return "image";
+            if (new[] { ".mp4", ".avi", ".mov" }.Contains(ext)) return "video";
+            if (new[] { ".pdf", ".doc", ".docx", ".zip" }.Contains(ext)) return "document";
+            return "digital";
         }
 
-        public async Task<(Stream? stream, string? contentType, string? fileName)> DownloadFileAsync(string fileName)
+        public async Task<DownloadToken> GenerateDownloadTokenAsync(Guid mediaId, TimeSpan validFor)
         {
-            return await Task.Run(() =>
+            var token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+                .Replace("/", "_").Replace("+", "-");
+
+            var downloadToken = new DownloadToken
             {
-                try
-                {
-                    // Ищем файл во всех категориях
-                    var files = Directory.GetFiles(_uploadPath, fileName, SearchOption.AllDirectories);
-                    
-                    if (files.Length == 0)
-                    {
-                        return (null, null, null);
-                    }
+                MediaId = mediaId,
+                Token = token,
+                ExpiresAt = DateTime.UtcNow.Add(validFor)
+            };
 
-                    var filePath = files[0];
-                    var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                    var contentType = _imageProcessingService.GetImageFormat(fileName);
-
-                    return (stream, contentType, fileName);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error downloading file: {fileName}");
-                    return (null, null, null);
-                }
-            });
+            _db.DownloadTokens.Add(downloadToken);
+            await _db.SaveChangesAsync();
+            return downloadToken;
         }
 
-        public async Task<bool> DeleteFileAsync(string fileName)
+        public async Task<(byte[] content, string contentType, string originalName)> DownloadFileByTokenAsync(string token)
         {
-            return await Task.Run(() =>
-            {
-                try
-                {
-                    // Ищем файл во всех категориях
-                    var files = Directory.GetFiles(_uploadPath, fileName, SearchOption.AllDirectories);
-                    
-                    if (files.Length == 0)
-                    {
-                        return false;
-                    }
+            var t = _db.DownloadTokens
+                .FirstOrDefault(x => x.Token == token && !x.IsUsed && x.ExpiresAt > DateTime.UtcNow);
 
-                    var filePath = files[0];
-                    File.Delete(filePath);
+            if (t == null) throw new UnauthorizedAccessException();
 
-                    // Удаляем миниатюру, если она есть
-                    var thumbnailPath = Path.Combine(
-                        Path.GetDirectoryName(filePath)!,
-                        "thumbnails",
-                        $"thumb_{fileName}"
-                    );
+            var media = await _db.MediaFiles.FindAsync(t.MediaId);
+            if (media == null) throw new FileNotFoundException();
 
-                    if (File.Exists(thumbnailPath))
-                    {
-                        File.Delete(thumbnailPath);
-                    }
+            var path = Path.Combine(_storageRoot, media.RelativePath);
+            if (!File.Exists(path)) throw new FileNotFoundException();
 
-                    _logger.LogInformation($"File deleted: {filePath}");
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error deleting file: {fileName}");
-                    return false;
-                }
-            });
+            t.IsUsed = true;
+            await _db.SaveChangesAsync();
+
+            return (File.ReadAllBytes(path), media.ContentType, media.OriginalName);
         }
 
-        public async Task<List<MediaFileDTO>> GetAllFilesAsync(string? category = null)
+        public async Task<bool> DeleteFileAsync(Guid mediaId, int requestingUserId)
         {
-            return await Task.Run(() =>
-            {
-                try
-                {
-                    var searchPath = string.IsNullOrEmpty(category) 
-                        ? _uploadPath 
-                        : Path.Combine(_uploadPath, category);
+            var media = await _db.MediaFiles.FindAsync(mediaId);
+            if (media == null) return false;
 
-                    if (!Directory.Exists(searchPath))
-                    {
-                        return new List<MediaFileDTO>();
-                    }
+            // Проверяем, что пользователь владелец
+            if (media.UploadedBy != requestingUserId)
+                throw new UnauthorizedAccessException("You are not allowed to delete this file.");
 
-                    var files = Directory.GetFiles(searchPath, "*.*", 
-                        string.IsNullOrEmpty(category) ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)
-                        .Where(f => !f.Contains("thumbnails")) // Исключаем миниатюры
-                        .Select(f => new MediaFileDTO
-                        {
-                            Id = 0, // Временно, пока нет БД
-                            FileName = Path.GetFileName(f),
-                            FilePath = f,
-                            FileUrl = $"/media/{GetRelativePath(_uploadPath, f)}",
-                            ThumbnailUrl = null,
-                            FileSize = new FileInfo(f).Length,
-                            ContentType = _imageProcessingService.GetImageFormat(f),
-                            Category = category ?? "general",
-                            CreatedAt = File.GetCreationTimeUtc(f),
-                            UpdatedAt = File.GetLastWriteTimeUtc(f)
-                        })
-                        .ToList();
+            var path = Path.Combine(_storageRoot, media.RelativePath);
+            if (File.Exists(path))
+                File.Delete(path);
 
-                    return files;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error getting files list");
-                    return new List<MediaFileDTO>();
-                }
-            });
+            _db.MediaFiles.Remove(media);
+            await _db.SaveChangesAsync();
+
+            return true;
         }
-
-        private string GetRelativePath(string basePath, string fullPath)
+        public async Task<bool> DeleteFileByUrlAsync(string fileUrl, int requestingUserId)
         {
-            return fullPath.Substring(basePath.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            var media = _db.MediaFiles.FirstOrDefault(x => x.Url == fileUrl);
+            if (media == null) return false;
+
+            if (media.UploadedBy != requestingUserId)
+                throw new UnauthorizedAccessException("You are not allowed to delete this file.");
+
+            var path = Path.Combine(_storageRoot, media.RelativePath);
+            if (File.Exists(path))
+                File.Delete(path);
+
+            _db.MediaFiles.Remove(media);
+            await _db.SaveChangesAsync();
+
+            return true;
         }
+
+public IEnumerable<MediaFile> GetFilesByUser(int userId)
+{
+    return _db.MediaFiles
+              .Where(f => f.UploadedBy == userId && !f.IsPrivate) // только публичные
+              .OrderByDescending(f => f.UploadedAt)
+              .ToList();
+}
     }
 }
 

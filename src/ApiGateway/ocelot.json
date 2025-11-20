@@ -272,7 +272,7 @@
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
     },
     {
-      "DownstreamPathTemplate": "/api/media/{everything}",
+      "DownstreamPathTemplate": "/api/media/upload/{category}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -280,8 +280,68 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/api/media/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+      "UpstreamPathTemplate": "/api/media/upload/{category}",
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media/token/{mediaId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mediaservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/media/token/{mediaId}",
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media/download",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mediaservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/media/download",
+      "UpstreamHttpMethod": [ "GET", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media/{mediaId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mediaservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/media/{mediaId}",
+      "UpstreamHttpMethod": [ "DELETE", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media/by-url",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mediaservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/media/by-url",
+      "UpstreamHttpMethod": [ "DELETE", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/media/my-public-files",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "mediaservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/media/my-public-files",
+      "UpstreamHttpMethod": [ "GET", "OPTIONS" ]
     }
   ],
   "GlobalConfiguration": {

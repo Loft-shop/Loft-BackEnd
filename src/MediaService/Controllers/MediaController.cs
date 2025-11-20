@@ -1,7 +1,9 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 using Loft.Common.DTOs;
 using MediaService.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MediaService.Controllers
 {
@@ -10,180 +12,152 @@ namespace MediaService.Controllers
     public class MediaController : ControllerBase
     {
         private readonly IMediaService _mediaService;
-        private readonly ILogger<MediaController> _logger;
+        private readonly IMapper _mapper;
 
-        public MediaController(IMediaService mediaService, ILogger<MediaController> logger)
-        {
+        public MediaController(IMediaService mediaService, IMapper mapper) { 
             _mediaService = mediaService;
-            _logger = logger;
+            _mapper = mapper;
         }
 
-        /// <summary>
-        /// Загрузить файл (изображение)
-        /// </summary>
-        /// <param name="file">Файл для загрузки</param>
-        /// <param name="category">Категория (например: avatars, products, general)</param>
-        /// <returns>Информация о загруженном файле</returns>
-        [HttpPost("upload")]
+        // загрузка файла в указанную категорию
+        [HttpPost("upload/{category}")]
         [Authorize]
-        public async Task<ActionResult<UploadResponseDTO>> UploadFile(
-            IFormFile file, 
-            [FromQuery] string category = "general")
+        public async Task<IActionResult> Upload([FromForm] UploadFileDto dto)
         {
+            if (dto.File == null || dto.File.Length == 0)
+            {
+                return BadRequest(new { Message = "File is empty or not provided" });
+            }
+
             try
             {
-                var result = await _mediaService.UploadFileAsync(file, category);
-                return Ok(result);
+                // Получаем ID пользователя из токена
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim == null) return Unauthorized();
+
+                if (!int.TryParse(userIdClaim.Value, out int userId))
+                    return Unauthorized();
+
+                // Передаем userId в сервис при загрузке
+                var media = await _mediaService.UploadFileAsync(dto.File, dto.Category, userId, dto.IsPrivate);
+
+
+                if (!media.IsPrivate)
+                {
+                    // Публичный файл — возвращаем ссылку
+                    return Ok(media.Url);
+                }
+
+                // Приватный файл — возвращаем Id в базе
+                return Ok(media.Id);
             }
             catch (ArgumentException ex)
             {
-                return BadRequest(new { error = ex.Message });
+                // Ошибка при загрузке (например, недопустимое расширение)
+                return BadRequest(new { Message = ex.Message });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error uploading file");
-                return StatusCode(500, new { error = "Internal server error while uploading file" });
+                // Любые другие ошибки
+                return StatusCode(500, new { Message = "Internal server error", Details = ex.Message });
             }
         }
 
-        /// <summary>
-        /// Загрузить аватар пользователя
-        /// </summary>
-        [HttpPost("upload/avatar")]
+
+        // генерация токена для скачивания приватного файла
+        [HttpPost("token/{mediaId}")]
         [Authorize]
-        public async Task<ActionResult<UploadResponseDTO>> UploadAvatar(IFormFile file)
+        public async Task<IActionResult> GenerateToken(Guid mediaId, [FromQuery] int hours = 24)
         {
-            return await UploadFile(file, "avatars");
+            var token = await _mediaService.GenerateDownloadTokenAsync(mediaId, TimeSpan.FromHours(hours));
+            return Ok(new { downloadUrl = $"/api/media/download?token={token.Token}", expiresAt = token.ExpiresAt });
         }
 
-        /// <summary>
-        /// Загрузить изображение продукта
-        /// </summary>
-        [HttpPost("upload/product")]
-        [Authorize]
-        public async Task<ActionResult<UploadResponseDTO>> UploadProductImage(IFormFile file)
-        {
-            return await UploadFile(file, "products");
-        }
-
-        /// <summary>
-        /// Скачать файл по имени
-        /// </summary>
-        /// <param name="fileName">Имя файла</param>
-        [HttpGet("download/{fileName}")]
-        [AllowAnonymous]
-        public async Task<IActionResult> DownloadFile(string fileName)
+        // скачивание файла по токену
+        [HttpGet("download")]
+        public async Task<IActionResult> Download([FromQuery] string token)
         {
             try
             {
-                var (stream, contentType, name) = await _mediaService.DownloadFileAsync(fileName);
-                
-                if (stream == null)
-                {
-                    return NotFound(new { error = "File not found" });
-                }
-
-                return File(stream, contentType!, name);
+                var (content, contentType, originalName) = await _mediaService.DownloadFileByTokenAsync(token);
+                return File(content, contentType, originalName);
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, $"Error downloading file: {fileName}");
-                return StatusCode(500, new { error = "Internal server error while downloading file" });
+                return Unauthorized();
             }
         }
 
-        /// <summary>
-        /// Получить файл для отображения (inline)
-        /// </summary>
-        [HttpGet("view/{fileName}")]
-        [AllowAnonymous]
-        public async Task<IActionResult> ViewFile(string fileName)
-        {
-            try
-            {
-                var (stream, contentType, _) = await _mediaService.DownloadFileAsync(fileName);
-                
-                if (stream == null)
-                {
-                    return NotFound(new { error = "File not found" });
-                }
-
-                return File(stream, contentType!);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error viewing file: {fileName}");
-                return StatusCode(500, new { error = "Internal server error while viewing file" });
-            }
-        }
-
-        /// <summary>
-        /// Удалить файл
-        /// </summary>
-        /// <param name="fileName">Имя файла</param>
-        [HttpDelete("delete/{fileName}")]
+        // удаление файла по ID (только владельцем)
+        [HttpDelete("{mediaId}")]
         [Authorize]
-        public async Task<ActionResult<DeleteResponseDTO>> DeleteFile(string fileName)
+        public async Task<IActionResult> Delete(Guid mediaId)
         {
+            // Получаем ID текущего пользователя из JWT
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+
+            if (!int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized();
+
+
             try
             {
-                var result = await _mediaService.DeleteFileAsync(fileName);
-                
-                if (!result)
-                {
-                    return NotFound(new DeleteResponseDTO 
-                    { 
-                        Success = false, 
-                        Message = "File not found" 
-                    });
-                }
+                var success = await _mediaService.DeleteFileAsync(mediaId, userId);
+                if (!success)
+                    return NotFound(new { message = "File not found" });
 
-                return Ok(new DeleteResponseDTO 
-                { 
-                    Success = true, 
-                    Message = "File deleted successfully" 
-                });
+                return Ok(new { message = "File deleted successfully" });
             }
-            catch (Exception ex)
+            catch (UnauthorizedAccessException)
             {
-                _logger.LogError(ex, $"Error deleting file: {fileName}");
-                return StatusCode(500, new DeleteResponseDTO 
-                { 
-                    Success = false, 
-                    Message = "Internal server error while deleting file" 
-                });
+                return Forbid(); // 403 если пользователь не владелец файла
             }
         }
-
-        /// <summary>
-        /// Получить список всех файлов
-        /// </summary>
-        /// <param name="category">Фильтр по категории (необязательно)</param>
-        [HttpGet("files")]
+        // удаление файла по URL (только владельцем)
+        [HttpDelete("by-url")]
         [Authorize]
-        public async Task<ActionResult<List<MediaFileDTO>>> GetAllFiles([FromQuery] string? category = null)
+        public async Task<IActionResult> DeleteByUrl([FromQuery] string fileUrl)
         {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+
+            if (!int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized();
+
+
             try
             {
-                var files = await _mediaService.GetAllFilesAsync(category);
-                return Ok(files);
+                var success = await _mediaService.DeleteFileByUrlAsync(fileUrl, userId);
+                if (!success) return NotFound(new { Message = "File not found" });
+                return Ok(new { Message = "File deleted successfully" });
             }
-            catch (Exception ex)
+            catch (UnauthorizedAccessException)
             {
-                _logger.LogError(ex, "Error getting files list");
-                return StatusCode(500, new { error = "Internal server error while getting files list" });
+                return Forbid();
             }
         }
 
-        /// <summary>
-        /// Health check endpoint
-        /// </summary>
-        [HttpGet("health")]
-        [AllowAnonymous]
-        public IActionResult Health()
+        // Получить все публичные файлы текущего пользователя
+        [HttpGet("my-public-files")]
+        [Authorize]
+        public IActionResult GetMyPublicFiles()
         {
-            return Ok(new { status = "healthy", service = "MediaService" });
+            // Получаем ID текущего пользователя из JWT
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
+
+            if (!int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized();
+
+
+            var files = _mediaService.GetFilesByUser(userId)
+                                     .Where(f => !f.IsPrivate)
+                                     .ToList();
+
+            var result = _mapper.Map<List<MyPublicMediaFileDTO>>(files);
+
+            return Ok(result);
         }
     }
 }
-

@@ -1,14 +1,18 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using MediaService.Services;
+using MediaService.Data;
 using MediaService.Mappings;
+using MediaService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Security.Claims;
+using System.Text;
 
 namespace MediaService
 {
@@ -23,6 +27,15 @@ namespace MediaService
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
 
+
+            // Configure DbContext (PostgreSQL) - use connection string or default file
+            var defaultConn = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<MediaDbContext>(options =>
+                options.UseNpgsql(defaultConn, npgsqlOptions =>
+                {
+                    //        npgsqlOptions.MigrationsAssembly(typeof(Program).Assembly.FullName);
+                }));
+
             // Контроллеры
             builder.Services.AddControllers();
 
@@ -36,8 +49,8 @@ namespace MediaService
             // Настройка аутентификации JWT
             var jwtSection = builder.Configuration.GetSection("Jwt");
             var jwtKey = jwtSection.GetValue<string>("Key");
-            var jwtIssuer = jwtSection.GetValue<string>("Issuer");
-            var jwtAudience = jwtSection.GetValue<string>("Audience");
+            var issuer = jwtSection.GetValue<string>("Issuer");
+            var audience = jwtSection.GetValue<string>("Audience");
 
             if (string.IsNullOrEmpty(jwtKey))
             {
@@ -57,82 +70,82 @@ namespace MediaService
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = !string.IsNullOrEmpty(jwtIssuer),
-                    ValidIssuer = jwtIssuer,
-                    ValidateAudience = !string.IsNullOrEmpty(jwtAudience),
-                    ValidAudience = jwtAudience,
+                    ValidateIssuer = !string.IsNullOrEmpty(issuer),
+                    ValidIssuer = issuer,
+                    ValidateAudience = !string.IsNullOrEmpty(audience),
+                    ValidAudience = audience,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
                     ValidateLifetime = false,
                     ClockSkew = TimeSpan.FromMinutes(5),
                     NameClaimType = ClaimTypes.NameIdentifier,
-                    RoleClaimType = ClaimTypes.Role,
-                    RequireSignedTokens = true
+                    RoleClaimType = ClaimTypes.Role
                 };
             });
 
             builder.Services.AddAuthorization();
 
-            // Swagger
-            builder.Services.AddEndpointsApiExplorer();
+            // Swagger с поддержкой Bearer
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Media Service API", Version = "v1" });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "UserService API", Version = "v1" });
+                var securityScheme = new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme",
                     Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
+                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below."
+                };
+                c.AddSecurityDefinition("bearerAuth", securityScheme);
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
+{
                     {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
-                });
-            });
+                      new OpenApiSecurityScheme
+                     {
+                        Reference = new OpenApiReference
+                   {
+                 Type = ReferenceType.SecurityScheme,
+                 Id = "bearerAuth"  // <- обязательно совпадает с AddSecurityDefinition
+                   }
+                   },
+                  Array.Empty<string>()
+                 }
+                    });
 
-            // CORS
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(policy =>
+                // Only include controllers from this assembly (avoid controllers from referenced projects)
+                c.DocInclusionPredicate((docName, apiDesc) =>
                 {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
+                    var cad = apiDesc.ActionDescriptor as Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor;
+                    if (cad == null) return false;
+                    return cad.ControllerTypeInfo.Assembly == typeof(Program).Assembly;
                 });
+
+                // Map IFormFile to binary in OpenAPI - simple mapping without filter
+                c.MapType<Microsoft.AspNetCore.Http.IFormFile>(() => new Microsoft.OpenApi.Models.OpenApiSchema { Type = "string", Format = "binary" });
             });
 
             var app = builder.Build();
 
-            // Создаем директорию для хранения файлов
-            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
-            if (!Directory.Exists(uploadsPath))
-            {
-                Directory.CreateDirectory(uploadsPath);
-            }
+            var storageRoot = Path.Combine(Directory.GetCurrentDirectory(), "storage");
+            Directory.CreateDirectory(Path.Combine(storageRoot, "public"));
+            Directory.CreateDirectory(Path.Combine(storageRoot, "private"));
 
-            // Configure the HTTP request pipeline
-            if (app.Environment.IsDevelopment())
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Media Service API v1");
+                c.RoutePrefix = string.Empty; // Swagger UI будет на /
+            });
 
             app.UseCors();
 
-            // Раздача статических файлов
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "storage/public")),
+                RequestPath = "/media"
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();
