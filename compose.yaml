@@ -130,7 +130,9 @@ services:
       Jwt__ExpireMinutes: "60"
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     volumes:
-      - media_uploads:/app/storage
+      volumes:
+      - /home/dev/MediaFileLoft/public:/app/storage/public
+      - /home/dev/MediaFileLoft/private:/app/storage/private
     networks:
       - loftnet
 
