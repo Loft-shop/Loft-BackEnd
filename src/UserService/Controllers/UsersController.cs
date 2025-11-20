@@ -73,8 +73,7 @@ namespace UserService.Controllers
             {
                 FirstName = request.FirstName ?? existing.FirstName,
                 LastName = request.LastName ?? existing.LastName,
-                Phone = request.Phone ?? existing.Phone,
-                AvatarUrl = request.AvatarUrl ?? existing.AvatarUrl
+                Phone = request.Phone ?? existing.Phone
             };
 
             var updated = await _userService.UpdateUser(userId.Value, toUpdate);
