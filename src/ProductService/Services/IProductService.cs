@@ -10,6 +10,7 @@ public interface IProductService
 {
     // ------------------ PRODUCTS ------------------
     Task<PagedResultFilterDto<ProductDto>> GetAllProducts(ProductFilterDto filter);
+    Task<IEnumerable<ProductDto>> GetAllMyProducts(long userId);
 
     Task<ProductDto?> GetProductById(int productId,bool isModerator);
 

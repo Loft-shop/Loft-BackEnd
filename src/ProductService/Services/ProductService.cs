@@ -95,6 +95,20 @@ public class ProductService : IProductService
         };
     }
 
+    // Получение всех товаров конкретного пользователя
+    public async Task<IEnumerable<ProductDto>> GetAllMyProducts(long userId)
+    {
+        var products = await _db.Products
+            .Include(p => p.Category)
+            .Include(p => p.AttributeValues).ThenInclude(av => av.Attribute)
+            .Include(p => p.MediaFiles)
+            .Include(p => p.Comments).ThenInclude(c => c.MediaFiles)
+            .Where(p => p.IdUser == userId)
+            .ToListAsync();
+
+        return _mapper.Map<IEnumerable<ProductDto>>(products);
+    }
+
     // Получение одного товара по ID
     public async Task<ProductDto?> GetProductById(int productId, bool isModerator)
     {

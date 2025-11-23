@@ -511,6 +511,18 @@
         }
       }
     },
+    "/api/products/myproducts": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/products/create": {
       "post": {
         "tags": [

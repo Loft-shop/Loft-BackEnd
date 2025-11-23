@@ -52,6 +52,17 @@ namespace ProductService.Controllers
             return Ok(product);
         }
 
+        [HttpGet("myproducts")]
+        public async Task<IActionResult> GetMyProducts()
+        {
+            var userId = GetUserId();
+            if (userId == null) return Unauthorized();
+
+            var products = await _service.GetAllMyProducts(userId.Value);
+
+            return Ok(products);
+        }
+
         // Создание нового товара
         [HttpPost("create")]
         [Authorize] // <-- Требуем аутентификацию

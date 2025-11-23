@@ -546,6 +546,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ProductService.Controllers.ProductController",
+    "Method": "GetMyProducts",
+    "RelativePath": "api/products/myproducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "UserService.Controllers.UsersController",
     "Method": "GetUserById",
     "RelativePath": "api/users/{id}",
