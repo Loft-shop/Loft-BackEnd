@@ -17,3 +17,12 @@ namespace Loft.Common.DTOs
         public int PageSize { get; set; } = 20;
     }
 }
+
+public class PagedResultFilterDto<T>
+{
+    public int TotalCount { get; set; }    // общее количество товаров
+    public int TotalPages { get; set; }    // общее количество страниц
+    public int Page { get; set; }          // текущая страница
+    public int PageSize { get; set; }      // размер страницы
+    public IEnumerable<T> Items { get; set; }  // список товаров на странице
+}

@@ -636,6 +636,12 @@
             "type": "string",
             "format": "tel",
             "nullable": true
+          },
+          "avatarUrl": {
+            "maxLength": 500,
+            "type": "string",
+            "format": "uri",
+            "nullable": true
           }
         },
         "additionalProperties": false

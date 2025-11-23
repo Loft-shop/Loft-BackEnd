@@ -23,9 +23,8 @@ namespace ProductService.Controllers
         [HttpPost("filter")]
         public async Task<IActionResult> GetFilteredProducts([FromBody] ProductFilterDto filter)
         {
-            var products = await _service.GetAllProducts(filter);
-
-            return Ok(products);
+            var result = await _service.GetAllProducts(filter);
+            return Ok(result);
         }
 
         // Получение одного товара по ID
@@ -37,8 +36,19 @@ namespace ProductService.Controllers
 
             bool isModerator = IsModerator();
 
-            var product = await _service.GetProductById(id, isModerator);
+            var product = await _service.GetProductById(id, true);
             if (product == null) return NotFound();
+
+
+            if (product.IdUser == userId)
+            {
+                isModerator = true;
+            }
+
+
+            product = await _service.GetProductById(id, isModerator);
+            if (product == null) return NotFound();
+
             return Ok(product);
         }
 

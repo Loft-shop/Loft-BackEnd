@@ -32,7 +32,7 @@ public class ProductService : IProductService
     // ------------------ PRODUCTS ------------------
 
     // Получение списка товаров с фильтром по категории, продавцу, цене и атрибутам + пагинация
-    public async Task<IEnumerable<ProductDto>> GetAllProducts(ProductFilterDto filter)
+    public async Task<PagedResultFilterDto<ProductDto>> GetAllProducts(ProductFilterDto filter)
     {
         // Базовый запрос с подгрузкой связанных данных
         var query = _db.Products
@@ -43,23 +43,19 @@ public class ProductService : IProductService
             .Where(p => p.Status == ModerationStatus.Approved)
             .AsQueryable();
 
-        // Фильтр по категории (если указан и > 0)
+        // --- Фильтры ---
         if (filter.CategoryId.HasValue && filter.CategoryId.Value > 0)
             query = query.Where(p => p.CategoryId == filter.CategoryId.Value);
 
-        // Фильтр по продавцу (если указан и > 0)
         if (filter.SellerId.HasValue && filter.SellerId.Value > 0)
             query = query.Where(p => p.IdUser == filter.SellerId.Value);
 
-        // Фильтр по минимальной цене (если указана и > 0)
         if (filter.MinPrice.HasValue && filter.MinPrice.Value > 0)
             query = query.Where(p => p.Price >= filter.MinPrice.Value);
 
-        // Фильтр по максимальной цене (если указана и > 0)
         if (filter.MaxPrice.HasValue && filter.MaxPrice.Value > 0)
             query = query.Where(p => p.Price <= filter.MaxPrice.Value);
 
-        // Фильтр по атрибутам (если есть хотя бы один с корректными данными)
         if (filter.AttributeFilters != null && filter.AttributeFilters.Any())
         {
             foreach (var af in filter.AttributeFilters)
@@ -72,15 +68,31 @@ public class ProductService : IProductService
             }
         }
 
-        // Пагинация (по умолчанию страница 1 и размер страницы 20)
-        var skip = (filter.Page > 0 ? filter.Page - 1 : 0) * (filter.PageSize > 0 ? filter.PageSize : 20);
-        var take = filter.PageSize > 0 ? filter.PageSize : 20;
+        // --- Считаем общее количество товаров до пагинации ---
+        var totalCount = await query.CountAsync();
 
-        query = query.Skip(skip).Take(take);
+        // --- Пагинация ---
+        var page = filter.Page > 0 ? filter.Page : 1;
+        var pageSize = filter.PageSize > 0 ? filter.PageSize : 20;
+        var skip = (page - 1) * pageSize;
 
-        // Выполняем запрос и маппим в DTO
-        var products = await query.ToListAsync();
-        return _mapper.Map<IEnumerable<ProductDto>>(products);
+        var products = await query
+            .Skip(skip)
+            .Take(pageSize)
+            .ToListAsync();
+
+        // --- Вычисляем общее количество страниц ---
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+        // --- Возвращаем результат ---
+        return new PagedResultFilterDto<ProductDto>
+        {
+            TotalCount = totalCount,
+            TotalPages = totalPages,
+            Page = page,
+            PageSize = pageSize,
+            Items = _mapper.Map<IEnumerable<ProductDto>>(products)
+        };
     }
 
     // Получение одного товара по ID

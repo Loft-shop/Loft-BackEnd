@@ -9,7 +9,7 @@ namespace ProductService.Services;
 public interface IProductService
 {
     // ------------------ PRODUCTS ------------------
-    Task<IEnumerable<ProductDto>> GetAllProducts(ProductFilterDto filter);
+    Task<PagedResultFilterDto<ProductDto>> GetAllProducts(ProductFilterDto filter);
 
     Task<ProductDto?> GetProductById(int productId,bool isModerator);
 
