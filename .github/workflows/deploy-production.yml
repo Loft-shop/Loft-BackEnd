@@ -13,6 +13,7 @@ jobs:
   deploy-prod:
     name: Deploy → Production Server
     runs-on: label-1
+    timeout-minutes: 60
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
