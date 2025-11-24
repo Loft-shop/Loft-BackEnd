@@ -432,6 +432,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj": {
+                "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/Common/Loft.Common/Loft.Common.csproj"
+              },
               "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj": {
                 "projectPath": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj"
               }
@@ -475,6 +478,16 @@
                 "NU1605"
               ]
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
             "Microsoft.Identity.Web": {
               "target": "Package",
               "version": "[3.8.2, )"
@@ -482,6 +495,10 @@
             "Microsoft.Identity.Web.DownstreamApi": {
               "target": "Package",
               "version": "[3.2.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

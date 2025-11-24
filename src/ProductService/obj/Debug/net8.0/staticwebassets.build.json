@@ -1,31 +1,23 @@
 {
   "Version": 1,
-  "Hash": "amDAukyJCNiLa48ZX4xGsOg6Nvfpzpeq2xqKDoCnYog=",
+  "Hash": "XyODGUKtZeZIoasLhcq6kIvsf0hASZ84ZXCGkUg9PGo=",
   "Source": "ProductService",
   "BasePath": "_content/ProductService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj",
+      "Identity": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
       "Version": 2,
       "Source": "UserService",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishProperties": "",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildProperties": "",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],
-  "DiscoveryPatterns": [
-    {
-      "Name": "UserService\\wwwroot",
-      "Source": "UserService",
-      "ContentRoot": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\wwwroot\\",
-      "BasePath": "_content/UserService",
-      "Pattern": "**"
-    }
-  ],
+  "DiscoveryPatterns": [],
   "Assets": []
 }

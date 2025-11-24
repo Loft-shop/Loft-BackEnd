@@ -1,19 +1,11 @@
 {
   "Version": 1,
-  "Hash": "6EnhfNiJM3hwCunUPPa5tFUiGiTratHOuyRbpBTeqHw=",
+  "Hash": "O8Tqr60KHaal7sbBqGqAczjLLnVLN/6xBqPiCBbMeO8=",
   "Source": "UserService",
   "BasePath": "_content/UserService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [
-    {
-      "Name": "UserService\\wwwroot",
-      "Source": "UserService",
-      "ContentRoot": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\wwwroot\\",
-      "BasePath": "_content/UserService",
-      "Pattern": "**"
-    }
-  ],
+  "DiscoveryPatterns": [],
   "Assets": []
 }

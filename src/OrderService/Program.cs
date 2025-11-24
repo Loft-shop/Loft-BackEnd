@@ -72,6 +72,13 @@ namespace OrderService
                 client.BaseAddress = new Uri(paymentServiceUrl);
             });
 
+            // HttpClient для ShippingAddressService
+            builder.Services.AddHttpClient("ShippingAddressService", client =>
+            {
+                var shippingServiceUrl = builder.Configuration["Services:ShippingAddressService"] ?? "http://localhost:5006";
+                client.BaseAddress = new Uri(shippingServiceUrl);
+            });
+
 
             var app = builder.Build();
 

@@ -10,5 +10,7 @@ public record OrderDTO(
     OrderStatus Status,
     decimal TotalAmount,
     string? CustomerName = null,
-    string? CustomerEmail = null
+    string? CustomerEmail = null,
+    long? ShippingAddressId = null,
+    ShippingAddressDTO? ShippingAddress = null
 );

@@ -17,5 +17,15 @@ public class Order
     public string? CustomerName { get; set; }
     public string? CustomerEmail { get; set; }
     
+    // Адрес доставки
+    public long? ShippingAddressId { get; set; }
+    
+    // Сохранённые данные адреса доставки (на момент создания заказа)
+    public string? ShippingAddress { get; set; }
+    public string? ShippingCity { get; set; }
+    public string? ShippingPostalCode { get; set; }
+    public string? ShippingCountry { get; set; }
+    public string? ShippingRecipientName { get; set; }
+    
     public ICollection<OrderItem>? OrderItems { get; set; }
 }

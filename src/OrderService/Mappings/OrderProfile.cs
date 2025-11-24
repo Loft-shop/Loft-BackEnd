@@ -9,11 +9,19 @@ public class OrderProfile : Profile
     public OrderProfile()
     {
         CreateMap<Order, OrderDTO>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId))
-            .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => src.OrderDate))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
-            .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount));
+            .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src => 
+                src.ShippingAddressId.HasValue 
+                    ? new ShippingAddressDTO(
+                        src.ShippingAddressId.Value,
+                        src.CustomerId,
+                        src.ShippingAddress ?? "",
+                        src.ShippingCity ?? "",
+                        src.ShippingPostalCode ?? "",
+                        src.ShippingCountry ?? "",
+                        src.ShippingRecipientName,
+                        false,
+                        null)
+                    : null));
 
         CreateMap<OrderItem, OrderItemDTO>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

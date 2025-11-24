@@ -56,6 +56,7 @@ services:
       Services__ProductService: http://productservice:8080
       Services__UserService: http://userservice:8080
       Services__PaymentService: http://paymentservice:8080
+      Services__ShippingAddressService: http://shippingaddressservice:8080
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     networks:
       - loftnet
@@ -64,6 +65,7 @@ services:
       - cartservice
       - productservice
       - userservice
+      - shippingaddressservice
 
   paymentservice:
     build:
@@ -104,9 +106,15 @@ services:
     container_name: shippingaddressservice
     ports:
       - "5005:8080"
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      Services__UserService: http://userservice:8080
+      ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     networks:
       - loftnet
     restart: always
+    depends_on:
+      - userservice
 
   userservice:
     build:
@@ -122,6 +130,7 @@ services:
       Jwt__Issuer: LoftUserService
       Jwt__Audience: LoftUsers
       Jwt__ExpireMinutes: "60"
+      Services__ShippingAddressService: http://shippingaddressservice:8080
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
       Authentication__Google__ClientId: "1031648550234-v296d5d0efagr4mlmpigha8kb1ufmouo.apps.googleusercontent.com"
       Authentication__Google__ClientSecret: "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"
@@ -131,6 +140,8 @@ services:
     networks:
       - loftnet
     restart: always
+    depends_on:
+      - shippingaddressservice
 
   mediaservice:
     build:

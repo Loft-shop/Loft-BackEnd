@@ -7,7 +7,8 @@ namespace OrderService.Services;
 
 public interface IOrderService
 {
-    Task<OrderDTO> CreateOrder(OrderDTO order,IEnumerable<OrderItemDTO> items);
+    Task<OrderDTO> CreateOrder(OrderDTO order, IEnumerable<OrderItemDTO> items);
+    Task<OrderDTO> CreateOrderWithShipping(OrderDTO order, IEnumerable<OrderItemDTO> items, long? shippingAddressId = null, ShippingAddressDTO? customShippingAddress = null);
     Task<OrderDTO?> GetOrderById(long orderId);
     Task<IEnumerable<OrderDTO>> GetOrdersByCustomerId(long customerId, int page = 1, int pageSize = 20);
     Task UpdateOrderStatus(long orderId, OrderStatus status);
@@ -16,10 +17,11 @@ public interface IOrderService
     Task RemoveOrderItems(long orderId, long orderItemId);
     Task<decimal> CalculateOrderTotal(IEnumerable<OrderItemDTO> items);
     Task<IEnumerable<OrderDTO>> GetAllOrders();
-    Task<OrderDTO?> CheckoutFromCart(long customerId);
+    Task<OrderDTO?> CheckoutFromCart(long customerId, long? shippingAddressId = null, ShippingAddressDTO? customShippingAddress = null);
     
     /*
      * Примечания: CreateOrder возвращает созданный OrderDTO; CancelOrder переводит статус в
      * CANCELED и триггерит сопутствующие действия (refund/stock) на реализации.
+     * CreateOrderWithShipping позволяет указать адрес доставки (либо по ID, либо кастомный).
      */
 }

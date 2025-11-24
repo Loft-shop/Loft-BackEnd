@@ -42,6 +42,13 @@ namespace UserService
             builder.Services.AddScoped<IChatService, ChatService>();
             builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 
+            // HttpClient для связи с ShippingAddressService
+            builder.Services.AddHttpClient("ShippingAddressService", client =>
+            {
+                var shippingServiceUrl = builder.Configuration["Services:ShippingAddressService"] ?? "http://localhost:5006";
+                client.BaseAddress = new Uri(shippingServiceUrl);
+            });
+
             // Настройка аутентификации JWT
             var jwtSection = builder.Configuration.GetSection("Jwt");
             var jwtKey = jwtSection.GetValue<string>("Key");

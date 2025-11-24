@@ -4,15 +4,11 @@ namespace ShippingAddressService.Services;
 
 public interface IShippingAddressService
 {
-    Task<IEnumerable<ShippingAddressService>> GetAddressesByUserId(long customerId);
+    Task<IEnumerable<ShippingAddressDTO>> GetAddressesByUserId(long customerId);
     Task<ShippingAddressDTO?> GetAddressById(long addressId);
-    Task<ShippingAddressDTO> AddAddress(long customerId, ShippingAddressDTO address);
-    Task<ShippingAddressDTO?> UpdateAddress(long addressId, ShippingAddressDTO address);
-    Task DeleteAddress(long addressId);
-    Task SetDefaultAddress(long customerId, long addressId);
-    
-    /*
-     * Примечания: AddAddress принимает ShippingAddressDTO
-     * (с полем CustomerId можно игнорировать/проверять на реализации)
-     */
+    Task<ShippingAddressDTO?> GetDefaultAddress(long customerId);
+    Task<ShippingAddressDTO> AddAddress(long customerId, ShippingAddressCreateDTO address);
+    Task<ShippingAddressDTO?> UpdateAddress(long addressId, long customerId, ShippingAddressUpdateDTO address);
+    Task<bool> DeleteAddress(long addressId, long customerId);
+    Task<bool> SetDefaultAddress(long customerId, long addressId);
 }

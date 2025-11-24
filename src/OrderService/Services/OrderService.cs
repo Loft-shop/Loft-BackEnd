@@ -31,6 +31,11 @@ public class OrderService : IOrderService
 
     public async Task<OrderDTO> CreateOrder(OrderDTO orderDto, IEnumerable<OrderItemDTO> items)
     {
+        return await CreateOrderWithShipping(orderDto, items, null, null);
+    }
+
+    public async Task<OrderDTO> CreateOrderWithShipping(OrderDTO orderDto, IEnumerable<OrderItemDTO> items, long? shippingAddressId = null, ShippingAddressDTO? customShippingAddress = null)
+    {
         var itemsList = items.ToList();
         
         // =============================================================================
@@ -73,6 +78,59 @@ public class OrderService : IOrderService
             UpdatedDate = DateTime.UtcNow,
             OrderItems = enrichedItems
         };
+
+        // =============================================================================
+        // Обработка адреса доставки
+        // =============================================================================
+        ShippingAddressDTO? shippingAddress = customShippingAddress;
+        
+        if (shippingAddress == null && shippingAddressId.HasValue)
+        {
+            // Получаем адрес из ShippingAddressService
+            try
+            {
+                var shippingClient = _httpClientFactory.CreateClient("ShippingAddressService");
+                var addressResponse = await shippingClient.GetAsync($"/api/shipping-addresses/{shippingAddressId.Value}");
+                
+                if (addressResponse.IsSuccessStatusCode)
+                {
+                    shippingAddress = await addressResponse.Content.ReadFromJsonAsync<ShippingAddressDTO>();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, $"Failed to load shipping address {shippingAddressId.Value}");
+            }
+        }
+        else if (shippingAddress == null)
+        {
+            // Пытаемся получить дефолтный адрес пользователя
+            try
+            {
+                var shippingClient = _httpClientFactory.CreateClient("ShippingAddressService");
+                var addressResponse = await shippingClient.GetAsync($"/api/shipping-addresses/customer/{orderDto.CustomerId}/default");
+                
+                if (addressResponse.IsSuccessStatusCode)
+                {
+                    shippingAddress = await addressResponse.Content.ReadFromJsonAsync<ShippingAddressDTO>();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, $"Failed to load default shipping address for customer {orderDto.CustomerId}");
+            }
+        }
+
+        // Сохраняем данные адреса доставки в заказ
+        if (shippingAddress != null)
+        {
+            order.ShippingAddressId = shippingAddress.Id;
+            order.ShippingAddress = shippingAddress.Address;
+            order.ShippingCity = shippingAddress.City;
+            order.ShippingPostalCode = shippingAddress.PostalCode;
+            order.ShippingCountry = shippingAddress.Country;
+            order.ShippingRecipientName = shippingAddress.RecipientName;
+        }
 
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
@@ -180,7 +238,7 @@ public class OrderService : IOrderService
         return _mapper.Map<IEnumerable<OrderDTO>>(orders);
     }
 
-    public async Task<OrderDTO?> CheckoutFromCart(long customerId)
+    public async Task<OrderDTO?> CheckoutFromCart(long customerId, long? shippingAddressId = null, ShippingAddressDTO? customShippingAddress = null)
     {
         // 1. Получаем данные покупателя из UserService
         var userClient = _httpClientFactory.CreateClient("UserService");
@@ -326,6 +384,59 @@ public class OrderService : IOrderService
             UpdatedDate = DateTime.UtcNow,
             OrderItems = orderItems
         };
+
+        // =============================================================================
+        // Обработка адреса доставки
+        // =============================================================================
+        ShippingAddressDTO? shippingAddress = customShippingAddress;
+        
+        if (shippingAddress == null && shippingAddressId.HasValue)
+        {
+            // Получаем адрес из ShippingAddressService
+            try
+            {
+                var shippingClient = _httpClientFactory.CreateClient("ShippingAddressService");
+                var addressResponse = await shippingClient.GetAsync($"/api/shipping-addresses/{shippingAddressId.Value}");
+                
+                if (addressResponse.IsSuccessStatusCode)
+                {
+                    shippingAddress = await addressResponse.Content.ReadFromJsonAsync<ShippingAddressDTO>();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, $"Failed to load shipping address {shippingAddressId.Value}");
+            }
+        }
+        else if (shippingAddress == null)
+        {
+            // Пытаемся получить дефолтный адрес пользователя
+            try
+            {
+                var shippingClient = _httpClientFactory.CreateClient("ShippingAddressService");
+                var addressResponse = await shippingClient.GetAsync($"/api/shipping-addresses/customer/{customerId}/default");
+                
+                if (addressResponse.IsSuccessStatusCode)
+                {
+                    shippingAddress = await addressResponse.Content.ReadFromJsonAsync<ShippingAddressDTO>();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, $"Failed to load default shipping address for customer {customerId}");
+            }
+        }
+
+        // Сохраняем данные адреса доставки в заказ
+        if (shippingAddress != null)
+        {
+            order.ShippingAddressId = shippingAddress.Id;
+            order.ShippingAddress = shippingAddress.Address;
+            order.ShippingCity = shippingAddress.City;
+            order.ShippingPostalCode = shippingAddress.PostalCode;
+            order.ShippingCountry = shippingAddress.Country;
+            order.ShippingRecipientName = shippingAddress.RecipientName;
+        }
 
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
