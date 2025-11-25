@@ -140,8 +140,6 @@ services:
     networks:
       - loftnet
     restart: always
-    depends_on:
-      - shippingaddressservice
 
   mediaservice:
     build:
