@@ -58,6 +58,7 @@ services:
       Services__UserService: http://userservice:8080
       Services__PaymentService: http://paymentservice:8080
       Services__ShippingAddressService: http://shippingaddressservice:8080
+      ServiceAuthentication__Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzZXJ2aWNlLWFjY291bnQiLCJuYW1lIjoiT3JkZXJTZXJ2aWNlIiwicm9sZSI6IlNlcnZpY2UiLCJpc3MiOiJMb2Z0VXNlclNlcnZpY2UiLCJhdWQiOiJMb2Z0VXNlcnMiLCJleHAiOjE3OTU3MDc3NzQsImlhdCI6MTc2NDE3MTc3NCwic2VydmljZSI6Ik9yZGVyU2VydmljZSJ9.KqR9vH7WZxQYMxP_wXGqDqH8vWJzSxLGNE4ZYvYxUxc
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
     networks:
       - loftnet

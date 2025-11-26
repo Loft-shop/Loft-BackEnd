@@ -46,38 +46,51 @@ namespace OrderService
             // Регистрируем сервисы
             builder.Services.AddScoped<IOrderService, OrderService.Services.OrderService>();
             
+            // Регистрируем ServiceAuthenticationHandler для добавления JWT токенов в запросы
+            builder.Services.AddTransient<ServiceAuthenticationHandler>();
+            
             // HttpClient для связи с другими микросервисами
             builder.Services.AddHttpClient("CartService", client =>
             {
                 var cartServiceUrl = builder.Configuration["Services:CartService"] ?? "http://localhost:5002";
                 client.BaseAddress = new Uri(cartServiceUrl);
-            });
+                client.Timeout = TimeSpan.FromSeconds(30);
+            })
+            .AddHttpMessageHandler<ServiceAuthenticationHandler>();
             
             builder.Services.AddHttpClient("ProductService", client =>
             {
                 var productServiceUrl = builder.Configuration["Services:ProductService"] ?? "http://localhost:5001";
                 client.BaseAddress = new Uri(productServiceUrl);
-            });
+                client.Timeout = TimeSpan.FromSeconds(30);
+            })
+            .AddHttpMessageHandler<ServiceAuthenticationHandler>();
             
             builder.Services.AddHttpClient("UserService", client =>
             {
                 var userServiceUrl = builder.Configuration["Services:UserService"] ?? "http://localhost:5003";
                 client.BaseAddress = new Uri(userServiceUrl);
-            });
+                client.Timeout = TimeSpan.FromSeconds(30);
+            })
+            .AddHttpMessageHandler<ServiceAuthenticationHandler>();
             
             // HttpClient для PaymentService
             builder.Services.AddHttpClient("PaymentService", client =>
             {
                 var paymentServiceUrl = builder.Configuration["Services:PaymentService"] ?? "http://localhost:5005";
                 client.BaseAddress = new Uri(paymentServiceUrl);
-            });
+                client.Timeout = TimeSpan.FromSeconds(30);
+            })
+            .AddHttpMessageHandler<ServiceAuthenticationHandler>();
 
             // HttpClient для ShippingAddressService
             builder.Services.AddHttpClient("ShippingAddressService", client =>
             {
                 var shippingServiceUrl = builder.Configuration["Services:ShippingAddressService"] ?? "http://localhost:5006";
                 client.BaseAddress = new Uri(shippingServiceUrl);
-            });
+                client.Timeout = TimeSpan.FromSeconds(30);
+            })
+            .AddHttpMessageHandler<ServiceAuthenticationHandler>();
 
 
             var app = builder.Build();
