@@ -1,6 +1,14 @@
 @ProductService_HostAddress = http://localhost:5033
+@productId = 30
 
-GET {{ProductService_HostAddress}}/weatherforecast/
+### Получить продукт по ID
+GET {{ProductService_HostAddress}}/api/products/{{productId}}
+Accept: application/json
+
+###
+
+### Получить все продукты
+GET {{ProductService_HostAddress}}/api/products
 Accept: application/json
 
 ###
