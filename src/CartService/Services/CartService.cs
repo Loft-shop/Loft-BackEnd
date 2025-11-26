@@ -98,11 +98,16 @@ public class CartService : ICartService
         try
         {
             var client = _httpClientFactory.CreateClient("ProductService");
+            _logger.LogInformation($"Requesting product {productId} from ProductService with base address: {client.BaseAddress}");
+            
             var productResponse = await client.GetAsync($"/api/products/{productId}");
+            
+            _logger.LogInformation($"ProductService response status: {productResponse.StatusCode}");
             
             if (productResponse.IsSuccessStatusCode)
             {
                 productInfo = await productResponse.Content.ReadFromJsonAsync<ProductDto>();
+                _logger.LogInformation($"Product loaded: Name={productInfo?.Name}, Price={productInfo?.Price}, CategoryId={productInfo?.CategoryId}");
                 
                 // Получаем информацию о категории
                 if (productInfo != null && productInfo.CategoryId > 0)
@@ -113,6 +118,11 @@ public class CartService : ICartService
                         if (categoryResponse.IsSuccessStatusCode)
                         {
                             categoryInfo = await categoryResponse.Content.ReadFromJsonAsync<CategoryDto>();
+                            _logger.LogInformation($"Category loaded: Name={categoryInfo?.Name}");
+                        }
+                        else
+                        {
+                            _logger.LogWarning($"Failed to load category {productInfo.CategoryId}: {categoryResponse.StatusCode}");
                         }
                     }
                     catch (Exception ex)
@@ -123,12 +133,13 @@ public class CartService : ICartService
             }
             else
             {
-                _logger.LogWarning($"Failed to load product {productId}: {productResponse.StatusCode}");
+                var responseBody = await productResponse.Content.ReadAsStringAsync();
+                _logger.LogWarning($"Failed to load product {productId}: {productResponse.StatusCode}, Response: {responseBody}");
             }
         }
         catch (Exception ex)
         {
-            _logger.LogWarning(ex, $"Error loading product {productId}");
+            _logger.LogError(ex, $"Error loading product {productId} from ProductService");
         }
         
         var cart = await _db.Carts.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.CustomerId == customerId);
@@ -173,15 +184,35 @@ public class CartService : ICartService
                 CategoryName = categoryInfo?.Name,
                 AddedAt = DateTime.UtcNow
             };
+            
+            _logger.LogInformation($"Creating new CartItem: ProductId={item.ProductId}, ProductName={item.ProductName}, Price={item.Price}, CategoryId={item.CategoryId}");
+            
             cart.CartItems.Add(item);
             _db.CartItems.Add(item);
         }
 
+        _logger.LogInformation($"Saving changes to database...");
         await _db.SaveChangesAsync();
+        _logger.LogInformation($"Changes saved successfully");
         
         // Перезагружаем корзину с обновленными данными
         cart = await _db.Carts.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.CustomerId == customerId);
+        _logger.LogInformation($"Reloaded cart from DB with {cart?.CartItems.Count ?? 0} items");
+        
+        if (cart != null && cart.CartItems.Any())
+        {
+            var lastItem = cart.CartItems.OrderByDescending(i => i.AddedAt).First();
+            _logger.LogInformation($"Last item from DB: ProductId={lastItem.ProductId}, ProductName={lastItem.ProductName}, Price={lastItem.Price}, CategoryId={lastItem.CategoryId}");
+        }
+        
         var dto = _mapper.Map<CartDTO>(cart!);
+        
+        _logger.LogInformation($"Mapped to DTO with {dto.CartItems.Count} items");
+        if (dto.CartItems.Any())
+        {
+            var lastDtoItem = dto.CartItems.OrderByDescending(i => i.AddedAt).First();
+            _logger.LogInformation($"Last DTO item: ProductId={lastDtoItem.ProductId}, ProductName={lastDtoItem.ProductName}, Price={lastDtoItem.Price}, CategoryId={lastDtoItem.CategoryId}");
+        }
         
         var needEnrich = dto.CartItems.Any(i => string.IsNullOrEmpty(i.ProductName) || i.Price == 0 || i.CategoryId == null || string.IsNullOrEmpty(i.CategoryName));
         if (needEnrich)
