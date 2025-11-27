@@ -24,11 +24,11 @@ public class ServiceAuthenticationHandler : DelegatingHandler
         if (!string.IsNullOrEmpty(serviceToken))
         {
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", serviceToken);
-            _logger.LogDebug($"Added service token to request: {request.RequestUri}");
+            _logger.LogInformation($"✅ JWT token added to request: {request.RequestUri}");
         }
         else
         {
-            _logger.LogWarning("ServiceAuthentication:Token not configured - requests may fail with 401");
+            _logger.LogWarning($"❌ ServiceAuthentication:Token NOT FOUND in configuration! Request to {request.RequestUri} will fail with 401");
         }
 
         return await base.SendAsync(request, cancellationToken);
