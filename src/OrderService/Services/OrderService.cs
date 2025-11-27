@@ -42,6 +42,7 @@ public class OrderService : IOrderService
         // НОВАЯ СИСТЕМА: Загружаем информацию о товарах для сохранения в заказе
         // =============================================================================
         var enrichedItems = new List<OrderItem>();
+        var productClient = _httpClientFactory.CreateClient("ProductService");
         
         foreach (var itemDto in itemsList)
         {
@@ -55,6 +56,58 @@ public class OrderService : IOrderService
                 CategoryId = itemDto.CategoryId,
                 CategoryName = itemDto.CategoryName
             };
+            
+            // Если данные товара не переданы - загружаем из ProductService
+            if (string.IsNullOrEmpty(orderItem.ProductName) || orderItem.Price == 0)
+            {
+                _logger.LogInformation($"Enriching order item for product {itemDto.ProductId}...");
+                
+                try
+                {
+                    var productResponse = await productClient.GetAsync($"/api/products/{itemDto.ProductId}");
+                    
+                    if (productResponse.IsSuccessStatusCode)
+                    {
+                        var product = await productResponse.Content.ReadFromJsonAsync<ProductDto>();
+                        
+                        if (product != null)
+                        {
+                            orderItem.ProductName = product.Name;
+                            orderItem.Price = orderItem.Price > 0 ? orderItem.Price : product.Price;
+                            orderItem.ImageUrl = product.MediaFiles?.FirstOrDefault()?.Url;
+                            orderItem.CategoryId = product.CategoryId;
+                            
+                            // Загружаем категорию
+                            if (product.CategoryId > 0)
+                            {
+                                try
+                                {
+                                    var categoryResponse = await productClient.GetAsync($"/api/categories/{product.CategoryId}");
+                                    if (categoryResponse.IsSuccessStatusCode)
+                                    {
+                                        var category = await categoryResponse.Content.ReadFromJsonAsync<CategoryDto>();
+                                        orderItem.CategoryName = category?.Name;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    _logger.LogWarning(ex, $"Failed to load category {product.CategoryId}");
+                                }
+                            }
+                            
+                            _logger.LogInformation($"Product enriched: {orderItem.ProductName}, Price={orderItem.Price}, CategoryId={orderItem.CategoryId}");
+                        }
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"Failed to load product {itemDto.ProductId}: {productResponse.StatusCode}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Error loading product {itemDto.ProductId}");
+                }
+            }
             
             // Если атрибуты переданы, сохраняем их как JSON
             if (itemDto.AttributeValues != null && itemDto.AttributeValues.Any())
