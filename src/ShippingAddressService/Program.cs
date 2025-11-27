@@ -5,6 +5,11 @@ using Microsoft.Extensions.Hosting;
 using ShippingAddressService.Data;
 using ShippingAddressService.Mappings;
 using ShippingAddressService.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
+using System.Security.Claims;
 
 namespace ShippingAddressService
 {
@@ -58,6 +63,42 @@ namespace ShippingAddressService
                 client.BaseAddress = new Uri(userServiceUrl);
             });
 
+            // JWT Authentication
+            var jwtSection = builder.Configuration.GetSection("Jwt");
+            var jwtKey = jwtSection.GetValue<string>("Key");
+            var jwtIssuer = jwtSection.GetValue<string>("Issuer");
+            var jwtAudience = jwtSection.GetValue<string>("Audience");
+
+            if (!string.IsNullOrEmpty(jwtKey))
+            {
+                var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
+
+                builder.Services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = !string.IsNullOrEmpty(jwtIssuer),
+                        ValidIssuer = jwtIssuer,
+                        ValidateAudience = !string.IsNullOrEmpty(jwtAudience),
+                        ValidAudience = jwtAudience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+                        ValidateLifetime = false, // Принимаем вечные токены
+                        ClockSkew = TimeSpan.FromMinutes(5),
+                        NameClaimType = ClaimTypes.NameIdentifier,
+                        RoleClaimType = ClaimTypes.Role,
+                        RequireSignedTokens = true
+                    };
+                });
+            }
+
             var app = builder.Build();
 
             // Swagger middleware
@@ -66,6 +107,7 @@ namespace ShippingAddressService
 
             // Настраиваем конвейер обработки запросов
             app.UseRouting();
+            app.UseAuthentication(); // JWT Authentication
             app.UseAuthorization();
             app.MapControllers();
 
