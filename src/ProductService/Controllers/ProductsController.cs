@@ -92,6 +92,9 @@ namespace ProductService.Controllers
             if (product.IdUser != userId)
                 return Forbid();
 
+            productDto.IdUser = product.IdUser;
+            productDto.Status = Loft.Common.Enums.ModerationStatus.Pending;
+
             var updated = await _service.UpdateProduct(id, productDto);
             if (updated == null) return NotFound();
             return Ok(updated);

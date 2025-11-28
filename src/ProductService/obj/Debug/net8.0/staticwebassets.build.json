@@ -1,20 +1,20 @@
 {
   "Version": 1,
-  "Hash": "XyODGUKtZeZIoasLhcq6kIvsf0hASZ84ZXCGkUg9PGo=",
+  "Hash": "neMDjzHbXiABeQbzlVS+3vZjxdoQEJMrjdmkIArZong=",
   "Source": "ProductService",
   "BasePath": "_content/ProductService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "/Users/platon/RiderProjects/Loft-BackEnd/src/UserService/UserService.csproj",
+      "Identity": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\UserService.csproj",
       "Version": 2,
       "Source": "UserService",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
-      "AdditionalPublishProperties": "",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
       "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
-      "AdditionalBuildProperties": "",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
       "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
     }
   ],
