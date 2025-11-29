@@ -505,10 +505,10 @@ D:/loft/Loft-Moderation/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/ref/Order
 /Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/System.Configuration.ConfigurationManager.dll
 /Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/System.Management.dll
 /Users/platon/RiderProjects/Loft-BackEnd/src/OrderService/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Management.dll
-D:\loft\loft\Loft-BackEnd\src\OrderService\obj\Debug\net8.0\OrderService.csproj.AssemblyReference.cache
-D:\loft\loft\Loft-BackEnd\src\OrderService\obj\Debug\net8.0\OrderService.GeneratedMSBuildEditorConfig.editorconfig
-D:\loft\loft\Loft-BackEnd\src\OrderService\obj\Debug\net8.0\OrderService.AssemblyInfoInputs.cache
-D:\loft\loft\Loft-BackEnd\src\OrderService\obj\Debug\net8.0\OrderService.AssemblyInfo.cs
-D:\loft\loft\Loft-BackEnd\src\OrderService\obj\Debug\net8.0\OrderService.csproj.CoreCompileInputs.cache
-D:\loft\loft\Loft-BackEnd\src\OrderService\obj\Debug\net8.0\OrderService.MvcApplicationPartsAssemblyInfo.cache
-D:\loft\loft\Loft-BackEnd\src\OrderService\obj\Debug\net8.0\OrderService.sourcelink.json
+D:/loft/loft/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.csproj.AssemblyReference.cache
+D:/loft/loft/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.GeneratedMSBuildEditorConfig.editorconfig
+D:/loft/loft/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.AssemblyInfoInputs.cache
+D:/loft/loft/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.AssemblyInfo.cs
+D:/loft/loft/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.csproj.CoreCompileInputs.cache
+D:/loft/loft/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.MvcApplicationPartsAssemblyInfo.cache
+D:/loft/loft/Loft-BackEnd/src/OrderService/obj/Debug/net8.0/OrderService.sourcelink.json

@@ -10,16 +10,16 @@ public class OrderProfile : Profile
     {
         CreateMap<Order, OrderDTO>()
             .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
-            .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src => 
-                src.ShippingAddressId.HasValue 
+            .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src =>
+                src.ShippingAddressId.HasValue
                     ? new ShippingAddressDTO(
-                        src.ShippingAddressId.Value,
-                        src.CustomerId,
-                        src.ShippingAddress ?? "",
-                        src.ShippingCity ?? "",
-                        src.ShippingPostalCode ?? "",
-                        src.ShippingCountry ?? "",
-                        src.ShippingRecipientName,
+                        src.ShippingAddressId.Value,    // Id
+                        src.CustomerId,                  // CustomerId
+                        src.ShippingRecipientName ?? "", // RecipientName (было в конце!)
+                        src.ShippingAddress ?? "",       // Address
+                        src.ShippingCity ?? "",          // City
+                        src.ShippingPostalCode ?? "",    // PostalCode
+                        src.ShippingCountry ?? "", 
                         false,
                         null)
                     : null));

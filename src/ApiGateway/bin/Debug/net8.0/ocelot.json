@@ -232,7 +232,19 @@
         }
       ],
       "UpstreamPathTemplate": "/api/shipping-addresses",
-      "UpstreamHttpMethod": [ "GET", "OPTIONS" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/shipping-addresses/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "shippingaddressservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/shipping-addresses/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
     },
 
     {
