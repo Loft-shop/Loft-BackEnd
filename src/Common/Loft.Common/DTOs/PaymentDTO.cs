@@ -1,5 +1,5 @@
 using Loft.Common.Enums;
-
+//
 namespace Loft.Common.DTOs;
 
 public record PaymentDTO(

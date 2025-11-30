@@ -1,6 +1,6 @@
 using Loft.Common.Enums;
 using Stripe;
-
+//
 namespace PaymentService.Services.Providers;
 
 /// <summary>

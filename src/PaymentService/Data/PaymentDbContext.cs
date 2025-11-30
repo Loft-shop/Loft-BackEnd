@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PaymentService.Entities;
-
+//
 namespace PaymentService.Data;
 
 public class PaymentDbContext : DbContext

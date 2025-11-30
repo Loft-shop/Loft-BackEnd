@@ -1,5 +1,5 @@
 namespace Loft.Common.Enums;
-
+//
 public enum PaymentStatus
 {
     PENDING,

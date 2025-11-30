@@ -29,7 +29,7 @@
         <ProjectReference Include="..\Common\Loft.Common\Loft.Common.csproj" />
     </ItemGroup>
 
-    <!-- Не публиковать appsettings из этого проекта -->
+    <!-- Не публиковать appsettings из этого проекта фв -->
     <ItemGroup>
         <Content Update="appsettings*.json">
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PaymentService.Data;
-
+//
 #nullable disable
 
 namespace PaymentService.Migrations

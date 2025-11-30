@@ -1,5 +1,5 @@
 using Loft.Common.Enums;
-
+//
 namespace PaymentService.Entities;
 
 public class Payment
