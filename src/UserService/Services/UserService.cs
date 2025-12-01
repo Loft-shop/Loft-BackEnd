@@ -1,12 +1,18 @@
-using System;
-using System.Threading.Tasks;
 using AutoMapper;
 using Loft.Common.DTOs;
-using UserService.Entities;
-using UserService.Data;
+using Loft.Common.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Loft.Common.Enums;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using UserService.Data;
+using UserService.Entities;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 
 namespace UserService.Services;
 
@@ -17,13 +23,32 @@ public class UserService : IUserService
     private readonly IMapper _mapper;
     private readonly PasswordHasher<User> _passwordHasher;
     private readonly ITokenService _tokenService;
+    private readonly IConfiguration _configuration;
+    private readonly ILogger<UserService> _logger;
 
-    public UserService(UserDbContext db, IMapper mapper, ITokenService tokenService)
+    private readonly string _smtpHost;
+    private readonly int _smtpPort;
+    private readonly string _smtpUser;
+    private readonly string _smtpPass;
+    private readonly string _smtpFrom;
+
+
+    public UserService(UserDbContext db, IMapper mapper, ITokenService tokenService, IConfiguration configuration, ILogger<UserService> logger)
     {
         _db = db;
         _mapper = mapper;
         _tokenService = tokenService;
         _passwordHasher = new PasswordHasher<User>();
+        _logger = logger;
+
+        _configuration = configuration;
+
+        // Загружаем настройки почты из конфигурации
+        _smtpHost = _configuration["Email:Smtp:Host"];
+        _smtpPort = int.Parse(_configuration["Email:Smtp:Port"]);
+        _smtpUser = _configuration["Email:Smtp:User"];
+        _smtpPass = _configuration["Email:Smtp:Pass"];
+        _smtpFrom = _configuration["Email:Smtp:From"];
     }
 
     public async Task<UserDTO?> GetUserById(long userId)
@@ -214,4 +239,112 @@ public class UserService : IUserService
 
         return _mapper.Map<UserDTO>(newUser);
     }
+
+    // === Сброс пароля — отправка кода ===
+    public async Task<bool> SendResetCodeAsync(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email)) return false;
+
+        var normalized = email.Trim().ToLowerInvariant();
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == normalized);
+
+        var code = GenerateNumericCode(6);
+        var codeHash = ComputeSha256Hash(code);
+
+        var ttlMinutes = 60; //    Время жизни кода в минутах
+        var reset = new PasswordReset
+        {
+            Email = normalized,
+            UserId = user?.Id,
+            CodeHash = codeHash,
+            CreatedAt = DateTime.UtcNow,
+            ExpiresAt = DateTime.UtcNow.AddMinutes(ttlMinutes),
+            Used = false
+        };
+
+        _db.PasswordResets.Add(reset);
+        await _db.SaveChangesAsync();
+
+        if (user != null)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Loft", _smtpFrom));
+                message.To.Add(MailboxAddress.Parse(user.Email));
+                message.Subject = "Password reset - confirmation code";
+                message.Body = new TextPart("html")
+                {
+                    Text = $@"
+                        <p>You have requested a password reset. Use the code below to change your password. The code is valid. {ttlMinutes} minutes.</p>
+                        <h2 style=""font-family: monospace; background:#f0f0f0; padding:10px; display:inline-block;"">{code}</h2>
+                        <p>If you did not request a password reset, please ignore this message..</p>"
+                };
+
+                using var client = new SmtpClient();
+                await client.ConnectAsync(_smtpHost, _smtpPort, MailKit.Security.SecureSocketOptions.SslOnConnect);
+                await client.AuthenticateAsync(_smtpUser, _smtpPass);
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to send password reset code to {Email}", user.Email);
+            }
+        }
+        else
+        {
+            _logger.LogInformation("Password reset requested for unknown email {Email}", normalized);
+        }
+
+        return true;
+    }
+
+    // === Смена пароля по коду ===
+    public async Task<bool> ResetPasswordWithCodeAsync(string email, string code, string newPassword)
+    {
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(newPassword))
+            return false;
+
+        var normalized = email.Trim().ToLowerInvariant();
+        var reset = await _db.PasswordResets
+            .Where(p => p.Email == normalized && !p.Used && p.ExpiresAt > DateTime.UtcNow)
+            .OrderByDescending(p => p.CreatedAt)
+            .FirstOrDefaultAsync();
+
+        if (reset == null) return false;
+        if (!string.Equals(ComputeSha256Hash(code), reset.CodeHash, StringComparison.OrdinalIgnoreCase))
+            return false;
+        if (!reset.UserId.HasValue) return false;
+
+        var user = await _db.Users.FindAsync(reset.UserId.Value);
+        if (user == null) return false;
+
+        user.PasswordHash = _passwordHasher.HashPassword(user, newPassword);
+        reset.Used = true;
+
+        await _db.SaveChangesAsync();
+        return true;
+    }
+
+    // === Вспомогательные методы ===
+    private static string GenerateNumericCode(int digits)
+    {
+        using var rng = RandomNumberGenerator.Create();
+        var bytes = new byte[4];
+        rng.GetBytes(bytes);
+        var value = Math.Abs(BitConverter.ToInt32(bytes, 0));
+        var max = (int)Math.Pow(10, digits);
+        return (value % max).ToString().PadLeft(digits, '0');
+    }
+
+    private static string ComputeSha256Hash(string raw)
+    {
+        using var sha = SHA256.Create();
+        var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(raw));
+        var sb = new StringBuilder();
+        foreach (var b in bytes) sb.Append(b.ToString("x2"));
+        return sb.ToString();
+    }
+
 }

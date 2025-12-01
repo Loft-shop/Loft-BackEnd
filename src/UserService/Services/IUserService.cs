@@ -20,4 +20,13 @@ public interface IUserService
     // OAuth methods
     Task<UserDTO?> GetUserByExternalProvider(string provider, string providerId);
     Task<UserDTO> CreateOrUpdateOAuthUser(string email, string provider, string providerId, string? firstName = null, string? lastName = null, string? avatarUrl = null);
+
+    /// Генерирует код и отправляет письмо пользователю, если пользователь с таким email существует.
+    /// Возвращает true если операция завершилась успешно (не означает что пользователь существует — ответ одинаковый для безопасности).
+    Task<bool> SendResetCodeAsync(string email);
+
+    /// Проверяет код и, если валидно, обновляет пароль пользователя.
+    /// Возвращает true при успешной смене пароля.
+    Task<bool> ResetPasswordWithCodeAsync(string email, string code, string newPassword);
+
 }

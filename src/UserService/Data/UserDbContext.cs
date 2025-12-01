@@ -12,6 +12,7 @@ public class UserDbContext : DbContext
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Chat> Chats { get; set; } = null!;
     public DbSet<ChatMessage> ChatMessages { get; set; } = null!;
+    public DbSet<PasswordReset> PasswordResets { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

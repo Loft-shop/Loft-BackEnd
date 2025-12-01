@@ -151,6 +151,11 @@ services:
       AllowedOrigins__0: "http://localhost:3000"
       AllowedOrigins__1: "http://127.0.0.1:3000"
       AllowedOrigins__2: "https://loft-shop.pp.ua"
+      Email__Smtp__Host: "smtp.zoho.eu"
+      Email__Smtp__Port: "465"
+      Email__Smtp__User: "loft.mail@zohomail.eu"
+      Email__Smtp__Pass: "YKizuYuUtxh9MN4"
+      Email__Smtp__From: "loft.mail@zohomail.eu"
     networks:
       - loftnet
     restart: always

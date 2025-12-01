@@ -216,5 +216,31 @@ namespace UserService.Controllers
 
             return null;
         }
+
+        // === Запрос кода для сброса пароля ===
+        [HttpPost("request-password-reset")]
+        public async Task<IActionResult> RequestPasswordReset([FromBody] ResetPasswordRequestDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Email))
+                return BadRequest("Email required");
+
+            var result = await _userService.SendResetCodeAsync(dto.Email);
+            return Ok(new { success = result });
+        }
+
+        // === Подтверждение смены пароля по коду ===
+        [HttpPost("confirm-password-reset")]
+        public async Task<IActionResult> ConfirmPasswordReset([FromBody] ConfirmResetPasswordDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Code) || string.IsNullOrWhiteSpace(dto.NewPassword))
+                return BadRequest("Email, code and new password are required");
+
+            var result = await _userService.ResetPasswordWithCodeAsync(dto.Email, dto.Code, dto.NewPassword);
+            if (!result)
+                return BadRequest("Invalid code or email");
+
+            return Ok(new { success = true });
+        }
     }
+
  }
