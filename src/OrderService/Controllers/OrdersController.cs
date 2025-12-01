@@ -24,13 +24,16 @@ namespace OrderService.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         {
-            var orderDto = new OrderDTO(
-                Id: 0, 
-                CustomerId: request.Order.CustomerId, 
-                OrderDate: DateTime.UtcNow, 
-                Status: OrderStatus.PENDING, 
-                TotalAmount: 0
-            );
+            var orderDto = new OrderDTO
+            {
+                CustomerId = request.Order.CustomerId,
+                OrderDate = DateTime.UtcNow,
+                Status = OrderStatus.PENDING,
+                TotalAmount = 0,
+                ShippingAddress = null, // или новый ShippingAddressDTO, если есть данные
+                OrderItems = new List<OrderItemDTO>()
+            };
+
             var order = await _orderService.CreateOrder(orderDto, request.Items);
             return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, order);
         }

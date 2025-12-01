@@ -3,16 +3,40 @@
   "WorkspaceRootPath": "D:\\loft\\loft\\Loft-BackEnd\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2C05E36C-AB26-4BC1-A609-987F6C75CB51}|src\\OrderService\\OrderService.csproj|d:\\loft\\loft\\loft-backend\\src\\orderservice\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C05E36C-AB26-4BC1-A609-987F6C75CB51}|src\\OrderService\\OrderService.csproj|solutionrelative:src\\orderservice\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\shippingaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\shippingaddressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C05E36C-AB26-4BC1-A609-987F6C75CB51}|src\\OrderService\\OrderService.csproj|d:\\loft\\loft\\loft-backend\\src\\orderservice\\mappings\\orderprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C05E36C-AB26-4BC1-A609-987F6C75CB51}|src\\OrderService\\OrderService.csproj|solutionrelative:src\\orderservice\\mappings\\orderprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|d:\\loft\\loft\\loft-backend\\src\\common\\loft.common\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{911903BC-C302-43DD-A8A7-519D4DFDC3F0}|src\\Common\\Loft.Common\\Loft.Common.csproj|solutionrelative:src\\common\\loft.common\\dtos\\orderdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73C1200D-198E-4C68-A6C8-04E6D63E1556}|src\\PaymentService\\PaymentService.csproj|d:\\loft\\loft\\loft-backend\\src\\paymentservice\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73C1200D-198E-4C68-A6C8-04E6D63E1556}|src\\PaymentService\\PaymentService.csproj|solutionrelative:src\\paymentservice\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73C1200D-198E-4C68-A6C8-04E6D63E1556}|src\\PaymentService\\PaymentService.csproj|d:\\loft\\loft\\loft-backend\\src\\paymentservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73C1200D-198E-4C68-A6C8-04E6D63E1556}|src\\PaymentService\\PaymentService.csproj|solutionrelative:src\\paymentservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\dtos\\resetpasswordrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\dtos\\resetpasswordrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|d:\\loft\\loft\\loft-backend\\src\\userservice\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{459960D9-369C-44BC-A2AA-50D26A0AC116}|src\\UserService\\UserService.csproj|solutionrelative:src\\userservice\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4AE1F1DF-7BD1-4102-9CE1-5BBD642599BF}|Solution Items{4AE1F1DF-7BD1-4102-9CE1-5BBD642599BF}|D:\\loft\\loft\\Loft-BackEnd\\compose.yaml||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -63,6 +87,84 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "OrderDTO.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\OrderDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T15:00:35.869Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ShippingAddressDTO.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\ShippingAddressDTO.cs",
+              "RelativeDocumentMoniker": "src\\Common\\Loft.Common\\DTOs\\ShippingAddressDTO.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\Common\\Loft.Common\\DTOs\\ShippingAddressDTO.cs",
+              "RelativeToolTip": "src\\Common\\Loft.Common\\DTOs\\ShippingAddressDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T14:40:37.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderProfile.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\Mappings\\OrderProfile.cs",
+              "RelativeDocumentMoniker": "src\\OrderService\\Mappings\\OrderProfile.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\Mappings\\OrderProfile.cs",
+              "RelativeToolTip": "src\\OrderService\\Mappings\\OrderProfile.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAASwBEAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T14:39:29.693Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "src\\OrderService\\Controllers\\OrdersController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\OrderService\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "src\\OrderService\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwCIAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T14:36:17.235Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PaymentsController.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\Controllers\\PaymentsController.cs",
+              "RelativeDocumentMoniker": "src\\PaymentService\\Controllers\\PaymentsController.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\Controllers\\PaymentsController.cs",
+              "RelativeToolTip": "src\\PaymentService\\Controllers\\PaymentsController.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAgwDYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T14:34:49.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\Program.cs",
+              "RelativeDocumentMoniker": "src\\PaymentService\\Program.cs",
+              "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\PaymentService\\Program.cs",
+              "RelativeToolTip": "src\\PaymentService\\Program.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA7wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T14:34:43.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "compose.yaml",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\compose.yaml",
               "RelativeDocumentMoniker": "compose.yaml",
@@ -70,12 +172,11 @@
               "RelativeToolTip": "compose.yaml",
               "ViewState": "AgIAAI0AAAAAAAAAAAAqwKAAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2025-12-01T13:43:39.326Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T13:43:39.326Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "ocelot.json",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\ApiGateway\\ocelot.json",
               "RelativeDocumentMoniker": "src\\ApiGateway\\ocelot.json",
@@ -83,12 +184,11 @@
               "RelativeToolTip": "src\\ApiGateway\\ocelot.json",
               "ViewState": "AgIAAGkBAAAAAAAAAAAtwHwBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-01T13:40:25.105Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T13:40:25.105Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\User.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Entities\\User.cs",
@@ -96,12 +196,11 @@
               "RelativeToolTip": "src\\UserService\\Entities\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T12:38:49.943Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T12:38:49.943Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "ResetPasswordRequestDto.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\DTOs\\ResetPasswordRequestDto.cs",
               "RelativeDocumentMoniker": "src\\UserService\\DTOs\\ResetPasswordRequestDto.cs",
@@ -114,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "UsersController.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Controllers\\UsersController.cs",
@@ -122,12 +221,11 @@
               "RelativeToolTip": "src\\UserService\\Controllers\\UsersController.cs",
               "ViewState": "AgIAAM8AAAAAAAAAAAAAAN0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T12:30:41.509Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T12:30:41.509Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "UserDbContext.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Data\\UserDbContext.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Data\\UserDbContext.cs",
@@ -135,12 +233,11 @@
               "RelativeToolTip": "src\\UserService\\Data\\UserDbContext.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAuwA4AAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T12:19:08.852Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T12:19:08.852Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "PasswordReset.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Entities\\PasswordReset.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Entities\\PasswordReset.cs",
@@ -148,12 +245,11 @@
               "RelativeToolTip": "src\\UserService\\Entities\\PasswordReset.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T12:18:36.912Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T12:18:36.912Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\appsettings.json",
               "RelativeDocumentMoniker": "src\\UserService\\appsettings.json",
@@ -161,25 +257,24 @@
               "RelativeToolTip": "src\\UserService\\appsettings.json",
               "ViewState": "AgIAABgAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-01T12:07:20.303Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T12:07:20.303Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Services\\UserService.cs",
               "ToolTip": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\UserService.cs",
               "RelativeToolTip": "src\\UserService\\Services\\UserService.cs",
-              "ViewState": "AgIAADIBAAAAAAAAAAAUwBYBAACTAAAAAAAAAA==",
+              "ViewState": "AgIAADIBAAAAAAAAAAAUwEcBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-01T11:42:11.923Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Services\\IUserService.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Services\\IUserService.cs",
@@ -187,12 +282,11 @@
               "RelativeToolTip": "src\\UserService\\Services\\IUserService.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAswBwAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T11:30:36.5Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T11:30:36.5Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\loft\\loft\\Loft-BackEnd\\src\\UserService\\Program.cs",
               "RelativeDocumentMoniker": "src\\UserService\\Program.cs",
@@ -200,8 +294,7 @@
               "RelativeToolTip": "src\\UserService\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T11:21:58.705Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-01T11:21:58.705Z"
             }
           ]
         }

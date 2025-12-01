@@ -1,18 +1,16 @@
-using System;
-using System.Collections.Generic;
+using Loft.Common.DTOs;
 using Loft.Common.Enums;
 
-namespace Loft.Common.DTOs;
-
-public record OrderDTO(
-    long Id,
-    long CustomerId,
-    DateTime OrderDate,
-    OrderStatus Status,
-    decimal TotalAmount,
-    string? CustomerName = null,
-    string? CustomerEmail = null,
-    long? ShippingAddressId = null,
-    ShippingAddressDTO? ShippingAddress = null,
-    ICollection<OrderItemDTO>? OrderItems = null
-);
+public class OrderDTO
+{
+    public long Id { get; set; }
+    public long CustomerId { get; set; }
+    public DateTime OrderDate { get; set; }
+    public OrderStatus Status { get; set; }
+    public decimal TotalAmount { get; set; }
+    public string? CustomerName { get; set; }
+    public string? CustomerEmail { get; set; }
+    public long? ShippingAddressId { get; set; }
+    public ShippingAddressDTO? ShippingAddress { get; set; }
+    public ICollection<OrderItemDTO>? OrderItems { get; set; }
+}

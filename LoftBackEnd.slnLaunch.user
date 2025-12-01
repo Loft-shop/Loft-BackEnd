@@ -5,6 +5,10 @@
       {
         "Path": "src\\UserService\\UserService.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "src\\OrderService\\OrderService.csproj",
+        "Action": "Start"
       }
     ]
   }
