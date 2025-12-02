@@ -43,6 +43,23 @@ namespace PaymentService
             builder.Services.AddHttpClient();
 
             var app = builder.Build();
+            
+            // Автоматическое применение миграций при запуске
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<PaymentDbContext>();
+                try
+                {
+                    Console.WriteLine("Applying database migrations...");
+                    dbContext.Database.Migrate();
+                    Console.WriteLine("✅ Database migrations applied successfully");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"⚠️ Error applying migrations: {ex.Message}");
+                }
+            }
+            
             app.UseSwagger();
             app.UseSwaggerUI();
 
