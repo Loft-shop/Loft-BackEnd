@@ -87,6 +87,13 @@ services:
     environment:
       ASPNETCORE_URLS: http://0.0.0.0:8080
       ConnectionStrings__DefaultConnection: "Server=172.17.4.22;Port=5432;Database=test_loft_shop;User Id=developer;Password=Devp@ssw0rddB4589;"
+      Stripe__SecretKey: ${STRIPE_SECRET_KEY}
+      Stripe__PublishableKey: ${STRIPE_PUBLISHABLE_KEY}
+      Stripe__WebhookSecret: ${STRIPE_WEBHOOK_SECRET:-whsec_test_secret}
+      Jwt__Key: DevKey_ChangeMe_ForLocalOnly_1234567890
+      Jwt__Issuer: LoftUserService
+      Jwt__Audience: LoftUsers
+      Jwt__ExpireMinutes: "60"
     networks:
       - loftnet
     restart: always
@@ -180,7 +187,7 @@ services:
     networks:
       - loftnet
     restart: always
-
+    
 volumes:
   pgdata:
     driver: local
