@@ -35,9 +35,13 @@ public class StripeCheckoutController : ControllerBase
                 request.CancelUrl
             );
 
+            // Получаем полную информацию о сессии, включая URL
+            var session = await _checkoutService.GetCheckoutSessionAsync(sessionId);
+
             return Ok(new
             {
                 sessionId = sessionId,
+                url = session.Url, // URL для редиректа на Stripe Checkout
                 // Publishable key нужен фронтенду для инициализации Stripe.js
                 publishableKey = Request.HttpContext.RequestServices
                     .GetRequiredService<IConfiguration>()["Stripe:PublishableKey"]
