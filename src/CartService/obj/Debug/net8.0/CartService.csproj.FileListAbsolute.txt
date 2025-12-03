@@ -481,3 +481,8 @@ D:/loft/loft/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.csproj.Co
 D:/loft/loft/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.MvcApplicationPartsAssemblyInfo.cs
 D:/loft/loft/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.MvcApplicationPartsAssemblyInfo.cache
 D:/loft/loft/Loft-BackEnd/src/CartService/obj/Debug/net8.0/CartService.sourcelink.json
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/BouncyCastle.Cryptography.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/MailKit.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/MimeKit.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/System.Security.Cryptography.Pkcs.dll
+/Users/platon/RiderProjects/Loft-BackEnd/src/CartService/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll

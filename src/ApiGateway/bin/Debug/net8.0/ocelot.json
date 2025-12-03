@@ -354,6 +354,30 @@
       ],
       "UpstreamPathTemplate": "/api/media/my-public-files",
       "UpstreamHttpMethod": [ "GET", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/request-password-reset",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/request-password-reset",
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/confirm-password-reset",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/api/users/confirm-password-reset",
+      "UpstreamHttpMethod": [ "POST", "OPTIONS" ]
     }
   ],
   "GlobalConfiguration": {

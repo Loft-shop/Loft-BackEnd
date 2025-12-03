@@ -40,6 +40,7 @@ namespace PaymentService
 
             // Регистрация сервисов
             builder.Services.AddScoped<IPaymentService, PaymentService.Services.PaymentService>();
+            builder.Services.AddScoped<IStripeCheckoutService, StripeCheckoutService>();
             builder.Services.AddHttpClient();
 
             var app = builder.Build();
