@@ -209,6 +209,29 @@ public class ProductService : IProductService
         await _db.SaveChangesAsync();
     }
 
+    // Обновление количества товара (для физических товаров после покупки)
+    public async Task<ProductDto?> UpdateProductQuantity(int productId, int newQuantity)
+    {
+        var product = await _db.Products.FindAsync(productId);
+        if (product == null) return null;
+
+        // Проверяем, что это физический товар
+        if (product.Type == ProductType.Digital)
+        {
+            _logger.LogWarning($"Cannot update quantity for digital product {productId}");
+            return _mapper.Map<ProductDto>(product);
+        }
+
+        product.Quantity = newQuantity;
+        product.UpdatedAt = DateTime.UtcNow;
+
+        await _db.SaveChangesAsync();
+        
+        _logger.LogInformation($"Updated quantity for product {productId} to {newQuantity}");
+        
+        return _mapper.Map<ProductDto>(product);
+    }
+
     // ------------------ CATEGORIES ------------------
 
     // Получение категорий все категории в древовидной структуре    

@@ -8,6 +8,7 @@ using AutoMapper;
 using CartService.Data;
 using CartService.Entities;
 using Loft.Common.DTOs;
+using Loft.Common.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -156,7 +157,15 @@ public class CartService : ICartService
         var existing = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
         if (existing != null)
         {
-            existing.Quantity += quantity;
+            // Для цифровых товаров количество всегда = 1, не увеличиваем
+            if (productInfo != null && productInfo.Type == ProductType.Digital)
+            {
+                _logger.LogInformation($"Digital product {productId} already in cart, skipping quantity increase");
+            }
+            else
+            {
+                existing.Quantity += quantity;
+            }
             
             // Обновляем информацию о товаре, если она была загружена
             if (productInfo != null)
@@ -166,6 +175,7 @@ public class CartService : ICartService
                 existing.ImageUrl = productInfo.MediaFiles?.FirstOrDefault()?.Url;
                 existing.CategoryId = productInfo.CategoryId;
                 existing.CategoryName = categoryInfo?.Name;
+                existing.ProductType = productInfo.Type;
             }
             
             _db.CartItems.Update(existing);
@@ -175,17 +185,18 @@ public class CartService : ICartService
             var item = new CartItem 
             { 
                 ProductId = productId, 
-                Quantity = quantity, 
+                Quantity = productInfo?.Type == ProductType.Digital ? 1 : quantity, // Для цифровых товаров всегда 1
                 Cart = cart,
                 ProductName = productInfo?.Name,
                 Price = productInfo?.Price ?? 0,
                 ImageUrl = productInfo?.MediaFiles?.FirstOrDefault()?.Url,
                 CategoryId = productInfo?.CategoryId,
                 CategoryName = categoryInfo?.Name,
+                ProductType = productInfo?.Type ?? ProductType.Physical,
                 AddedAt = DateTime.UtcNow
             };
             
-            _logger.LogInformation($"Creating new CartItem: ProductId={item.ProductId}, ProductName={item.ProductName}, Price={item.Price}, CategoryId={item.CategoryId}");
+            _logger.LogInformation($"Creating new CartItem: ProductId={item.ProductId}, ProductName={item.ProductName}, Price={item.Price}, CategoryId={item.CategoryId}, ProductType={item.ProductType}");
             
             cart.CartItems.Add(item);
             _db.CartItems.Add(item);
@@ -231,6 +242,14 @@ public class CartService : ICartService
         if (cart == null) return null;
         var item = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
         if (item == null) return null;
+        
+        // Для цифровых товаров запрещаем изменение количества
+        if (item.ProductType == ProductType.Digital && quantity != item.Quantity)
+        {
+            _logger.LogWarning($"Cannot update quantity for digital product {productId}. Quantity is always 1 for digital products.");
+            throw new InvalidOperationException("Cannot change quantity for digital products. Digital products quantity is always 1.");
+        }
+        
         if (quantity <= 0)
         {
             _db.CartItems.Remove(item);
@@ -278,7 +297,11 @@ public class CartService : ICartService
             var existing = toCart.CartItems.FirstOrDefault(ci => ci.ProductId == item.ProductId);
             if (existing != null)
             {
-                existing.Quantity += item.Quantity;
+                // Для цифровых товаров не увеличиваем количество
+                if (item.ProductType != ProductType.Digital)
+                {
+                    existing.Quantity += item.Quantity;
+                }
                 
                 // Обновляем информацию о товаре из исходного элемента
                 if (!string.IsNullOrEmpty(item.ProductName))
@@ -288,6 +311,7 @@ public class CartService : ICartService
                     existing.ImageUrl = item.ImageUrl;
                     existing.CategoryId = item.CategoryId;
                     existing.CategoryName = item.CategoryName;
+                    existing.ProductType = item.ProductType;
                 }
                 
                 _db.CartItems.Update(existing);
@@ -304,6 +328,7 @@ public class CartService : ICartService
                     ImageUrl = item.ImageUrl,
                     CategoryId = item.CategoryId,
                     CategoryName = item.CategoryName,
+                    ProductType = item.ProductType,
                     AddedAt = item.AddedAt
                 };
                 toCart.CartItems.Add(newItem);
@@ -365,6 +390,7 @@ public class CartService : ICartService
                                 ImageUrl = product.MediaFiles?.FirstOrDefault()?.Url,
                                 CategoryId = product.CategoryId,
                                 CategoryName = category?.Name,
+                                ProductType = product.Type,
                                 Category = null
                             });
                             continue;

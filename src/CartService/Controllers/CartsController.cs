@@ -64,9 +64,17 @@ namespace CartService.Controllers
         public async Task<IActionResult> UpdateCartItem(long customerId, [FromBody] UpdateItemRequest req)
         {
             if (req == null) return BadRequest();
-            var item = await _cartService.UpdateCartItem(customerId, req.ProductId, req.Quantity);
-            if (item == null) return NotFound();
-            return Ok(item);
+            
+            try
+            {
+                var item = await _cartService.UpdateCartItem(customerId, req.ProductId, req.Quantity);
+                if (item == null) return NotFound();
+                return Ok(item);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         // DELETE api/carts/{customerId}/items/{productId}

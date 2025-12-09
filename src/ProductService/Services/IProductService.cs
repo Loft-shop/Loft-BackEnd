@@ -20,6 +20,8 @@ public interface IProductService
 
     Task DeleteProduct(int productId);
 
+    Task<ProductDto?> UpdateProductQuantity(int productId, int newQuantity);
+
 
     // ------------------ CATEGORIES ------------------
     // Получение всех категорий (с пагинацией или фильтром по родителю)

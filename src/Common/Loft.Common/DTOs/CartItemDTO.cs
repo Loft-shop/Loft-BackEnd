@@ -1,3 +1,5 @@
+using Loft.Common.Enums;
+
 namespace Loft.Common.DTOs;
 
 public record CartItemDTO(
@@ -17,6 +19,9 @@ public record CartItemDTO(
     
     // Для обратной совместимости - название категории
     string? CategoryName = null,
+    
+    // Тип товара (Physical/Digital) - для ограничения изменения количества
+    ProductType ProductType = ProductType.Physical,
     
     // =============================================================================
     // НОВАЯ СИСТЕМА: Динамические атрибуты товара (например: RAM=8GB, Size=L)

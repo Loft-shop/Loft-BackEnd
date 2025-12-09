@@ -1,4 +1,5 @@
 using ProductService.Entities;
+using Loft.Common.Enums;
 
 namespace CartService.Entities;
 
@@ -21,6 +22,9 @@ public class CartItem
     // Категория товара (для фильтрации и группировки)
     public int? CategoryId { get; set; }
     public string? CategoryName { get; set; }
+    
+    // Тип товара (Physical/Digital) - для ограничения изменения количества
+    public ProductType ProductType { get; set; }
     
     public DateTime AddedAt { get; set; } = DateTime.UtcNow;
 }

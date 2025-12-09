@@ -54,7 +54,8 @@ public class OrderService : IOrderService
                 ProductName = itemDto.ProductName,
                 ImageUrl = itemDto.ImageUrl,
                 CategoryId = itemDto.CategoryId,
-                CategoryName = itemDto.CategoryName
+                CategoryName = itemDto.CategoryName,
+                ProductType = itemDto.ProductType
             };
             
             // Если данные товара не переданы - загружаем из ProductService
@@ -188,6 +189,48 @@ public class OrderService : IOrderService
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 
+        // =============================================================================
+        // Уменьшаем количество товаров на складе (только для физических товаров)
+        // =============================================================================
+        try
+        {
+            foreach (var item in enrichedItems)
+            {
+                // Для цифровых товаров не изменяем количество
+                if (item.ProductType == ProductType.Digital)
+                {
+                    _logger.LogInformation($"Digital product {item.ProductId} - skipping quantity reduction");
+                    continue;
+                }
+
+                // Уменьшаем количество физического товара
+                try
+                {
+                    var updateResponse = await productClient.PutAsJsonAsync(
+                        $"/api/products/{item.ProductId}/reduce-quantity", 
+                        new { quantity = item.Quantity }
+                    );
+
+                    if (updateResponse.IsSuccessStatusCode)
+                    {
+                        _logger.LogInformation($"Reduced quantity for product {item.ProductId} by {item.Quantity}");
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"Failed to reduce quantity for product {item.ProductId}: {updateResponse.StatusCode}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Error reducing quantity for product {item.ProductId}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating product quantities after order creation");
+        }
+
         return _mapper.Map<OrderDTO>(order);
     }
 
@@ -255,7 +298,8 @@ public class OrderService : IOrderService
                 ProductName = itemDto.ProductName,
                 ImageUrl = itemDto.ImageUrl,
                 CategoryId = itemDto.CategoryId,
-                CategoryName = itemDto.CategoryName
+                CategoryName = itemDto.CategoryName,
+                ProductType = itemDto.ProductType
             };
             order.OrderItems.Add(item);
             order.TotalAmount += item.Quantity * item.Price;
@@ -411,6 +455,9 @@ public class OrderService : IOrderService
                 CategoryId = cartItem.CategoryId ?? product.CategoryId,
                 CategoryName = cartItem.CategoryName ?? category?.Name,
                 
+                // Тип товара на момент покупки
+                ProductType = product.Type,
+                
                 // Атрибуты товара на момент покупки (например: RAM=8GB, Color=Black)
                 ProductAttributesJson = cartItem.AttributeValues != null && cartItem.AttributeValues.Any()
                     ? System.Text.Json.JsonSerializer.Serialize(
@@ -423,6 +470,43 @@ public class OrderService : IOrderService
 
             orderItems.Add(orderItem);
             totalAmount += orderItem.Quantity * orderItem.Price;
+            
+            // =============================================================================
+            // Уменьшаем количество товара на складе (только для физических товаров)
+            // =============================================================================
+            if (product.Type == ProductType.Physical)
+            {
+                try
+                {
+                    // Проверяем, достаточно ли товара на складе
+                    if (product.Quantity < cartItem.Quantity)
+                    {
+                        throw new Exception($"Недостаточно товара '{product.Name}' на складе. Доступно: {product.Quantity}, требуется: {cartItem.Quantity}");
+                    }
+                    
+                    // Уменьшаем количество товара
+                    var updateRequest = new { quantity = product.Quantity - cartItem.Quantity };
+                    var updateResponse = await productClient.PutAsJsonAsync($"/api/products/{product.Id}/quantity", updateRequest);
+                    
+                    if (!updateResponse.IsSuccessStatusCode)
+                    {
+                        _logger.LogWarning($"Failed to update quantity for product {product.Id}: {updateResponse.StatusCode}");
+                    }
+                    else
+                    {
+                        _logger.LogInformation($"Reduced quantity for physical product {product.Id} by {cartItem.Quantity}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Error updating product quantity for {product.Id}");
+                    // Не прерываем создание заказа, но логируем ошибку
+                }
+            }
+            else
+            {
+                _logger.LogInformation($"Digital product {product.Id}, skipping quantity reduction");
+            }
         }
 
         // 5. Создаём заказ с данными покупателя

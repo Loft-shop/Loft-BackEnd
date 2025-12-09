@@ -119,5 +119,66 @@ namespace ProductService.Controllers
             await _service.DeleteProduct(id);
             return NoContent();
         }
+
+        // Обновление количества товара (используется OrderService при покупке)
+        [HttpPut("{id}/quantity")]
+        public async Task<IActionResult> UpdateQuantity(int id, [FromBody] UpdateQuantityRequest request)
+        {
+            var product = await _service.GetProductById(id, true);
+            if (product == null) return NotFound();
+
+            // Проверяем, что это физический товар
+            if (product.Type == ProductType.Digital)
+            {
+                return BadRequest(new { error = "Cannot update quantity for digital products" });
+            }
+
+            // Проверяем, что новое количество не отрицательное
+            if (request.Quantity < 0)
+            {
+                return BadRequest(new { error = "Quantity cannot be negative" });
+            }
+
+            var updated = await _service.UpdateProductQuantity(id, request.Quantity);
+            if (updated == null) return NotFound();
+
+            return Ok(updated);
+        }
+
+        // Уменьшение количества товара при покупке (используется OrderService)
+        [HttpPut("{id}/reduce-quantity")]
+        public async Task<IActionResult> ReduceQuantity(int id, [FromBody] ReduceQuantityRequest request)
+        {
+            var product = await _service.GetProductById(id, true);
+            if (product == null) return NotFound();
+
+            // Проверяем, что это физический товар
+            if (product.Type == ProductType.Digital)
+            {
+                return Ok(new { message = "Digital product - quantity not changed", product });
+            }
+
+            // Проверяем, что достаточно товара на складе
+            if (product.Quantity < request.Quantity)
+            {
+                return BadRequest(new { error = $"Insufficient quantity. Available: {product.Quantity}, Requested: {request.Quantity}" });
+            }
+
+            var newQuantity = product.Quantity - request.Quantity;
+            var updated = await _service.UpdateProductQuantity(id, newQuantity);
+            if (updated == null) return NotFound();
+
+            return Ok(updated);
+        }
+    }
+
+    public class UpdateQuantityRequest
+    {
+        public int Quantity { get; set; }
+    }
+
+    public class ReduceQuantityRequest
+    {
+        public int Quantity { get; set; }
     }
 }

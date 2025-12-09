@@ -1,3 +1,5 @@
+using Loft.Common.Enums;
+
 namespace OrderService.Entities;
 
 public class OrderItem
@@ -20,6 +22,9 @@ public class OrderItem
     // Информация о категории на момент заказа
     public int? CategoryId { get; set; }
     public string? CategoryName { get; set; }
+    
+    // Тип товара на момент заказа (Physical/Digital)
+    public ProductType ProductType { get; set; }
     
     // Динамические атрибуты товара на момент заказа (JSON)
     // Пример: {"RAM":"8GB","Color":"Black","Storage":"256GB"}
