@@ -589,6 +589,22 @@
   },
   {
     "ContainingType": "UserService.Controllers.UsersController",
+    "Method": "ConfirmPasswordReset",
+    "RelativePath": "api/users/confirm-password-reset",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UserService.DTOs.ConfirmResetPasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserService.Controllers.UsersController",
     "Method": "GetMyProfile",
     "RelativePath": "api/users/me",
     "HttpMethod": "GET",
@@ -802,6 +818,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UserService.Controllers.UsersController",
+    "Method": "RequestPasswordReset",
+    "RelativePath": "api/users/request-password-reset",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UserService.DTOs.ResetPasswordRequestDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

@@ -31,22 +31,24 @@ namespace ProductService.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var userId = GetUserId();
-            if (userId == null) return Unauthorized();
+            long? userId = GetUserId();        // может быть null, и это ок
+            bool isModerator = false;
 
-            bool isModerator = IsModerator();
-
-            var product = await _service.GetProductById(id, true);
-            if (product == null) return NotFound();
-
-
-            if (product.IdUser == userId)
+            if (userId != null)
             {
-                isModerator = true;
+                isModerator = IsModerator();
+
+                var productTmp = await _service.GetProductById(id, true);
+                if (productTmp == null) return NotFound();
+
+                // Если товар принадлежит авторизованному пользователю — даём ему права модератора
+                if (productTmp.IdUser == userId)
+                {
+                    isModerator = true;
+                }
             }
 
-
-            product = await _service.GetProductById(id, isModerator);
+            var product = await _service.GetProductById(id, isModerator);
             if (product == null) return NotFound();
 
             return Ok(product);

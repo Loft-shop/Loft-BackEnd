@@ -3,11 +3,7 @@
     "Name": "Новый профиль",
     "Projects": [
       {
-        "Path": "src\\UserService\\UserService.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "src\\OrderService\\OrderService.csproj",
+        "Path": "src\\ProductService\\ProductService.csproj",
         "Action": "Start"
       }
     ]
