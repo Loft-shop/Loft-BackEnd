@@ -19,6 +19,7 @@ namespace Loft.Common.DTOs
         public string? FileUrl { get; set; } // Optional URL to an attached file
         public bool IsRead { get; set; } = false; // Indicates if the message has been read
         public DateTime SentAt { get; set; } = DateTime.UtcNow; // Timestamp when the message was sent
+        public bool IsMod { get; set; } = false; // moderator flag
     }
 
     public record ChatDTO

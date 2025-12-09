@@ -861,6 +861,9 @@
           "sentAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "isMod": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

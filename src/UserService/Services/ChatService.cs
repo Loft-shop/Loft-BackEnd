@@ -1,4 +1,5 @@
 ﻿using Loft.Common.DTOs;
+using Loft.Common.Enums;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -41,12 +42,18 @@ public class ChatService : IChatService
             await _db.SaveChangesAsync();
         }
 
+
+        // Загружаем отправителя, чтобы узнать роль
+        var sender = await _db.Users.FirstOrDefaultAsync(u => u.Id == senderId);
+        bool isMod = sender?.Role == Role.MODERATOR;
+
         var message = new ChatMessage
         {
             ChatId = chat.Id,
             SenderId = senderId,
             MessageText = messageText,
-            FileUrl = fileUrl
+            FileUrl = fileUrl,
+            IsMod = isMod
         };
 
         _db.ChatMessages.Add(message);
@@ -62,7 +69,8 @@ public class ChatService : IChatService
                 MessageText = messageText,
                 FileUrl = fileUrl,
                 IsRead = false,
-                SentAt = message.SentAt
+                SentAt = message.SentAt,
+                IsMod = isMod
             });
 
         return new ChatMessageDTO
@@ -73,10 +81,12 @@ public class ChatService : IChatService
             MessageText = messageText,
             FileUrl = fileUrl,
             IsRead = false,
-            SentAt = message.SentAt
+            SentAt = message.SentAt,
+            IsMod = isMod
         };
     }
 
+    // Получение переписки между двумя пользователями
     public async Task<List<ChatMessageDTO>> GetConversation(long userId, long otherUserId)
     {
         var chat = await _db.Chats
@@ -97,7 +107,8 @@ public class ChatService : IChatService
                 MessageText = m.MessageText,
                 FileUrl = m.FileUrl,
                 IsRead = m.IsRead,
-                SentAt = m.SentAt
+                SentAt = m.SentAt,
+                IsMod = m.IsMod
             })
             .ToList();
     }
@@ -128,6 +139,7 @@ public class ChatService : IChatService
         var chat = await _db.Chats.Include(c => c.Messages).FirstOrDefaultAsync(c => c.Id == chatId);
         if (chat == null) return null;
         var lastMsg = chat.Messages.OrderByDescending(m => m.SentAt).FirstOrDefault();
+
         return new ChatDTO
         {
             ChatId = chat.Id,
@@ -142,7 +154,8 @@ public class ChatService : IChatService
                 MessageText = lastMsg.MessageText,
                 FileUrl = lastMsg.FileUrl,
                 IsRead = lastMsg.IsRead,
-                SentAt = lastMsg.SentAt
+                SentAt = lastMsg.SentAt,
+                IsMod = lastMsg.IsMod
             }
         };
     }
@@ -181,7 +194,8 @@ public class ChatService : IChatService
                     MessageText = lastMsg.MessageText,
                     FileUrl = lastMsg.FileUrl,
                     IsRead = lastMsg.IsRead,
-                    SentAt = lastMsg.SentAt
+                    SentAt = lastMsg.SentAt,
+                    IsMod = lastMsg.IsMod
                 }
             };
         }).ToList();

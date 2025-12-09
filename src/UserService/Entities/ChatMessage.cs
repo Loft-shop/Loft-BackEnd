@@ -11,5 +11,7 @@
         public string? FileUrl { get; set; }
         public bool IsRead { get; set; } = false;
         public DateTime SentAt { get; set; } = DateTime.UtcNow;
+        // Добавляем флаг модератора
+        public bool IsMod { get; set; } = false;
     }
 }
