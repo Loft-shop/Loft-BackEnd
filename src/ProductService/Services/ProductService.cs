@@ -56,6 +56,15 @@ public class ProductService : IProductService
         if (filter.MaxPrice.HasValue && filter.MaxPrice.Value > 0)
             query = query.Where(p => p.Price <= filter.MaxPrice.Value);
 
+        if (!string.IsNullOrWhiteSpace(filter.Search))
+        {
+            var search = $"%{filter.Search.Trim()}%";
+
+            query = query.Where(p =>
+                EF.Functions.ILike(p.Name, search)
+            );
+        }
+
         if (filter.AttributeFilters != null && filter.AttributeFilters.Any())
         {
             foreach (var af in filter.AttributeFilters)

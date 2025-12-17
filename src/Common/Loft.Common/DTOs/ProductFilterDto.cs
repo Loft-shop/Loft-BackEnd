@@ -8,6 +8,7 @@ namespace Loft.Common.DTOs
 {
     public class ProductFilterDto
     {
+        public string? Search { get; set; }         //  Поиск по названию товара
         public int? CategoryId { get; set; }
         public int? SellerId { get; set; }
         public decimal? MinPrice { get; set; }
