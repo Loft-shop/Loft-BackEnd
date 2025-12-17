@@ -52,6 +52,37 @@ namespace ApiGateway
             // CORS должен идти ПЕРВЫМ, до Ocelot
             app.UseCors("AllowAll");
 
+            // Логирующий middleware для отладки входящих запросов (особенно /api/auth/*)
+            app.Use(async (context, next) =>
+            {
+                try
+                {
+                    var path = context.Request.Path.Value ?? string.Empty;
+                    Console.WriteLine($"[ApiGateway] Incoming request: {context.Request.Method} {path}");
+
+                    // Логируем тело для POST/PUT (делаем буферизацию)
+                    if (context.Request.Method == HttpMethods.Post || context.Request.Method == HttpMethods.Put)
+                    {
+                        context.Request.EnableBuffering();
+                        using (var reader = new System.IO.StreamReader(context.Request.Body, System.Text.Encoding.UTF8, leaveOpen: true))
+                        {
+                            var body = await reader.ReadToEndAsync();
+                            context.Request.Body.Position = 0;
+                            if (!string.IsNullOrWhiteSpace(body))
+                            {
+                                Console.WriteLine($"[ApiGateway] Body: {body}");
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ApiGateway] Failed to log request: {ex}");
+                }
+
+                await next();
+            });
+
             // Убираем trailing slash ДО Ocelot
             app.Use(async (context, next) =>
             {
