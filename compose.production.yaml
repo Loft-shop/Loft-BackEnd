@@ -130,4 +130,9 @@ services:
     restart: unless-stopped
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${POSTGRES_DB:-test_loft_shop};Username=${POSTGRES_USER:-developer};Password=${POSTGRES_PASSWORD}
-
+      # Google OAuth production credentials (must be provided in environment or .env.production)
+      - Authentication__Google__ClientId=${GOOGLE_PRODUCTION_CLIENT_ID}
+      - Authentication__Google__ClientSecret=${GOOGLE_PRODUCTION_CLIENT_SECRET}
+      # Allowed origins for CORS (if needed by service directly)
+      - AllowedOrigins__0=https://loft-shop.pp.ua
+      - AllowedOrigins__1=https://www.loft-shop.pp.ua
