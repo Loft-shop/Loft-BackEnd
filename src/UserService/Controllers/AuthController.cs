@@ -78,6 +78,30 @@ public class AuthController : ControllerBase
 
         try
         {
+            // Log request metadata for debugging
+            try
+            {
+                Console.WriteLine("[GoogleAuth] Incoming request headers:");
+                foreach (var h in Request.Headers)
+                {
+                    Console.WriteLine($"  {h.Key}: {h.Value}");
+                }
+
+                var remoteIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+                Console.WriteLine($"[GoogleAuth] Remote IP: {remoteIp}");
+                Console.WriteLine($"[GoogleAuth] Raw request body IdToken present: {(!string.IsNullOrEmpty(request?.IdToken)).ToString()}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[GoogleAuth] Failed to log request metadata: {ex.Message}");
+            }
+
+            if (request == null || string.IsNullOrEmpty(request.IdToken))
+            {
+                Console.WriteLine("[GoogleAuth] ERROR: request or IdToken is null/empty");
+                return BadRequest(new { message = "IdToken is required in request body" });
+            }
+
             var googleClientId = _configuration["Authentication:Google:ClientId"];
             
             Console.WriteLine($"[GoogleAuth] Backend expected Client ID: {googleClientId ?? "NULL (NOT SET!)"}");
